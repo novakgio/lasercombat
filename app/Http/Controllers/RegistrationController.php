@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\User;
 use Auth;
-
+use Illuminate\Support\Facades\Hash;
 class RegistrationController extends Controller
 {
     
@@ -25,7 +25,7 @@ class RegistrationController extends Controller
    			$user->email = $request->email;
    			$user->name = $request->name;
    			$user->phone = $request->phone;
-   			$user->password =bcrypt($request->password);
+   			$user->password = password_hash($request->password, PASSWORD_DEFAULT);
    			$user->save();
    			Auth::login($user);
    			if(Auth::user()){

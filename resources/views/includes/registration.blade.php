@@ -9,7 +9,7 @@
                     </div>
                     <div class="row butons-container">
                         <div class="row button-container">
-                            <div class="button-login facebook-button">Login With Facebook</div>
+                            <a href="{{url('loginfacebook')}}" class="button-login facebook-button">Login With Facebook</a>
                         </div>
                         <div class="row button-container">
                             <div class="button-login account-button" id="login-with-account">Login With Account</div>
@@ -22,7 +22,7 @@
                     </div>
                     <div class="row butons-container">
                         <div class="row button-container">
-                            <input type="text" id="logemail" placeholder="Email" class="big-input">
+                            <input type="email" id="logemail" placeholder="Email" class="big-input">
                         </div>
                         <div class="row button-container">
                             <input type="password" id="logpassword" placeholder="Password" class="big-input">

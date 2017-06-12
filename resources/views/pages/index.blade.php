@@ -557,14 +557,7 @@
                 });
                 var homeURL = "{{url('')}}";
 
-                $( ".nav-container" ).fadeOut('slow');
-        $( "#overlay" ).fadeIn('slow');
-        $('#registration-chooser').fadeIn( 'slow' );
-        windowOverlay = document.getElementById('overlay').offsetHeight;
-        registrationHeight = document.getElementById('registration-chooser').offsetHeight;
-        $('#registration-chooser').css("margin-top", (windowOverlay - registrationHeight)/2 );
-
-        
+         
                 $('#fullpage').fullpage({
                     anchors: ['firstPage', 'secondPage', '3rdPage'],
                     scrollBar: true
@@ -572,16 +565,25 @@
 
 
                 $('#createaccount').on('click',function(){
+                    var error = "";
                     var name = $('#username').val();
                     var email = $('#email').val();
                     var phone = $('#phone').val();
                     var pass = $('#password').val();
                     var confirmpass = $('#confirmpass').val();
                     if(name=="" || phone=="" || pass=="" || confirmpass==""){
-                        sweetAlert("Oops...", "Please,Fill Out All Fields", "error");
-                        
+                        error = "Please,Fill Out All Fields  ";
                     }
-                    else
+                    else if(pass!=confirmpass){
+                        error = "Passwords don't match   ";
+                    }
+                    else if(!Number.isInteger(phone) || phone.length<9){
+                        error = "phone format is wrong.  "
+                    }
+                    if(error!=""){
+                        sweetAlert("Oops...", error, "error");
+                    }
+                    else 
                     {
                         $.ajax({
                             method: "POST",
@@ -603,7 +605,6 @@
                 $('#loginuser').on('click',function(){
                     var email = $('#logemail').val();
                     var pass = $('#logpassword').val();
-                    
                     if(email=="" ||  pass==""){
                         sweetAlert("Oops...", "Please,Fill Out All Fields", "error");
                         

@@ -26,3 +26,8 @@ Route::get('/login',function(){
 
 });
 Route::get('/logout','RegistrationController@logout')->name('logout');
+
+
+
+Route::get('/loginfacebook', 'facebookController@redirectToProvider');
+Route::get('/callback', 'facebookController@handleProviderCallback');
