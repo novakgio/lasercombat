@@ -1,0 +1,173 @@
+
+.header-third {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+*::-webkit-input-placeholder {
+    color: #1fbdb5;
+}
+*:-moz-placeholder {
+    /* FF 4-18 */
+    color: #1fbdb5;
+}
+*::-moz-placeholder {
+    /* FF 19+ */
+    color: #1fbdb5;
+}
+*:-ms-input-placeholder {
+    /* IE 10+ */
+    color: #1fbdb5;
+}
+
+#overlay {
+    z-index: 100;
+    position: fixed;
+    display: none;
+    width: 100%; 
+    height: 100%; 
+    top: 0; 
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8); 
+    z-index: 2; 
+}
+
+.close-overlay {
+    z-index: 1000;
+    float: right;
+    width: 50px;
+    height: 50px;
+}
+
+.close-icon {
+    font-size: 40px;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.close-icon:hover {
+    color: #d4d4d4;
+}
+
+/*regisration*/
+.registration-chooser {
+    position: relative;
+    border-radius: 5px;
+    background: #d6f1fc;
+    margin-top: 10%;
+    margin-left: 10%;
+    width: 80%;
+    height: 320px;
+    display: none;
+}
+
+.butons-container {
+    width: 60%;
+    margin-left: 20%;
+}
+
+.button-container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.button-login {
+    text-align: center;
+    vertical-align: middle;
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: none;
+    border: 2px solid #6cd3d3;
+    background: #d6f1fc;
+    font-size: 26px;
+    font-family: GothamMedium;
+    padding: 10px;
+    color: #6cd3d3;
+    cursor: pointer;
+}
+
+.facebook-button {
+    color: #3b5998;
+    background: #8b9dc3;
+    border: 2px solid #3b5998;
+}
+
+.account-button {
+    color: #1c3842;
+    background: rgba(28, 56, 66, 0.15);
+    border: 2px solid #1c3842;
+}
+
+/*login*/
+.login-form {
+    display: none;
+    position: relative;
+    border-radius: 5px;
+    background: #d6f1fc;
+    margin-left: 10%;
+    width: 80%;
+    height: 480px;
+}
+
+.big-input {
+    text-align: center;
+    vertical-align: middle;
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: none;
+    border: 2px solid #6cd3d3;
+    background: #d6f1fc;
+    font-size: 26px;
+    font-family: GothamMedium;
+    padding: 10px;
+    color: #6cd3d3;
+    cursor: pointer;
+}
+
+/*createaccount*/
+.create-account-form {
+    display: none;
+    position: relative;
+    border-radius: 5px;
+    background: #d6f1fc;
+    margin-left: 10%;
+    width: 80%;
+    height: 620px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,363 @@
+
+body {
+    padding: 0px;
+    margin: 0px;
+}
+
+.after-loading {
+    z-index: 1;
+    visibility: hidden;
+    transition: all  0.5s;
+}
+
+.loading-container {
+    z-index: 10000;
+    position: fixed;
+    padding: 0px;
+    margin: 0px;
+    display: block;
+    height: 100vh;
+    width: 100%;
+    text-align: center;
+    vertical-align: middle;
+    background: #1b1625;
+    transition: all  0.5s;
+}
+
+.loader {
+    display: inline-block;
+    vertical-align: middle;
+    width: 150px;
+    height: 150px;
+    position: relative;
+}
+
+.background-loader {
+    height: 1px;
+    width: 1px;
+    position: absolute;
+    bottom: 4px;
+    right: 0px;
+    background: #2dffa1;
+    animation: updown1 2s linear infinite; 
+}
+
+.background-loader-second {
+    height: 1px;
+    width: 1px;
+    position: absolute;
+    bottom: 14px;
+    left: 0px;
+    background: #2dffa1;
+    animation: updown2 2s linear infinite; 
+}
+
+.background-loader-third {
+    height: 20px;
+    width: 70px;
+    position: absolute;
+    bottom: 65px;
+    right: 0px;
+    background: #2dffa1;
+    animation: updown4 2s linear infinite; 
+}
+
+.background-loader-fourth {
+    height: 70px;
+    width: 16px;
+    position: absolute;
+    bottom: 65px;
+    right: 69px;
+    background: #2dffa1;
+    animation: updown5 2s linear infinite; 
+}
+
+.background-loader-fifth {
+    height: 20px;
+    width: 70px;
+    position: absolute;
+    bottom: 120px;
+    left: 80px;
+    background: #2dffa1;
+    animation: updown6 2s linear infinite; 
+}
+
+.load-image {
+    border-radius: 5px;
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    animation: updown3 2s linear infinite;
+}
+
+@-webkit-keyframes updown1 {
+    0%   {
+        height: 28px; 
+        width: 0px; 
+    }
+    10%   {
+        height: 28px; 
+        width: 31px; 
+    }
+    20%   {
+        height: 28px; 
+        width: 62px; 
+    }
+    30%   {
+        height: 28px; 
+        width: 93px; 
+    }
+    40%   {
+        height: 28px; 
+        width: 124px; 
+    }
+    50%   {
+        height: 28px; 
+        width: 124px; 
+    }
+    60%   {
+        height: 28px; 
+        width: 124px; 
+    }
+    70%   {
+        height: 28px; 
+        width: 124px; 
+    }
+    80%   {
+        height: 28px; 
+        width: 124px; 
+    }
+    90%   {
+        height: 28px; 
+        width: 124px; 
+    }
+    100%   {
+        height: 28px; 
+        width: 124px; 
+        background-color: #0959d2;
+    }
+}
+
+@-webkit-keyframes updown2 {
+    0%   {
+        height: 0px; 
+        width: 32px; 
+    }
+    10%   {
+        height: 0px; 
+        width: 32px; 
+    }
+    20%   {
+        height: 0px; 
+        width: 32px; 
+    }
+    30%   {
+        height: 0px; 
+        width: 32px; 
+    }
+    40%   {
+        height: 0px; 
+        width: 32px; 
+    }
+    50%   {
+        height: 31px; 
+        width: 32px; 
+    }
+    60%   {
+        height: 62px; 
+        width: 32px; 
+    }
+    70%   {
+        height: 93px; 
+        width: 32px; 
+    }
+    80%   {
+        height: 124px; 
+        width: 32px; 
+    }
+    90%   {
+        height: 124px; 
+        width: 32px; 
+    }
+    100%   {
+        height: 124px; 
+        width: 32px; 
+        background-color: #0959d2;
+    }
+}
+
+@-webkit-keyframes updown3 {
+    0%   {
+        transform: scale(1);
+    }
+    10%   {
+    }
+    20%   {
+    }
+    30%   { 
+    }
+    40%   {
+    }
+    50%   {
+    }
+    60%   {
+    }
+    70%   {
+    }
+    80%   {
+        transform: scale(1);
+    }
+    90%   {
+        transform: scale(1.025);
+    }
+    100%   {
+        transform: rotateZ(1.025); 
+    }
+}
+
+@-webkit-keyframes updown4 {
+    0%   {
+        height: 20px; 
+        width: 0px; 
+    }
+    10%   {
+        height: 20px; 
+        width: 23px; 
+    }
+    20%   {
+        height: 20px; 
+        width: 47px; 
+    }
+    30%   {
+        height: 20px; 
+        width: 70px; 
+    }
+    40%   {
+        height: 20px; 
+        width: 70px; 
+    }
+    50%   {
+        height: 20px; 
+        width: 70px; 
+    }
+    60%   {
+        height: 20px; 
+        width: 70px; 
+    }
+    70%   {
+        height: 20px; 
+        width: 70px; 
+    }
+    80%   {
+        height: 20px; 
+        width: 70px; 
+    }
+    90%   {
+        height: 20px; 
+        width: 70px; 
+    }
+    100%   {
+        height: 20px; 
+        width: 70px; 
+        background-color: #0959d2;
+    }
+}
+
+@-webkit-keyframes updown5 {
+    0%   {
+        height: 0px; 
+        width: 16px; 
+    }
+    10%   {
+        height: 0px; 
+        width: 16px; 
+    }
+    20%   {
+        height: 0px; 
+        width: 16px; 
+    }
+    30%   {
+        height: 0px; 
+        width: 16px; 
+    }
+    40%   {
+        height: 23px; 
+        width: 16px; 
+    }
+    50%   {
+        height: 46px; 
+        width: 16px; 
+    }
+    60%   {
+        height: 70px; 
+        width: 16px; 
+    }
+    70%   {
+        height: 70px; 
+        width: 16px; 
+    }
+    80%   {
+        height: 70px; 
+        width: 16px; 
+    }
+    90%   {
+        height: 70px; 
+        width: 16px; 
+    }
+    100%   {
+        height: 70px; 
+        width: 16px; 
+        background-color: #0959d2;
+    }
+}
+
+@-webkit-keyframes updown6 {
+    0%   {
+        height: 20px; 
+        width: 0px; 
+    }
+    10%   {
+        height: 20px; 
+        width: 0px; 
+    }
+    20%   {
+        height: 20px; 
+        width: 0px; 
+    }
+    30%   {
+        height: 20px; 
+        width: 0px; 
+    }
+    40%   {
+        height: 20px; 
+        width: 0px; 
+    }
+    50%   {
+        height: 20px; 
+        width: 0px; 
+    }
+    60%   {
+        height: 20px; 
+        width: 0px; 
+    }
+    70%   {
+        height: 20px; 
+        width: 23px; 
+    }
+    80%   {
+        height: 20px; 
+        width: 46px; 
+    }
+    90%   {
+        height: 20px; 
+        width: 70px; 
+    }
+    100%   {
+        height: 20px; 
+        width: 70px; 
+        background-color: #0959d2;
+    }
+}
+
