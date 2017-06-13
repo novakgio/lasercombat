@@ -18,6 +18,20 @@
         <link rel="stylesheet" type="text/css" href="{{asset('css/jquery.fullpage.css')}}" />
         <link rel="stylesheet" type="text/css" href="{{asset('css/sweetalert.css')}}" />
         <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script>
+          function initMap() {
+            var uluru = {lat: 41.721349, lng: 44.789097};
+            var map = new google.maps.Map(document.getElementById('map'), {
+              zoom: 15,
+              center: uluru
+            });
+            var marker = new google.maps.Marker({
+              position: uluru,
+              map: map
+            });
+          }
+        </script>
+        
     </head>
 
     <body>
@@ -35,8 +49,7 @@
             </div>
         </div>
         <div class="after-loading" id="after-loading">
-            
-           @include('includes.registration')
+            @include('includes.registration')
             
             
             <div id="fullpage">
@@ -46,6 +59,7 @@
                             <nav class="sticky">
                                 <div class="row">
                                     <img src="resource/img/logo.png" alt="Laser Combat logo" class="logo-black">
+                                    <img src="resource/img/LaserCombatText.png" alt="Laser Combat logo" class="logo-text">
                                     <div>
                                         <ul class="main-nav js--main-nav">
                                             <li><a href="#features">Main</a></li>
@@ -54,7 +68,7 @@
                                             @if(!Auth::user())
                                             <li><a href="#plans" id="sign-up">Sign up</a></li>
                                             @else
-                                            <li><a href="{{route('logout')}}" id="sign-up">Log out</a></li>
+                                            <li><a href="{{url('logout')}}" id="sign-up">Sign out</a></li>
                                             @endif
                                         </ul>
                                     </div>
@@ -135,7 +149,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row time-line-container">
+                                        <div class="row time-line-container no-padding-bottom">
                                             <div class="col span-1-of-12 one-hour-distance">
                                                 <div class="row one-hour-line">
                                                     <div class="col span-1-of-6 ten-minute-distance free-ten-minute start-time">
@@ -479,6 +493,45 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="row time-value-continer">
+                                            <div class="col span-1-of-12 border-left">
+                                                <p class="time-value">12:00</p>
+                                            </div>
+                                            <div class="col span-1-of-12 border-left">
+                                                <p class="time-value">13:00</p>
+                                            </div>
+                                            <div class="col span-1-of-12 border-left">
+                                                <p class="time-value">14:00</p>
+                                            </div>
+                                            <div class="col span-1-of-12 border-left">
+                                                <p class="time-value">15:00</p>
+                                            </div>
+                                            <div class="col span-1-of-12 border-left">
+                                                <p class="time-value">16:00</p>
+                                            </div>
+                                            <div class="col span-1-of-12 border-left">
+                                                <p class="time-value">17:00</p>
+                                            </div>
+                                            <div class="col span-1-of-12 border-left">
+                                                <p class="time-value">18:00</p>
+                                            </div>
+                                            <div class="col span-1-of-12 border-left">
+                                                <p class="time-value">19:00</p>
+                                            </div>
+                                            <div class="col span-1-of-12 border-left">
+                                                <p class="time-value">20:00</p>
+                                            </div>
+                                            <div class="col span-1-of-12 border-left">
+                                                <p class="time-value">21:00</p>
+                                            </div>
+                                            <div class="col span-1-of-12 border-left">
+                                                <p class="time-value">22:00</p>
+                                            </div>
+                                            <div class="col span-1-of-12 border-left">
+                                                <p class="time-value">23:00</p>
+                                                <p class="time-value-right">24:00</p>
+                                            </div>
+                                        </div>
                                         <div class="row times-line-container">
                                             <div class="row">
                                                 <div class="col span-1-of-2">
@@ -533,11 +586,107 @@
                 </div>
                 <div class="section " id="section2">
                     <div class="intro">
-                        
+                        <div class="row">
+                            <h2>Gallery</h2>
+                        </div>
+                        <div class="row gallery-container">
+                            <div class="col span-1-of-4">
+                                <div class="gallery-cube">
+                                    
+                                </div>
+                            </div>
+                            <div class="col span-1-of-4">
+                                <div class="big-gallery-cube">
+                                    
+                                </div>
+                            </div>
+                            <div class="col span-1-of-4">
+                                <div class="big-gallery-cube">
+                                    
+                                </div>
+                            </div>
+                            <div class="col span-1-of-4">
+                                <div class="gallery-cube">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="section " id="section3">
+                    <div class="intro">
+                        <div class="row">
+                            <h2>Contact</h2>
+                        </div>
+                        <div class="row contact-form-container">
+                            <div class="col span-1-of-2">
+                                <div class="row contact-line">
+                                    <div class="icon-big-container address">
+                                        <i class="ion-checkmark-round icon-big"></i>
+                                    </div>
+                                    <div class="icon-text-right address">
+                                        <span class="contact-label">Mithskevichi N5</span>
+                                    </div>
+                                </div>
+                                <div class="row contact-line">
+                                    <div class="icon-big-container address">
+                                        <i class="ion-ios-telephone icon-big"></i>
+                                    </div>
+                                    <div class="icon-text-right address">
+                                        <span class="contact-label">593 245 123</span>
+                                    </div>
+                                </div>
+                                <div class="row contact-line">
+                                    <a href="https://www.google.ge/">
+                                        <div class="icon-big-container address facebook">
+                                            <i class="ion-social-facebook icon-big-slim"></i>
+                                        </div>
+                                        <div class="icon-text-right address">
+                                            <span class="contact-label facebook">Facebook</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="row contact-line">
+                                    <a href="https://www.google.ge/">
+                                        <div class="icon-big-container address googleplus">
+                                            <i class="ion-social-googleplus icon-big"></i>
+                                        </div>
+                                        <div class="icon-text-right address">
+                                            <span class="contact-label googleplus">Google+</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="row contact-line">
+                                    <a href="https://www.google.ge/">
+                                        <div class="icon-big-container address instagram">
+                                            <i class="ion-social-instagram-outline icon-big"></i>
+                                        </div>
+                                        <div class="icon-text-right address">
+                                            <span class="contact-label instagram">Instagram</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col span-1-of-2">
+                                <div class="map-container">
+                                    <div id="map" style="width:100%;height:100%;"></div>
+                                    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbiVr96GbZnwnSs4nc1Yggn63X7V-idMQ&callback&libraries&libraries=places&callback=initMap"></script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row footer-row">
+                        <p class="long-copy-footer">
+                            <span>This</span> Webpage was created by <span class="yellow"> Laser Combat.</span>
+                        </p>
+                        <p class="long-copy-footer">
+                            Build with<span class="red"> <i class="ion-heart footer-icon "></i> </span> in 2017,   all rights <span class="blue"> reserved.</span>
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
+
         <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
         <script src="{{asset('js/jquery.waypoints.min.js')}}"></script>
         <script src="{{asset('js/js.js')}}"></script>
@@ -577,7 +726,7 @@
                     else if(pass!=confirmpass){
                         error = "Passwords don't match   ";
                     }
-                    else if(!Number.isInteger(phone) || phone.length<9){
+                    else if(!Number.isInteger(parseInt(phone)) || phone.length<9){
                         error = "phone format is wrong.  "
                     }
                     if(error!=""){
