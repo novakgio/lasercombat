@@ -52,14 +52,7 @@ $(document).ready(function(){
     var loginFormHeight;
     var createAccountHeight;
     
-    $( "#reserve" ).click(function() {
-        $( ".nav-container" ).fadeOut('slow');
-        $( "#overlay" ).fadeIn('slow');
-        $('#registration-chooser').fadeIn( 'slow' );
-        windowOverlay = document.getElementById('overlay').offsetHeight;
-        registrationHeight = document.getElementById('registration-chooser').offsetHeight;
-        $('#registration-chooser').css("margin-top", (windowOverlay - registrationHeight)/2 );
-    });
+    
     
     $( "#sign-up" ).click(function() {
         $( ".nav-container" ).fadeOut('slow');

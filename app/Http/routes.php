@@ -25,6 +25,8 @@ Route::get('/login',function(){
 
 });
 
+Route::post('checkOrder','OrderController@makeOrder');
+
 
 Route::get('/check',function(){
 	

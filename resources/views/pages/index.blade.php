@@ -86,34 +86,12 @@
                         <div class="table-container">
                             <div class="row">
                                 <div class="col span-1-of-5 days">
+                                @foreach($weekDayDates as $date)
                                     <div class="day-cube">
-                                        <p class="cube-label">11/12/2015</p>
-                                        <p class="cube-label day-label">Monday</p>
+                                        <p class="cube-label">{{$date['date']}}</p>
+                                        <p class="cube-label day-label">{{$date['day']}}</p>
                                     </div>
-                                    <div class="day-cube selected-day">
-                                        <p class="cube-label">11/12/2015</p>
-                                        <p class="cube-label day-label">Monday</p>
-                                    </div>
-                                    <div class="day-cube">
-                                        <p class="cube-label">11/12/2015</p>
-                                        <p class="cube-label day-label">Monday</p>
-                                    </div>
-                                    <div class="day-cube">
-                                        <p class="cube-label">11/12/2015</p>
-                                        <p class="cube-label day-label">Monday</p>
-                                    </div>
-                                    <div class="day-cube">
-                                        <p class="cube-label">11/12/2015</p>
-                                        <p class="cube-label day-label">Monday</p>
-                                    </div>
-                                    <div class="day-cube">
-                                        <p class="cube-label">11/12/2015</p>
-                                        <p class="cube-label day-label">Monday</p>
-                                    </div>
-                                    <div class="day-cube">
-                                        <p class="cube-label">11/12/2015</p>
-                                        <p class="cube-label day-label">Monday</p>
-                                    </div>
+                                @endforeach
                                 </div>
                                 <div class="col span-4-of-5">
                                     <div class="board">
@@ -150,6 +128,12 @@
                                             </div>
                                         </div>
                                         <div class="row time-line-container no-padding-bottom">
+
+                                            @if(Auth::check())
+                                                <script>{{ 'var user = true;' }}</script>
+                                            @else
+                                                <script>{{ 'var user = false;' }}</script>
+                                            @endif
                                             @php $i=0;@endphp
                                             @foreach($orders as $order)
                                                 @if($i==0)
@@ -158,7 +142,7 @@
                                                 @endif
                                                 @php
                                                 $state="";
-                                                if($order->reserved==0) $state="free";
+                                                if($order->booked==0) $state="free";
                                                 else $state="bought";
                                                 @endphp
                                                 <div class="col span-1-of-6 ten-minute-distance {{$state}}-ten-minute start-time">
@@ -257,7 +241,7 @@
                                             <div class="row">
                                                 <div class="range-slider">
                                                     <div class="col span-1-of-4">
-                                                        <input class="range-slider__range" type="range" value="0" min="0" max="10">
+                                                        <input class="range-slider__range" id="people_range" type="range" value="0" min="0" max="10">
                                                     </div>
                                                     <div class="col span-3-of-2 text-left">
                                                         <span class="range-slider__value">0</span>
@@ -472,6 +456,58 @@
 
 
                 });
+
+
+                function goToOrder(){
+                    var start_time = $('#start_time').val();
+                    var end_time = $('#end_time').val();
+                    var people_range=$('#people_range').val();
+                    if(start_time=="" || end_time=="" || people_range==""){
+                        alert('save all fields');
+                    }
+                    else{
+
+                        $.ajax({
+                            method: "POST",
+                            url: "{{url('checkOrder')}}",
+                            data:{start_time:start_time,end_time:end_time,people_range:people_range}
+                        }) 
+                        .done(function (data){
+
+                            sweetAlert("Oops...", data.error, "error");
+                        });
+
+                    }
+                }
+
+
+
+                function showRegister(){
+                    $( ".nav-container" ).fadeOut('slow');
+                    $( "#overlay" ).fadeIn('slow');
+                    $('#registration-chooser').fadeIn( 'slow' );
+                    windowOverlay = document.getElementById('overlay').offsetHeight;
+                    registrationHeight = document.getElementById('registration-chooser').offsetHeight;
+                    $('#registration-chooser').css("margin-top", (windowOverlay - registrationHeight)/2 );
+                }
+
+                $( "#reserve" ).click(function() {
+                    
+                   
+                    if(user==true){
+                        showRegister();
+                    }
+                    else{
+                        goToOrder();
+                    }
+                });
+
+                
+
+                
+
+
+
 
 
 
