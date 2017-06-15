@@ -150,356 +150,41 @@
                                             </div>
                                         </div>
                                         <div class="row time-line-container no-padding-bottom">
-                                            <div class="col span-1-of-12 one-hour-distance">
-                                                <div class="row one-hour-line">
-                                                    <div class="col span-1-of-6 ten-minute-distance free-ten-minute start-time">
-                                                        <div class="popup-time">
-                                                            <p>Reserved</p>
-                                                            <p>14:00 - 15:00</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance free-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance free-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance free-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance free-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance free-ten-minute">
-                                                        
+                                            @php $i=0;@endphp
+                                            @foreach($orders as $order)
+                                                @if($i==0)
+                                                    <div class="col span-1-of-12 one-hour-distance">
+                                                    <div class="row one-hour-line">
+                                                @endif
+                                                @php
+                                                $state="";
+                                                if($order->reserved==0) $state="free";
+                                                else $state="bought";
+                                                @endphp
+                                                <div class="col span-1-of-6 ten-minute-distance {{$state}}-ten-minute start-time">
+                                                    <div class="popup-time">
+                                                        <p>Reserved</p>
+                                                        <p>{{$order->time}}</p>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col span-1-of-12 one-hour-distance">
-                                                <div class="row one-hour-line">
-                                                    <div class="col span-1-of-6 ten-minute-distance free-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance free-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance free-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance free-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance free-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance free-ten-minute">
-                                                        
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col span-1-of-12 one-hour-distance">
-                                                <div class="row one-hour-line">
-                                                    <div class="col span-1-of-6 ten-minute-distance free-ten-minute">
-                                                        <div class="popup-time">
-                                                            <p>Reserved</p>
-                                                            <p>14:00 - 15:00</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance free-ten-minute">
-                                                        <div class="popup-time">
-                                                            <p>Reserved</p>
-                                                            <p>14:00 - 15:00</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance free-ten-minute">
-                                                        <div class="popup-time">
-                                                            <p>Reserved</p>
-                                                            <p>14:00 - 15:00</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance free-ten-minute">
-                                                        <div class="popup-time">
-                                                            <p>Reserved</p>
-                                                            <p>14:00 - 15:00</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance free-ten-minute">
-                                                        
-                                                    </div><div class="popup-time">
-                                                            <p>Reserved</p>
-                                                            <p>14:00 - 15:00</p>
-                                                        </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance free-ten-minute">
-                                                        <div class="popup-time">
-                                                            <p>Reserved</p>
-                                                            <p>14:00 - 15:00</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col span-1-of-12 one-hour-distance">
-                                                <div class="row one-hour-line">
-                                                    <div class="col span-1-of-6 ten-minute-distance reserved-ten-minute">
-                                                        <div class="popup-time">
-                                                            <p>Reserved</p>
-                                                            <p>14:00 - 15:00</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance reserved-ten-minute">
-                                                        <div class="popup-time">
-                                                            <p>Reserved</p>
-                                                            <p>14:00 - 15:00</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance reserved-ten-minute">
-                                                        <div class="popup-time">
-                                                            <p>Reserved</p>
-                                                            <p>14:00 - 15:00</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance reserved-ten-minute">
-                                                        <div class="popup-time">
-                                                            <p>Reserved</p>
-                                                            <p>14:00 - 15:00</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance reserved-ten-minute">
-                                                        <div class="popup-time">
-                                                            <p>Reserved</p>
-                                                            <p>14:00 - 15:00</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance reserved-ten-minute">
-                                                        <div class="popup-time">
-                                                            <p>Reserved</p>
-                                                            <p>14:00 - 15:00</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col span-1-of-12 one-hour-distance">
-                                                <div class="row one-hour-line">
-                                                    <div class="col span-1-of-6 ten-minute-distance bought-ten-minute">
-                                                        <div class="popup-time">
-                                                            <p>Reserved</p>
-                                                            <p>14:00 - 15:00</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance bought-ten-minute">
-                                                        <div class="popup-time">
-                                                            <p>Reserved</p>
-                                                            <p>14:00 - 15:00</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance bought-ten-minute">
-                                                        <div class="popup-time">
-                                                            <p>Reserved</p>
-                                                            <p>14:00 - 15:00</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance bought-ten-minute">
-                                                        <div class="popup-time">
-                                                            <p>Reserved</p>
-                                                            <p>14:00 - 15:00</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance bought-ten-minute">
-                                                        <div class="popup-time">
-                                                            <p>Reserved</p>
-                                                            <p>14:00 - 15:00</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance bought-ten-minute">
-                                                        <div class="popup-time">
-                                                            <p>Reserved</p>
-                                                            <p>14:00 - 15:00</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col span-1-of-12 one-hour-distance">
-                                                <div class="row one-hour-line">
-                                                    <div class="col span-1-of-6 ten-minute-distance reserved-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance reserved-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance reserved-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance reserved-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance reserved-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance reserved-ten-minute">
-                                                        
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col span-1-of-12 one-hour-distance">
-                                                <div class="row one-hour-line">
-                                                    <div class="col span-1-of-6 ten-minute-distance reserved-ten-minute">
-                                                        <div class="popup-time">
-                                                            <p>Reserved</p>
-                                                            <p>14:00 - 15:00</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance reserved-ten-minute">
-                                                        <div class="popup-time">
-                                                            <p>Reserved</p>
-                                                            <p>14:00 - 15:00</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance reserved-ten-minute">
-                                                        <div class="popup-time">
-                                                            <p>Reserved</p>
-                                                            <p>14:00 - 15:00</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance reserved-ten-minute">
-                                                        <div class="popup-time">
-                                                            <p>Reserved</p>
-                                                            <p>14:00 - 15:00</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance reserved-ten-minute">
-                                                        <div class="popup-time">
-                                                            <p>Reserved</p>
-                                                            <p>14:00 - 15:00</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance reserved-ten-minute">
-                                                       <div class="popup-time">
-                                                            <p>Reserved</p>
-                                                            <p>14:00 - 15:00</p>
-                                                        </div><div class="popup-time">
-                                                            <p>Reserved</p>
-                                                            <p>14:00 - 15:00</p>
-                                                        </div> 
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col span-1-of-12 one-hour-distance">
-                                                <div class="row one-hour-line">
-                                                    <div class="col span-1-of-6 ten-minute-distance bought-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance bought-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance bought-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance bought-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance bought-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance free-ten-minute">
-                                                        
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col span-1-of-12 one-hour-distance">
-                                                <div class="row one-hour-line">
-                                                    <div class="col span-1-of-6 ten-minute-distance free-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance free-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance free-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance free-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance free-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance free-ten-minute">
-                                                        
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col span-1-of-12 one-hour-distance">
-                                                <div class="row one-hour-line">
-                                                    <div class="col span-1-of-6 ten-minute-distance free-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance free-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance free-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance free-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance free-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance free-ten-minute">
-                                                        
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col span-1-of-12 one-hour-distance">
-                                                <div class="row one-hour-line">
-                                                    <div class="col span-1-of-6 ten-minute-distance bought-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance bought-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance bought-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance bought-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance bought-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance bought-ten-minute">
-                                                        
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col span-1-of-12 one-hour-distance">
-                                                <div class="row one-hour-line">
-                                                    <div class="col span-1-of-6 ten-minute-distance bought-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance bought-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance bought-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance free-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance free-ten-minute">
-                                                        
-                                                    </div>
-                                                    <div class="col span-1-of-6 ten-minute-distance free-ten-minute end-time">
-                                                        
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                @php $i++; @endphp
+
+                                                 @if($i==6)   
+                                                     </div> 
+                                                     </div>
+                                                @endif
+                                                <?php if($i==6) $i=0;?>
+                                                @if($order->time=="02:00")
+                                                    </div>
+                                                @endif
+                                            
+                                            @endforeach
+
+
+
+                                           
                                         </div>
                                         <div class="row time-value-continer">
-                                            <div class="col span-1-of-12 border-left">
-                                                <p class="time-value">12:00</p>
-                                            </div>
-                                            <div class="col span-1-of-12 border-left">
-                                                <p class="time-value">13:00</p>
-                                            </div>
                                             <div class="col span-1-of-12 border-left">
                                                 <p class="time-value">14:00</p>
                                             </div>
@@ -529,7 +214,17 @@
                                             </div>
                                             <div class="col span-1-of-12 border-left">
                                                 <p class="time-value">23:00</p>
-                                                <p class="time-value-right">24:00</p>
+                                            </div>
+                                            <div class="col span-1-of-12 border-left">
+                                                <p class="time-value">24:00</p>
+                                            </div>
+                                            <div class="col span-1-of-12 border-left">
+                                                <p class="time-value">01:00</p>
+                                               
+                                            </div>
+                                             <div class="col span-1-of-12 border-left">
+                                                <p class="time-value">02:00</p>
+                                               
                                             </div>
                                         </div>
                                         <div class="row times-line-container">
@@ -537,7 +232,7 @@
                                                 <div class="col span-1-of-2">
                                                     <div class="row">
                                                         <div class="col span-1-of-2">
-                                                            <input type="text" placeholder="" class="small-iput">
+                                                            <input type="text" placeholder="14:20" id="start_time" class="small-iput">
                                                         </div>
                                                         <div class="col span-1-of-2 text-left">
                                                             <p class="input-label"> - Start Time</p>
@@ -549,7 +244,7 @@
                                                 <div class="col span-1-of-2">
                                                     <div class="row">
                                                         <div class="col span-1-of-2">
-                                                            <input type="text" placeholder="" class="small-iput">
+                                                            <input type="text" placeholder="15:10" id="end_time" class="small-iput">
                                                         </div>
                                                         <div class="col span-1-of-2 text-left">
                                                             <p class="input-label"> - End Time</p>
@@ -707,10 +402,10 @@
                 var homeURL = "{{url('')}}";
 
          
-                $('#fullpage').fullpage({
-                    anchors: ['firstPage', 'secondPage', '3rdPage'],
-                    scrollBar: true
-                });
+                // $('#fullpage').fullpage({
+                //     anchors: ['firstPage', 'secondPage', '3rdPage'],
+                //     scrollBar: true
+                // });
 
 
                 $('#createaccount').on('click',function(){
@@ -777,6 +472,8 @@
 
 
                 });
+
+
 
 
 
