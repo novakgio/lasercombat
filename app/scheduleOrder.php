@@ -9,4 +9,5 @@ class scheduleOrder extends Model
     //
 
     protected $table = "order_schedule";
+    public $timestamps=false;
 }

@@ -12,6 +12,7 @@ class RegistrationController extends Controller
 {
     
 
+   private $cost = 10;
 
    public function store(Request $request){
    		$error = null;
@@ -25,7 +26,8 @@ class RegistrationController extends Controller
    			$user->email = $request->email;
    			$user->name = $request->name;
    			$user->phone = $request->phone;
-   			$user->password = password_hash($request->password, PASSWORD_DEFAULT);
+            
+   			$user->password  =  Hash::make($request->password);
    			$user->save();
    			Auth::login($user);
    			if(Auth::user()){

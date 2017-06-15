@@ -87,7 +87,8 @@
                             <div class="row">
                                 <div class="col span-1-of-5 days">
                                 @foreach($weekDayDates as $date)
-                                    <div class="day-cube">
+                                    <div class="day-cube" rel="{{$date['id']}}">
+                                        
                                         <p class="cube-label">{{$date['date']}}</p>
                                         <p class="cube-label day-label">{{$date['day']}}</p>
                                     </div>
@@ -127,43 +128,15 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row time-line-container no-padding-bottom">
-
-                                            @if(Auth::check())
-                                                <script>{{ 'var user = true;' }}</script>
-                                            @else
-                                                <script>{{ 'var user = false;' }}</script>
-                                            @endif
-                                            @php $i=0;@endphp
-                                            @foreach($orders as $order)
-                                                @if($i==0)
-                                                    <div class="col span-1-of-12 one-hour-distance">
-                                                    <div class="row one-hour-line">
-                                                @endif
-                                                @php
-                                                $state="";
-                                                if($order->booked==0) $state="free";
-                                                else $state="bought";
-                                                @endphp
-                                                <div class="col span-1-of-6 ten-minute-distance {{$state}}-ten-minute start-time">
-                                                    <div class="popup-time">
-                                                        <p>Reserved</p>
-                                                        <p>{{$order->time}}</p>
-                                                    </div>
-                                                </div>
-                                                @php $i++; @endphp
-
-                                                 @if($i==6)   
-                                                     </div> 
-                                                     </div>
-                                                @endif
-                                                <?php if($i==6) $i=0;?>
-                                                @if($order->time=="02:00")
-                                                    </div>
-                                                @endif
-                                            
-                                            @endforeach
-
+                                        @if(Auth::check())
+                                            <script>{{ 'var user = true;' }}</script>
+                                        @else
+                                            <script>{{ 'var user = false;' }}</script>
+                                        @endif
+                                        <div class="row  time-line-container no-padding-bottom">
+                                        <div class="show_order_table">
+                                            {!!$orderTable!!}
+                                            </div>
 
 
                                            
@@ -253,7 +226,7 @@
                                         <div class="row button-line-container">
                                             <div class="row">
                                                 <div class="col span-1-of-4">
-                                                    <button class="button" id="reserve">Reserve</button>
+                                                    <button class="button" rel="{{$today_id}}" id="reserve">Reserve</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -420,7 +393,21 @@
                         }) 
                         .done(function (data){
                             if(data.error == "") {
-                               window.location.href = homeURL;
+                                swal({
+                                      title: "Congratulations!",
+                                      text: "You Have Registered Successfully.Click OK To Move On",
+                                      type: "success",
+                                      showConfirmButton: true,
+                                      confirmButtonColor: "#DD6B55",
+                                      confirmButtonText: "Click Me",
+                                     
+                                },
+                                function(isConfirm){
+                                  if (isConfirm) {
+                                    window.location.href = homeURL;
+                                  } 
+                                });
+                              
                             }
                             else{
                                 sweetAlert("Oops...", data.error, "error");
@@ -456,29 +443,73 @@
 
 
                 });
+                 function timeValidation(start_time,end_time){
+                    
+                    var start_firstTime =   parseInt(start_time.split(":")[0]); // like 14,15,16
+                    var start_secondTime = parseInt(start_time.split(":")[1]); // like minutes,20,40,50
 
+                    var end_firstTime = parseInt(end_time.split(":")[0]);
+                    var end_secondTime = parseInt(end_time.split(":")[1]);
+                    console.log(start_firstTime);
+                    console.log(start_secondTime);
+                    console.log(end_firstTime);
+                    console.log(end_secondTime); 
+                    if((start_firstTime==01 || start_firstTime==02)) return true;
+                    else if(start_firstTime>end_firstTime) return false;
+                    else if(start_firstTime<14 || start_firstTime>24 || end_firstTime>=60 || end_secondTime>=60) return false;
+
+
+                    var getFirstTime = end_firstTime - start_firstTime;
+                    var getSecondTime = end_secondTime - start_secondTime;
+                    
+                    if(getFirstTime==0 && getSecondTime<40){
+                        return "Minimal Play Time 40 Minutes";
+                    }
+                    else if(getFirstTime==1 && getSecondTime>20){
+                        return "Max Play Time 1:20 Minutes";
+                    }
+                    else { return true;}
+
+
+
+
+
+
+                }
 
                 function goToOrder(){
                     var start_time = $('#start_time').val();
                     var end_time = $('#end_time').val();
                     var people_range=$('#people_range').val();
-                    if(start_time=="" || end_time=="" || people_range==""){
+                    var week_id = $('#reserve').attr('rel');
+                    var validateTime = timeValidation(start_time,end_time);
+                    if(start_time=="" || end_time=="" || people_range==0){
                         alert('save all fields');
                     }
+                    else if(validateTime==false){
+                        sweetAlert("Oops...", "rules how to enter time", "error");
+                        
+                    }
+                    else if(validateTime!=true && validateTime!=false){
+                        sweetAlert("Oops...", validateTime, "error");
+                        
+                    }
                     else{
-
-                        $.ajax({
+                     $.ajax({
                             method: "POST",
                             url: "{{url('checkOrder')}}",
-                            data:{start_time:start_time,end_time:end_time,people_range:people_range}
+                            data:{start_time:start_time,end_time:end_time,people_range:people_range,week_id:week_id}
                         }) 
                         .done(function (data){
 
                             sweetAlert("Oops...", data.error, "error");
                         });
-
                     }
+
+                    
                 }
+
+               
 
 
 
@@ -494,12 +525,27 @@
                 $( "#reserve" ).click(function() {
                     
                    
-                    if(user==true){
+                    if(user!=true){
                         showRegister();
                     }
                     else{
                         goToOrder();
                     }
+                });
+
+                $('.day-cube').on('click',function(){
+                    var week_id =$(this).attr('rel');
+                    $('#reserve').attr('rel',week_id);
+                    $.ajax({
+                            method: "POST",
+                            url: "{{url('dayOrder')}}",
+                            data:{week_id:week_id}
+                        }) 
+                        .done(function (data){
+                            $('.show_order_table').html(data.orderTable);
+                            
+                    });
+
                 });
 
                 

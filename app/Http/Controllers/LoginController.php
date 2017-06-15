@@ -18,14 +18,15 @@ class LoginController extends Controller
 
    		$user = User::where('email','=',$request->email)->first();
    		if($user!=null){
-			// if(password_verify($request->pass, $user->password)){
-   				Auth::login($user);
-	   			if(Auth::user()){
-	   				  $error="";
-	   			}
-   			// }
+			   if (Hash::check($request->pass, $user->password))
+    
+            Auth::login($user);
+  	   			if(Auth::user()){
+  	   				  $error="";
+  	   			}
+   			}
    			else{
-   				$error="such user doesn't exist haha";
+   				$error=$user->password;
    			}
    		}
    		else{

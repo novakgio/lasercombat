@@ -25,7 +25,12 @@ Route::get('/login',function(){
 
 });
 
+
+Route::get('/test',function(){
+	
+});
 Route::post('checkOrder','OrderController@makeOrder');
+Route::post('dayOrder','indexController@getDayOrders');
 
 
 Route::get('/check',function(){
