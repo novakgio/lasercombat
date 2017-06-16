@@ -31,8 +31,9 @@ class OrderController extends Controller
 			$user_id = Auth::user()->id;
 			$order = new Order();
 			$order->user_id = $user_id;
-			$order->time = $this->getUserOrderDate($request->week_id);
-			$order->save();
+			// $order->time = $this->getUserOrderDate($request->week_id);
+			$order->time = date('Y-m-d H:i:s');
+            $order->save();
 
 			foreach($scheduleIDs as $schedule){
 				$schedule_order = new scheduleOrder();

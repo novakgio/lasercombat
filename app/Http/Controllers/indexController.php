@@ -71,6 +71,7 @@ class indexController extends Controller
 
 
     public function getDates(){
+    	date_default_timezone_set('Asia/Tbilisi');
     	$weekDayDates = array();
     	$today = date('l');
 

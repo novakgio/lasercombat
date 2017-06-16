@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="{{asset('css/grid.css')}}">
         <link rel="stylesheet" href="{{asset('css/overlay.css')}}">
         <link rel="stylesheet" href="{{asset('css/style.css')}}">
-
+            <link rel="stylesheet" href="{{asset('css/particles.css')}}">
         <link rel="stylesheet" type="text/css" href="{{asset('css/jquery.fullpage.css')}}" />
         <link rel="stylesheet" type="text/css" href="{{asset('css/sweetalert.css')}}" />
         <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -35,6 +35,11 @@
     </head>
 
     <body>
+     @if(Auth::check())
+                                            <script>{{ 'var user = true;' }}</script>
+                                        @else
+                                            <script>{{ 'var user = false;' }}</script>
+                                        @endif
         
         <div class="loading" id="loading">
             <div class="loading-container" id="loader-page">
@@ -54,6 +59,11 @@
             
             <div id="fullpage">
                 <div class="section " id="section0">
+                    <div class="count-particles" id="particles-myfirst">
+                        <span class="js-count-particles">--</span> particles
+                    </div>
+                    <!-- particles.js container -->
+                    <div  class="particles-myjs" id="particles-js"></div>
                     <div class="intro">
                         <div class="nav-container">
                             <nav class="sticky">
@@ -62,14 +72,10 @@
                                     <img src="resource/img/LaserCombatText.png" alt="Laser Combat logo" class="logo-text">
                                     <div>
                                         <ul class="main-nav js--main-nav">
-                                            <li><a href="#features">Main</a></li>
-                                            <li><a href="#works">Services</a></li>
-                                            <li><a href="#section2">Contact</a></li>
-                                            @if(!Auth::user())
-                                            <li><a href="#plans" id="sign-up">Sign up</a></li>
-                                            @else
-                                            <li><a href="{{url('logout')}}" id="sign-up">Sign out</a></li>
-                                            @endif
+                                            <li><a href="#section1">Services</a></li>
+                                            <li><a href="#section2">Gallery</a></li>
+                                            <li><a href="#section3">Contact</a></li>
+                                            <li><a href="#" id="sign-up">Sign up</a></li>
                                         </ul>
                                     </div>
                                     <a class="mobile-nav-icon js--nav-icon"><i class="ion-navicon-round"></i></a>
@@ -81,7 +87,7 @@
                 <div class="section " id="section1">
                     <div class="intro">
                         <div class="row">
-                            <h2>Serivces</h2>
+                            <h2>Services</h2>
                         </div>
                         <div class="table-container">
                             <div class="row">
@@ -127,12 +133,20 @@
                                                     </div>
                                                 </div>
                                             </div>
+<!--
+                                            <div class="col span-1-of-4 guid-column">
+                                                <div class="row">
+                                                    <div class="col span-1-of-4 text-right">
+                                                        <div class="guid-cube Your-cube"></div>
+                                                    </div>
+                                                    <div class="col span-3-of-4 text-left">
+                                                        <p class="guid-label Your-text"> -   Your</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+-->
                                         </div>
-                                        @if(Auth::check())
-                                            <script>{{ 'var user = true;' }}</script>
-                                        @else
-                                            <script>{{ 'var user = false;' }}</script>
-                                        @endif
+                                       
                                         <div class="row  time-line-container no-padding-bottom">
                                         <div class="show_order_table">
                                             {!!$orderTable!!}
@@ -348,7 +362,29 @@
         <script type="text/javascript" src="{{asset('js/scrolloverflow.js')}}"></script>
         <script type="text/javascript" src="{{asset('js/jquery.fullPage.js')}}"></script>
          <script type="text/javascript" src="{{asset('js/sweetalert.min.js')}}"></script>
-        
+         <script type="text/javascript" src="{{asset('js/particles.js')}}"></script>
+          <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
+           <script type="text/javascript" src="{{asset('js/stats.js')}}"></script>
+           <script>
+            var count_particles, stats, update;
+            stats = new Stats;
+            stats.setMode(0);
+            stats.domElement.style.position = 'absolute';
+            stats.domElement.style.left = '0px';
+            stats.domElement.style.top = '0px';
+            document.body.appendChild(stats.domElement);
+            count_particles = document.querySelector('.js-count-particles');
+            update = function() {
+                stats.begin();
+                stats.end();
+                if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
+                  count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
+                }
+                requestAnimationFrame(update);
+            };
+            requestAnimationFrame(update);
+        </script>
+
         <script type="text/javascript">
             $(document).ready(function() {
                 $.ajaxSetup({
@@ -358,7 +394,7 @@
                 });
                 var homeURL = "{{url('')}}";
 
-         
+                 
                 // $('#fullpage').fullpage({
                 //     anchors: ['firstPage', 'secondPage', '3rdPage'],
                 //     scrollBar: true
