@@ -9,15 +9,7 @@
         <meta name="description" content="The HTML5 Herald">
         <meta name="author" content="SitePoint">
         
-        <link rel="stylesheet" type="text/css" href="{{asset('css/ionicons.min.css')}}">
-        <link rel="stylesheet" href="{{asset('css/loading.css')}}">
-        <link rel="stylesheet" href="{{asset('css/grid.css')}}">
-        <link rel="stylesheet" href="{{asset('css/overlay.css')}}">
-        <link rel="stylesheet" href="{{asset('css/style.css')}}">
-            <link rel="stylesheet" href="{{asset('css/particles.css')}}">
-        <link rel="stylesheet" type="text/css" href="{{asset('css/jquery.fullpage.css')}}" />
-        <link rel="stylesheet" type="text/css" href="{{asset('css/sweetalert.css')}}" />
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+       @include('layouts.cssurls')
     <script>
           function initMap() {
             var uluru = {lat: 41.721349, lng: 44.789097};
@@ -49,7 +41,7 @@
                     <div class="background-loader-third"></div>
                     <div class="background-loader-fourth"></div>
                     <div class="background-loader-fifth"></div>
-                    <img src="img/logo.png" class="load-image">
+                    <img src="public/img/logo.png" class="load-image">
                 </div>
             </div>
         </div>
@@ -126,8 +118,8 @@
                         <div class="nav-container">
                             <nav class="sticky">
                                 <div class="row">
-                                    <img src="resource/img/logo.png" alt="Laser Combat logo" class="logo-black">
-                                    <img src="resource/img/LaserCombatText.png" alt="Laser Combat logo" class="logo-text">
+                                    <img src="public/resource/img/logo.png" alt="Laser Combat logo" class="logo-black">
+                                    <img src="public/resource/img/LaserCombatText.png" alt="Laser Combat logo" class="logo-text">
                                     <div>
                                         <ul class="main-nav js--main-nav">
                                             <li><a href="#section1">Services</a></li>
@@ -396,18 +388,7 @@
             </div>
         </div>
 
-        <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-        <script src="{{asset('js/jquery.waypoints.min.js')}}"></script>
-        <script src="{{asset('js/js.js')}}"></script>
-        
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-	    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
-        <script type="text/javascript" src="{{asset('js/scrolloverflow.js')}}"></script>
-        <script type="text/javascript" src="{{asset('js/jquery.fullPage.js')}}"></script>
-         <script type="text/javascript" src="{{asset('js/sweetalert.min.js')}}"></script>
-         <script type="text/javascript" src="{{asset('js/particles.js')}}"></script>
-          <script type="text/javascript" src="{{asset('js/app.js')}}"></script>
-           <script type="text/javascript" src="{{asset('js/stats.js')}}"></script>
+       @include('layouts.jssurls')
            <script>
             var count_particles, stats, update;
             stats = new Stats;

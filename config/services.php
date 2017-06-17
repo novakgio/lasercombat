@@ -38,7 +38,7 @@ return [
     'facebook' => [
         'client_id' => "316652392107951",
         'client_secret' => "9fc07b55841130b08c3b2b02de26bdbb",
-        'redirect' => "http://localhost/lasercombat/public/callback",
+        'redirect' => "http://localhost/lasercombat/callback",
     ],
 
 ];
