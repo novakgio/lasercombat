@@ -11,6 +11,9 @@
 @font-face { font-family: BPGWeb002Caps; src: url('../vendors/fonts/LaserCombatFonts/bpg_web_002_caps.ttf'); } 
 @font-face { font-family: BPGWeb002; src: url('../vendors/fonts/LaserCombatFonts/bpg_web.ttf'); }
 
+.responsive-section-two {
+    padding-top: 90px;
+}
 
 .extended-intro {
     padding-top: 20%;
@@ -123,7 +126,7 @@ h3 {
 
 /* Sticky navi */
 .sticky {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -287,14 +290,6 @@ h3 {
     color: #e74c3c;
 }
 
-.Your-cube {
-    background: #27ae60;
-}
-
-.Your-text {
-    color: #27ae60;
-}
-
 
 .time-line-container {
     border-radius: 5px;
@@ -347,10 +342,6 @@ h3 {
 
 .bought-ten-minute {
     background: #e74c3c;
-}
-
-.your-ten-minute {
-    background: #27ae60;
 }
 
 .start-time {
@@ -577,6 +568,7 @@ input::-moz-focus-outer {
 }
 
 .time-value-continer {
+    font-family: GothamMedium;
     margin-top: -4px;
     border-radius: 5px;
     padding: 30px;
@@ -807,6 +799,7 @@ input::-moz-focus-outer {
 }
 
 /*-------------------------------header-background-----------------------*/
+
 
 
 

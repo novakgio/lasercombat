@@ -56,7 +56,65 @@
         <div class="after-loading" id="after-loading">
             @include('includes.registration')
             
-            
+              <div class="profile-form" id="profile-popup">
+                    <div class="row distance-big">
+                        <h3 class="header-third">User Profile</h3>
+                    </div>
+                    <div class="row profile-row">
+                        <div class="col span-1-of-3 responsive-1-3-col">
+                            <div class="row centered-row">
+                                <div class="large-icon-container" id="seeticket">
+                                    <i class="ion-pricetag icon-large-mine"></i>
+                                </div>
+                            </div>
+                            <div class="row centered-row">
+                                <div class="ticket" id="seeticket">
+                                    <h4 class="icon-large-text">Your tickets</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col span-1-of-3 responsive-1-3-col">
+                            <div class="row centered-row">
+                                <div class="large-icon-container" id="my-textus">
+                                    <i class="ion-chatbox-working icon-large-mine"></i>
+                                </div>
+                            </div>
+                            <div class="row centered-row">
+                                <h4 class="icon-large-text">Drop us a line</h4>
+                            </div>
+                        </div>
+                        <div class="col span-1-of-3 responsive-1-3-col">
+                            <div class="row centered-row">
+                                <div class="large-icon-container" id="my-contact">
+                                    <i class="ion-android-mail icon-large-mine"></i>
+                                </div>
+                            </div>
+                            <div class="row centered-row">
+                                <h4 class="icon-large-text">Contact information</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="user-ticket-section" id="user-ticket">
+                    
+                </div>
+                <div class="user-textus-section" id="textus">
+                    <i class="ion-close-round close-inner-popup" id="close-textus"></i>
+                    <h2 class="header-textus">Drop Us A Line</h2>
+                    <div class="row butons-container">
+                        <div class="row button-container">
+                            <input type="text" placeholder="About" id="emailabout" class="big-input">
+                        </div>
+                        <div class="row button-container">
+                            <textarea rows="5" class="textarea" id="emailtext" placeholder="Tour Expression..."></textarea>
+                        </div>
+                        <div class="row button-container">
+                            <div class="button-login account-button" id="emailsend">Send</div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
             <div id="fullpage">
                 <div class="section " id="section0">
                     <div class="count-particles" id="particles-myfirst">
@@ -75,7 +133,15 @@
                                             <li><a href="#section1">Services</a></li>
                                             <li><a href="#section2">Gallery</a></li>
                                             <li><a href="#section3">Contact</a></li>
+
+                                            @if(!Auth::check())
+
                                             <li><a href="#" id="sign-up">Sign up</a></li>
+                                            @else
+                                             <li><a href="#section0" id="prfile">Profile</a></li>
+                                            <li><a href="{{url('logout')}}" id="sign-up">Sign Out</a></li>
+                                            @endif
+
                                         </ul>
                                     </div>
                                     <a class="mobile-nav-icon js--nav-icon"><i class="ion-navicon-round"></i></a>
@@ -84,10 +150,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="section " id="section1">
-                    <div class="intro">
+                 <div class="section " id="section1">
+                    <div class="intro responsive-section-two">
                         <div class="row">
-                            <h2>Services</h2>
+                            <h2>Serivces</h2>
                         </div>
                         <div class="table-container">
                             <div class="row">
@@ -100,7 +166,7 @@
                                     </div>
                                 @endforeach
                                 </div>
-                                <div class="col span-4-of-5">
+                               <div class="col span-4-of-5">
                                     <div class="board">
                                         <div class="row guid-container">
                                             <div class="col span-1-of-3 guid-column">
@@ -133,18 +199,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-<!--
-                                            <div class="col span-1-of-4 guid-column">
-                                                <div class="row">
-                                                    <div class="col span-1-of-4 text-right">
-                                                        <div class="guid-cube Your-cube"></div>
-                                                    </div>
-                                                    <div class="col span-3-of-4 text-left">
-                                                        <p class="guid-label Your-text"> -   Your</p>
-                                                    </div>
-                                                </div>
-                                            </div>
--->
                                         </div>
                                        
                                         <div class="row  time-line-container no-padding-bottom">
@@ -191,11 +245,7 @@
                                             </div>
                                             <div class="col span-1-of-12 border-left">
                                                 <p class="time-value">01:00</p>
-                                               
-                                            </div>
-                                             <div class="col span-1-of-12 border-left">
-                                                <p class="time-value">02:00</p>
-                                               
+                                                <p class="time-value-right">02:00</p>
                                             </div>
                                         </div>
                                         <div class="row times-line-container">
@@ -341,14 +391,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row footer-row">
-                        <p class="long-copy-footer">
-                            <span>This</span> Webpage was created by <span class="yellow"> Laser Combat.</span>
-                        </p>
-                        <p class="long-copy-footer">
-                            Build with<span class="red"> <i class="ion-heart footer-icon "></i> </span> in 2017,   all rights <span class="blue"> reserved.</span>
-                        </p>
-                    </div>
+                  
                 </div>
             </div>
         </div>
@@ -401,6 +444,8 @@
                 // });
 
 
+
+
                 $('#createaccount').on('click',function(){
                     var error = "";
                     var name = $('#username').val();
@@ -409,13 +454,13 @@
                     var pass = $('#password').val();
                     var confirmpass = $('#confirmpass').val();
                     if(name=="" || phone=="" || pass=="" || confirmpass==""){
-                        error = "Please,Fill Out All Fields  ";
+                        error = "გთხოვთ შეავსოთ ყველა ველი";
                     }
                     else if(pass!=confirmpass){
-                        error = "Passwords don't match   ";
+                        error = "პაროლები არ ემთხვევა";
                     }
                     else if(!Number.isInteger(parseInt(phone)) || phone.length<9){
-                        error = "phone format is wrong.  "
+                        error = "მობილურის ფორმატი არასწორია"
                     }
                     if(error!=""){
                         sweetAlert("Oops...", error, "error");
@@ -431,11 +476,11 @@
                             if(data.error == "") {
                                 swal({
                                       title: "Congratulations!",
-                                      text: "You Have Registered Successfully.Click OK To Move On",
+                                      text: "თქვენ წარმატებით დარეგისტრირდით ! და დაეთანხმეთ ღილაკზე თითის დაჭერით",
                                       type: "success",
                                       showConfirmButton: true,
                                       confirmButtonColor: "#DD6B55",
-                                      confirmButtonText: "Click Me",
+                                      confirmButtonText: "დამკლიკე",
                                      
                                 },
                                 function(isConfirm){
@@ -457,7 +502,7 @@
                     var email = $('#logemail').val();
                     var pass = $('#logpassword').val();
                     if(email=="" ||  pass==""){
-                        sweetAlert("Oops...", "Please,Fill Out All Fields", "error");
+                        sweetAlert("Oops...", "გთხოვთ შეავსოთ ორივე ველი", "error");
                         
                     }
                     else
@@ -479,6 +524,8 @@
 
 
                 });
+
+
                  function timeValidation(start_time,end_time){
                     
                     var start_firstTime =   parseInt(start_time.split(":")[0]); // like 14,15,16
@@ -486,10 +533,11 @@
 
                     var end_firstTime = parseInt(end_time.split(":")[0]);
                     var end_secondTime = parseInt(end_time.split(":")[1]);
-                    console.log(start_firstTime);
-                    console.log(start_secondTime);
-                    console.log(end_firstTime);
-                    console.log(end_secondTime); 
+                    if(start_time.length!=5 || end_time.length!=5) return false;
+                    if(isNaN(start_secondTime) || isNaN(end_secondTime)){
+                       return false;
+                    }
+                    
                     if((start_firstTime==01 || start_firstTime==02)) return true;
                     else if(start_firstTime>end_firstTime) return false;
                     else if(start_firstTime<14 || start_firstTime>24 || end_firstTime>=60 || end_secondTime>=60) return false;
@@ -499,10 +547,10 @@
                     var getSecondTime = end_secondTime - start_secondTime;
                     
                     if(getFirstTime==0 && getSecondTime<40){
-                        return "Minimal Play Time 40 Minutes";
+                        return "მინიმუმ შეგიძლიათ შეუკვეთოთ 40 წუთი";
                     }
                     else if(getFirstTime==1 && getSecondTime>20){
-                        return "Max Play Time 1:20 Minutes";
+                        return "მაქსიმუმ შეგიძლიათ შეუკვეთოთ 80 წუთი";
                     }
                     else { return true;}
 
@@ -520,10 +568,10 @@
                     var week_id = $('#reserve').attr('rel');
                     var validateTime = timeValidation(start_time,end_time);
                     if(start_time=="" || end_time=="" || people_range==0){
-                        alert('save all fields');
+                        sweetAlert("Oops...", "შეავსეთ ყველა ველი,რათა დაჯავშნოთ", "error");
                     }
                     else if(validateTime==false){
-                        sweetAlert("Oops...", "rules how to enter time", "error");
+                        sweetAlert("Oops...", "დრო შეგყავთ შემდეგი ფორმატით -  14:40, ღამის 12 საათი ითვლება 00:00,ხოლო ღამის პირველი საათი 01:00", "error");
                         
                     }
                     else if(validateTime!=true && validateTime!=false){
@@ -584,6 +632,65 @@
 
                 });
 
+
+                $('#logfacebook').on('click',function(){
+
+                    window.location.href=homeURL+"/loginfacebook";
+                })
+
+                $('#emailsend').on('click',function(){
+                    var emailabout = $('#emailabout').val();
+                    var emailtext = $('#emailtext').val();
+
+                    if(emailabout=="" || emailtext==""){
+                         sweetAlert("Oops...", "შეავსეთ ორივე ველი", "error");
+                    }
+                    else{
+                         $.ajax({
+                            method: "POST",
+                            url: "{{url('emailsend')}}",
+                            data:{emailabout:emailabout,emailtext:emailtext}
+                        }) 
+                        .done(function (data){
+                            swal({
+                                      title: "შეტყობინება!",
+                                      text: data.error,
+                                      type: "success",
+                                      showConfirmButton: true,
+                                      confirmButtonColor: "#DD6B55",
+                                      confirmButtonText: "დამკლიკე",
+                                     
+                                },
+                                function(isConfirm){
+                                  if (isConfirm) {
+                                    window.location.href = homeURL;
+                                  } 
+                                });
+                            
+                        });
+                    }
+
+                });
+
+
+
+                $('#seeticket').on('click',function(){
+                   
+                     $.ajax({
+                            method: "POST",
+                            url: "{{url('getUserOrder')}}"
+                        }) 
+                        .done(function (data){
+                            $('#profile-popup').fadeOut( 'slow' );
+                            $('#user-ticket').fadeIn( 'slow' );
+                            windowOverlay = document.getElementById('overlay').offsetHeight;
+                            ticketHeight = document.getElementById('user-ticket').offsetHeight;
+                            $('#user-ticket').css("margin-top", (windowOverlay - ticketHeight)/2 );
+                           $('#user-ticket').html(data.userOrder);
+                            
+                        });
+
+                });
                 
 
                 

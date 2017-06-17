@@ -139,19 +139,143 @@
 }
 
 
+/*profile*/
+
+#profile-popup {
+    display: none;
+}
+
+.icon-large-text {
+    text-align: center;
+    font-family: GothamMedium;
+    font-size: 30px;
+    color: #d6f1fc;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.profile-form h3 {
+    color: #d6f1fc;
+}
+
+.distance-big {
+    margin-bottom: 100px;
+}
+
+.profile-form {
+    display: block;
+}
+
+.centered-row {
+    text-align: center;
+}
+
+.profile-row {
+    width: 90%;
+    margin-left: 5%;
+}
+
+.large-icon-container {
+    border-radius: 5px;
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+    text-align: center;
+    border: 2px solid #d6f1fc;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.large-icon-container:hover {
+    transform: scale(1.05);
+    background: rgba(214, 241, 252, 0.3);
+}
+
+.icon-large-mine {
+    display: inline-block;
+    font-size: 50px;
+    padding: 20px;
+    color: #d6f1fc;
+}
 
 
+/*user ticket*/
+.user-ticket-section {
+    position: relative;
+    border-radius: 5px;
+    display: none;
+    width: 85%;
+    margin-left: 7.5%;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background: #d6f1fc;
+}
 
+.ticket-line {
+    padding: 10px 40px !important;
+}
 
+.ticket-title {
+    font-size: 30px;
+    color: #202136;
+    font-family: GothamUltra;
+    padding: 0px 10px;
+}
 
+.ticket-value {
+    font-size: 25px;
+    color: #202136;
+    font-family: GothamMedium;
+    padding: 0px 10px;
+}
 
+.close-inner-popup {
+    position: absolute;
+    font-size: 20px;
+    color: #202136;
+    top: 5px;
+    right: 10px;
+    cursor: pointer;
+}
 
+/*user ticket*/
+.user-textus-section {
+    position: relative;
+    border-radius: 5px;
+    display: none;
+    width: 85%;
+    margin-left: 7.5%;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background: #d6f1fc;
+}
 
+.textus-line {
+    padding: 10px 40px !important;
+}
 
-
-
-
-
+.header-textus {
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 50px;
+    font-family: GothamUltra;
+    font-size: 40px;
+    color: #202136;
+}
+.textarea {
+    text-align: center;
+    vertical-align: middle;
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: none;
+    border: 2px solid #6cd3d3;
+    background: #d6f1fc;
+    font-size: 26px;
+    font-family: GothamMedium;
+    padding: 10px;
+    color: #6cd3d3;
+    cursor: pointer;
+}
 
 
 

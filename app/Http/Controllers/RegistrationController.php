@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\User;
 use Auth;
-use Illuminate\Support\Facades\Hash;
+use Hash;
 class RegistrationController extends Controller
 {
     
@@ -18,7 +18,7 @@ class RegistrationController extends Controller
    		$error = null;
    		$user = User::where('email','=',$request->email)->first();
    		if($user!=null){
-   			$error = "such user already exists,try another";
+   			$error = "ესეთი იუზერი უკვე არსებობს,გამოიყენეთ მეილის და პაროლის სხვა კომბინაცია";
    			
    		}
    		else{
@@ -27,7 +27,7 @@ class RegistrationController extends Controller
    			$user->name = $request->name;
    			$user->phone = $request->phone;
             
-   			$user->password  =  Hash::make($request->password);
+   			$user->password  =  Hash::make($request->pass);
    			$user->save();
    			Auth::login($user);
    			if(Auth::user()){

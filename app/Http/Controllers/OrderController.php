@@ -22,26 +22,36 @@ class OrderController extends Controller
 						);
 
     	if(!empty($checkOrder)){
-    		$error = "This order is not possible,it's already made";
+    		$error = "ამ დროის შეკვეთა უკვე არსებობს სამწუხაროდ";
     	}
     	else{
-    		$scheduleIDs = DB::SELECT("SELECT * FROM  `schedules`
-								WHERE time>='$request->start_time' AND time<='$request->end_time' and day_id='$request->week_id'"
-							);
-			$user_id = Auth::user()->id;
-			$order = new Order();
-			$order->user_id = $user_id;
-			// $order->time = $this->getUserOrderDate($request->week_id);
-			$order->time = date('Y-m-d H:i:s');
-            $order->save();
+            $secondOrder = Order::where('user_id','=',Auth::user()->id)->where('active','!=',0)->first();
+            if($secondOrder!=null){
+                $error = "მეორე შეკვეთას ვერ გააკეთებთ";
+            }
+            else{
+        		$scheduleIDs = DB::SELECT("SELECT * FROM  `schedules`
+    								WHERE time>='$request->start_time' AND time<='$request->end_time' and day_id='$request->week_id'"
+    							);
+    			$user_id = Auth::user()->id;
+    			$order = new Order();
+    			$order->user_id = $user_id;
+    			// $order->time = $this->getUserOrderDate($request->week_id);
+    			date_default_timezone_set('Asia/Tbilisi');
+    			$order->time = date('Y-m-d H:i:s');
+    			$order->people = $request->people_range;
+                $order->active = 2; //2 or 1 or 3 later implementation
+                $order->save();
 
-			foreach($scheduleIDs as $schedule){
-				$schedule_order = new scheduleOrder();
-				$schedule_order->order_id = $order->id;
-				$schedule_order->schedule_id = $schedule->id;
-				if($schedule_order->save())$error = "order completed successfully";
+    			foreach($scheduleIDs as $schedule){
+    				$schedule_order = new scheduleOrder();
+    				$schedule_order->order_id = $order->id;
+    				$schedule_order->schedule_id = $schedule->id;
+    				$schedule_order->active = 2;
+    				if($schedule_order->save())$error = "შეკვეთა მიღებულია";
 
-			}
+    			}
+            }
     	}
 
     	return compact('error');

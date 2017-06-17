@@ -25,14 +25,31 @@ Route::get('/login',function(){
 
 });
 
+Route::get('/admin','AdminController@index');
+
+
+Route::get('/reservelate','AdminController@reserveLate');
+Route::get('/reserveearly','AdminController@reserveEarly');
+Route::get('/boughtlate','AdminController@boughtLate');
+Route::get('/boughtearly','AdminController@boughtEarly');
+
+Route::post('emailsend','indexController@emailsend');
 
 Route::get('/test',function(){
+	$orders = DB::SELECT("SELECT *
+    						FROM `schedules` JOIN `order_schedule` ON `schedules`.`id` = `order_schedule`.`schedule_id`
+    						JOIN `orders`  ON `order_schedule`.`order_id` = `orders`.`id`
+    						WHERE `orders`.`user_id` = 1 AND `orders`.`active`!=0 
+		");
+
+	return $orders;
+
 	
 });
 Route::post('checkOrder','OrderController@makeOrder');
 Route::post('dayOrder','indexController@getDayOrders');
 
-
+Route::post('getUserOrder','indexController@getUserOrder');
 Route::get('/check',function(){
 	
 	for($i=1;$i<8;$i++){

@@ -9,7 +9,15 @@
                     </div>
                     <div class="row butons-container">
                         <div class="row button-container">
-                            <a href="{{url('loginfacebook')}}" class="button-login facebook-button">Login With Facebook</a>
+                           
+                            <div class="button-login facebook-button" id="logfacebook">
+
+                            Login With Facebook
+
+                                     
+                            </div>
+
+
                         </div>
                         <div class="row button-container">
                             <div class="button-login account-button" id="login-with-account">Login With Account</div>
@@ -36,7 +44,7 @@
                     </div>
                 </div>
                 <div class="create-account-form" id="create-account-form">
-                 {{ csrf_field() }}
+                 
                     <div class="row">
                         <h3 class="header-third">Create Account</h3>
                     </div>
@@ -65,4 +73,4 @@
                     </div>
                    
                 </div>
-            </div>
+            

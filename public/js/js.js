@@ -69,15 +69,48 @@ $(document).ready(function(){
     var registrationHeight;
     var loginFormHeight;
     var createAccountHeight;
+    var profileHeight;
     
-    // $( "#reserve" ).click(function() {
-    //     $( ".nav-container" ).fadeOut('slow');
-    //     $( "#overlay" ).fadeIn('slow');
-    //     $('#registration-chooser').fadeIn( 'slow' );
-    //     windowOverlay = document.getElementById('overlay').offsetHeight;
-    //     registrationHeight = document.getElementById('registration-chooser').offsetHeight;
-    //     $('#registration-chooser').css("margin-top", (windowOverlay - registrationHeight)/2 );
-    // });
+    $( "#prfile" ).click(function() {
+        $( ".nav-container" ).fadeOut('slow');
+        $( "#section1" ).fadeOut('slow');
+        $( "#section2" ).fadeOut('slow');
+        $( "#section3" ).fadeOut('slow');
+        $( "#overlay" ).fadeIn('slow');
+        $('#profile-popup').fadeIn( 'slow' );
+        windowOverlay = document.getElementById('overlay').offsetHeight;
+        profileHeight = document.getElementById('profile-popup').offsetHeight;
+        $('#profile-popup').css("margin-top", (windowOverlay - profileHeight)/2 );
+    });
+    
+    $( "#my-tikcet" ).click(function() {
+        $('#profile-popup').fadeOut( 'slow' );
+        $('#user-ticket').fadeIn( 'slow' );
+        windowOverlay = document.getElementById('overlay').offsetHeight;
+        ticketHeight = document.getElementById('user-ticket').offsetHeight;
+        $('#user-ticket').css("margin-top", (windowOverlay - ticketHeight)/2 );
+    });
+    
+    $( "#close-ticket" ).click(function() {
+        $('#user-ticket').fadeOut( 'slow' );
+        $('#profile-popup').fadeIn( 'slow' );
+    });
+    
+    $( "#my-textus" ).click(function() {
+        $('#profile-popup').css("display", "none");
+        $('#textus').fadeIn( 'slow' );
+        windowOverlay = document.getElementById('overlay').offsetHeight;
+        textusHeight = document.getElementById('textus').offsetHeight;
+        $('#textus').css("margin-top", (windowOverlay - textusHeight)/2 );
+    });
+    
+    $( "#close-textus" ).click(function() {
+        $('#textus').css("display", "none");
+        $('#profile-popup').fadeIn( 'slow' );
+    });
+    
+    
+    
     
     $( "#sign-up" ).click(function() {
         $( ".nav-container" ).fadeOut('slow');
@@ -105,12 +138,37 @@ $(document).ready(function(){
     });
     
     $( ".close-icon" ).click(function() {
-        console.log("bla");
         $( "#overlay" ).fadeOut('slow');
         $( "#registration-chooser" ).fadeOut('slow');
         $( "#login-form" ).fadeOut('slow');
         $( "#create-account-form" ).fadeOut('slow');
+        
+        $( "#profile-popup" ).fadeOut('slow');
+        $( "#section1" ).fadeIn();
+        $( "#section2" ).fadeIn();
+        $( "#section3" ).fadeIn();
+        $('#user-ticket').fadeOut( 'slow' );
+        $('#textus').css("display", "none");
+        
         $( ".nav-container" ).fadeIn('slow');
+    })
+    
+    $( "#my-contact" ).click(function() {
+        $( "#overlay" ).fadeOut('slow');
+        $( "#registration-chooser" ).fadeOut('slow');
+        $( "#login-form" ).fadeOut('slow');
+        $( "#create-account-form" ).fadeOut('slow');
+        
+        $( "#profile-popup" ).fadeOut('slow');
+        $( "#section1" ).fadeIn();
+        $( "#section2" ).fadeIn();
+        $( "#section3" ).fadeIn();
+        $('#user-ticket').fadeOut( 'slow' );
+        $('#textus').css("display", "none");
+        
+        $( ".nav-container" ).fadeIn('slow');
+        
+        $.fn.fullpage.moveTo(4, 0);
     })
     
 });
@@ -120,34 +178,46 @@ $(document).ready(function(){
 
 $(document).ready(function() {
     
-    if (window.screen.width < 420) {
-      console.log(window.screen.width);
-      $.fn.fullpage.destroy();
-      $('.count-particles').css("display", "none" );
-      $('.particles-myjs').css("display", "none" );
-        
-            $('.main-nav').css("display", "none" );
-            $('.mobile-nav-icon').css("display", "block" );
-            $('.main-nav').css("float", "left" );
-            $('.main-nav').css("margin-top", "30px" );
-            $('.main-nav').css("margin-left", "10%" );
-            $('.main-nav li').css("display", "block" );
-            $('.main-nav li a:link').css("display", "block" );
-            $('.main-nav li a:link').css("padding", "10px 0" );
-            $('.main-nav li a:visited').css("display", "block" );
-            $('.main-nav li a:visited').css("padding", "10px 0" );
-            $('.sticky .main-nav').css("margin-top", "10px" );
-            $('.sticky .main-nav li a:link').css("padding", "10px 0" );
-            $('.sticky .main-nav li a:visited').css("padding", "10px 0" );
-            $('.sticky .mobile-nav-icon').css("margin-top", "15px" );
-            $('.sticky .mobile-nav-icon i').css("color", "white" );
-        
-        
-      $( "#section1" ).addClass( "fp-auto-height" );
-      $( "#section2" ).addClass( "fp-auto-height" );
-      $( "#section3" ).addClass( "fp-auto-height" );
-      $( ".intro" ).addClass( "extended-intro" );
-      $( "#section3 .intro" ).addClass( "extended-intro-second" );
+    if (window.screen.width < 1025) {
+        $.fn.fullpage.destroy();
+        $('.main-nav').css("display", "none" );
+        $('.mobile-nav-icon').css("display", "block" );
+        $('.main-nav').css("float", "left" );
+        $('.main-nav').css("margin-top", "30px" );
+        $('.main-nav').css("margin-left", "10%" );
+        $('.main-nav li').css("display", "block" );
+        $('.main-nav li a:link').css("display", "block" );
+        $('.main-nav li a:link').css("padding", "10px 0" );
+        $('.main-nav li a:visited').css("display", "block" );
+        $('.main-nav li a:visited').css("padding", "10px 0" );
+        $('.sticky .main-nav').css("margin-top", "10px" );
+        $('.sticky .main-nav li a:link').css("padding", "10px 0" );
+        $('.sticky .main-nav li a:visited').css("padding", "10px 0" );
+        $('.sticky .mobile-nav-icon').css("margin-top", "15px" );
+        $('.sticky .mobile-nav-icon i').css("color", "white" );
+        $( "#section1" ).addClass( "fp-auto-height" );
+        $( "#section2" ).addClass( "fp-auto-height" );
+        $( "#section3" ).addClass( "fp-auto-height" );
+        $( ".intro" ).addClass( "extended-intro" );
+        $( "#section3 .intro" ).addClass( "extended-intro-second" );
+        //particles
+        $( ".partickles-mine" ).css( "display", "none" );
+        //gallery
+        $( ".responsive-1-4-col" ).css( "width", "49%" );
+        $( ".responsive-1-4-col" ).css( "margin", "0.5%" );
+        $( ".responsive-1-4-col" ).css( "padding", "7px 0" );
+        $( "#first-gallery" ).removeClass( "gallery-cube" );
+        $( "#first-gallery" ).addClass( "big-gallery-cube" );
+        $( "#fourth-gallery" ).removeClass( "gallery-cube" );
+        $( "#fourth-gallery" ).addClass( "big-gallery-cube" );
+        //contact
+        $( ".responsive-1-2-col" ).css( "width", "99%" );
+        $( ".responsive-1-2-col" ).css( "margin", "0.5%" );
+        $( ".responsive-1-2-col" ).css( "padding", "7px 0" );
+        $( ".responsive-1-2-col" ).css( "padding-bottom", "5%" );
+        //profile
+        $( ".responsive-1-3-col" ).css( "width", "99%" );
+        $( ".responsive-1-3-col" ).css( "margin", "0.5%" );
     }
     
     /* Mobile navigation */
@@ -167,6 +237,7 @@ $(document).ready(function() {
     });
     
 });
+
 
 
 
