@@ -9,18 +9,16 @@
     @endif
     @php
     $state="";
-    if($order->book==3) $state="free";
-    else if($order->book==1) { 
-        if($order->active==1) $state="bought";
-        else if($order->active==2) $state="reserved";
-        else $state="free";
-    }
-    else { $state="bought";}
+    
+     if($order->active==null) $state="free";
+    else if($order->active==1) $state="bought";
+    else $state="reserved";
+      
 
     @endphp
     <div class="col span-1-of-6 ten-minute-distance {{$state}}-ten-minute start-time">
         <div class="popup-time">
-            <p>Reserved</p>
+            <p>{{$state}}</p>
             <p>{{$order->time}}</p>
         </div>
     </div>

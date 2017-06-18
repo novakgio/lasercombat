@@ -1,7 +1,9 @@
+<?php use App\User;?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,16 +14,16 @@
     <title>SB Admin 2 - Bootstrap Admin Theme</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+     <link href="public/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
-    <link href="vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="public/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="public/dist/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="public/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -272,20 +274,18 @@
                             <!-- /input-group -->
                         </li>
                          <li>
-                            <a href="{{url('reserveearly')}}"><i class="fa fa-dashboard fa-fw"></i>დაჯავშნილების აქტიური სია</a>
+                            <a href="{{url('reserve')}}"><i class="fa fa-dashboard fa-fw"></i>დაჯავშნილების სია</a>
                         </li>
                        
                         <li>
-                            <a href="{{url('reservelate')}}"><i class="fa fa-table fa-fw"></i>დაჯავშნილების ვადაგასული სია</a>
+                            <a href="{{url('bought')}}"><i class="fa fa-table fa-fw"></i>გაყიდულების  სია</a>
                         </li>
 
                          <li>
-                            <a href="{{url('/boughtearly')}}"><i class="fa fa-dashboard fa-fw"></i>გაყიდულების აქტიური სია</a>
+                            <a href="{{url('timeover')}}"><i class="fa fa-dashboard fa-fw"></i>ვადაგასულების სია</a>
                         </li>
                        
-                        <li>
-                            <a href="{{url('/boughtlate')}}"><i class="fa fa-table fa-fw"></i>გაყიდულების ვადაგასული სია</a>
-                        </li>
+                       
                        
                     </ul>
                 </div>
@@ -310,20 +310,47 @@
 
             </style>
             <!-- /.row -->
-            <div class="container">
-  <h2>დამატებული პროდუქტების სია</h2>
-  <p>დასცხე,დააგდე</p>            
+          <div class="container">
+ <a href="{{url('useremailexcel')}}">გადმოწერე იმეილების ექსელი</a>    
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th>სახელი</th>
-        <th>აღწერა</th>
-        <th>სურათი</th>
-        <th>წაშლა</th>
+        <th>შეკვეთის აიდი</th>
+        <th>შეკვეთის დრო</th>
+        <th>შეკვეთის ხანგრძლივობა</th>
+        <th>ხალხის რაოდენობა</th>
+        <th>იუზერის სახელი</th>
+         <th>იუზერის მობილური</th>
       </tr>
     </thead>
     <tbody>
-   
+    @php $rememberOrders=array(); @endphp
+    @foreach($orders as $order)
+    <tr>
+        @if(!in_array($order->order_id,$rememberOrders))
+            <td>{{$order->order_id}}</td>
+            <td>{{$order->order_time}}</td>
+            <?php
+            $user = User::findOrFail($order->user_id);
+            $timeArray = $ordersArray[$order->order_id];
+            $i=1;
+            foreach($timeArray as $time){
+                if($i==1) $start_time = $time;
+               
+                if($i==count($timeArray)) $end_time = $time;
+                 $i++;
+            }
+            
+            ?>
+
+            <td>{{$start_time}} : {{$end_time}}</td>
+            <td>{{$order->people}}</td>
+            <td>{{$user->name}}</td>
+            <td>{{$user->phone}}</td>
+        @endif
+         @php array_push($rememberOrders,$order->order_id);@endphp
+        </tr>
+    @endforeach
     </tbody>
   </table>
 </div>
@@ -336,17 +363,16 @@
     <!-- /#wrapper -->
 
     <!-- jQuery -->
-    <script src="vendor/jquery/jquery.min.js"></script>
+     <script src="public/vendor/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="public/vendor/bootstrap/js/bootstrap.min.js"></script>
 
     <!-- Metis Menu Plugin JavaScript -->
-    <script src="vendor/metisMenu/metisMenu.min.js"></script>
+    <script src="public/vendor/metisMenu/metisMenu.min.js"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="dist/js/sb-admin-2.js"></script>
-
+    <script src="public/dist/js/sb-admin-2.js"></script>
 </body>
 
 </html>

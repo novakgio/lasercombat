@@ -50,7 +50,7 @@
                     </div>
                     <div class="row butons-container">
                         <div class="row button-container">
-                            <input type="text" id="username" placeholder="Username" class="big-input">
+                            <input type="text" id="username" placeholder="Name" class="big-input">
                         </div>
                         <div class="row button-container">
                             <input type="email" id = "email" placeholder="Email" class="big-input">
@@ -73,4 +73,6 @@
                     </div>
                    
                 </div>
+              
+
             

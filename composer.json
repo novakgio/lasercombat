@@ -10,7 +10,9 @@
         "laravelcollective/html": "^5.2.0",
         "laravel/socialite": "~2.0",
         "mailgun/mailgun-php": "^2.3",
-        "php-http/guzzle6-adapter": "^1.1"
+        "php-http/guzzle6-adapter": "^1.1",
+        "box/spout": "^2.7",
+        "php-curl-class/php-curl-class": "^7.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -284,6 +284,18 @@
                                                 <div class="col span-1-of-4">
                                                     <button class="button" rel="{{$today_id}}" id="reserve">Reserve</button>
                                                 </div>
+                                                  <div class="col span-1-of-4">
+                                                    <input type="text" rel="{{$today_id}}" id="reserve">Reserve Prices</button>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col span-1-of-4">
+                                                    <button class="button" rel="{{$today_id}}" id="reserve">Buy</button>
+                                                </div>
+                                                  <div class="col span-1-of-4">
+                                                    <input type="text" rel="{{$today_id}}" id="reserve">Buy Prices</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -507,6 +519,17 @@
                 });
 
 
+                // $('#start_time').keyup(function(){
+
+                //     if( !isNaN($(this).val().split(":")[0]) && !isNaN($(this).val().split(":")[1]) && $(this).val().length==5){
+                        
+                //     }
+
+                  
+
+                // });
+
+
                  function timeValidation(start_time,end_time){
                     
                     var start_firstTime =   parseInt(start_time.split(":")[0]); // like 14,15,16
@@ -519,7 +542,8 @@
                        return false;
                     }
                     
-                    if((start_firstTime==01 || start_firstTime==02)) return true;
+                    if((start_firstTime==01 && end_secondTime<60) || (start_firstTime==02 && end_secondTime<60)|| 
+                                    (start_firstTime==00 && end_secondTime<60)) return true;
                     else if(start_firstTime>end_firstTime) return false;
                     else if(start_firstTime<14 || start_firstTime>24 || end_firstTime>=60 || end_secondTime>=60) return false;
 
@@ -573,6 +597,8 @@
 
                     
                 }
+
+                // მომხმარებელი აჭერს პროდუქტზე BUY (/buy)-ს. რომელსაც აკონტროლებს პირველი კონტროლერი რაც გამოგიგზავნე. ეგ კონტროლერი თავისით ამისამართებს view-ზე, რომელიც ისევ თავისით ამისამართებს tbc-ს url-ზე, სადაც ხდება ბარათის ნომრის ჩაწერა და გადახდა. სერვერული შეცდომის გარდა ყველა ვარიანტში, თიბისი აბრუნებს შენ /ok ურლ-ზე, თავისი $_REQUEST['trans_id']-ით. რომელსაც შენ ისევ curl-ში აგზავნი და რესპონსად გიბრუნდება ტრანზაქციის აიდის სტატუსი, შესრულდა თუარა ტრანზაქცია წარმატებით.
 
                
 
