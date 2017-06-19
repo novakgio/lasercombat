@@ -38,9 +38,8 @@ Route::post('emailsend','indexController@emailsend');
 
 Route::get('/test',function(){
 		Mail::send('pages.emails', ['test'=>'great'], function($message){
-                $message->from("gioskofield@gmail.com", "LaserCombat" );
-
-                $message->to('glagh14@freeuni.edu.ge', 'Name')->subject( "awesome" );
+                $message->from("gioskofield@gmail.com", "gio@gmail.com" );
+				$message->to('glagh14@freeuni.edu.ge', 'Name')->subject( "awesome" );
         });
 	
 });

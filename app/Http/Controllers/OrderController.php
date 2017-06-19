@@ -64,73 +64,9 @@ class OrderController extends Controller
     			return $eachDay['date'];
     	}
     }
-    public function test(){
-      $amount = $cart->price * 100;
-      $amount = (string)$amount;
-      $currency = '840';
-      $description = $cart->price.'||'.$cart->link;
-      $lang = 'GE';
-      $type = 'SMS';
-
-      $certpath = getcwd().'/andadasi/certificate/certificate.pem';
-      $certpass = 'KLjfio76rkHGCKyrio';
-      $ip = $_SERVER['REMOTE_ADDR'];
-
-      //curl
-      $curl = new Curl();
-      $curl->setOpt(CURLOPT_SSLCERT, $certpath);
-      $curl->setOpt(CURLOPT_SSLKEY, $certpath);
-      $curl->setOpt(CURLOPT_SSLKEYPASSWD, $certpass);
-      $curl->setOpt(CURLOPT_SSL_VERIFYPEER, 0);
-      $curl->setOpt(CURLOPT_SSL_VERIFYHOST, 0);
-      $curl->setOpt(CURLOPT_TIMEOUT, 120);
-      $curl->post('https://securepay.ufc.ge:18443/ecomm2/MerchantHandler', array(
-        'command' => 'v',
-        'amount' => $amount,
-        'currency' => $currency,
-        'client_ip_addr' => $ip,
-        'description' => $description,
-        'language' => $lang,
-        'msg_type' => $type,
-      ));
-
-      if ($curl->error) {
-        echo 'Error: ' . $curl->errorCode . ': ' . $curl->errorMessage . "\n";
-      } else {
-        $tid = substr($curl->response, 16);
-        session(['cid' => $cart->id]);
-        return view('user.order', compact('tid'));
-      }
-  }
 
 
-  public function cron(){
-        require '../../vendor/autoload.php';
 
-        use \Curl\Curl;
 
-        date_default_timezone_set('Asia/Tbilisi');
-
-        $certpath = '/data/www/onlinesh/public_html/public/andadasi/certificate/certificate.pem';
-        $certpass = 'KLjfio76rkHGCKyrio';
-
-        $curl = new Curl();
-        $curl->setOpt(CURLOPT_SSLCERT, $certpath);
-        $curl->setOpt(CURLOPT_SSLKEY, $certpath);
-        $curl->setOpt(CURLOPT_SSLKEYPASSWD, $certpass);
-        $curl->setOpt(CURLOPT_SSL_VERIFYPEER, 0);
-        $curl->setOpt(CURLOPT_SSL_VERIFYHOST, 0);
-        $curl->setOpt(CURLOPT_TIMEOUT, 120);
-        $curl->post('https://securepay.ufc.ge:18443/ecomm2/MerchantHandler', array(
-          'command' => 'b',
-        ));
-
-        if ($curl->error) {
-          echo 'Error: ' . $curl->errorCode . ': ' . $curl->errorMessage . "\n";
-        } else {
-          echo 'Response:';
-          echo $curl->response."<br>";
-        }
-          }
 
 }

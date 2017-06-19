@@ -16,7 +16,7 @@ return [
     |
     */
 
-   
+    'driver' => env('MAIL_DRIVER', 'smtp'),
     /*
     |--------------------------------------------------------------------------
     | SMTP Host Address
@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'from' => ['address' => "gioskofield@gmail.com", 'name' => "giorgi"],
+    'from' => ['address' => null, 'name' =>null],
 
     /*
     |--------------------------------------------------------------------------
@@ -107,5 +107,6 @@ return [
     */
 
     'sendmail' => '/usr/sbin/sendmail -bs',
+    'pretend' => false,
 
 ];

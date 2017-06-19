@@ -5,12 +5,12 @@
     <title>@lang("auth.Sign Up Confirmation")</title>
 </head>
 <body>
-    <h2>შემოსულია კითხვა</h2>
+    <h2>{{$about}}</h2>
 
    
 
     <p>
-        როგორ ხარ??? {{$test}}
+        {{$text}}
     </p>
    
 

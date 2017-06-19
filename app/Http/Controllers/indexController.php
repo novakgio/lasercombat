@@ -50,7 +50,7 @@ class indexController extends Controller
         $orders = DB::SELECT("SELECT * FROM
         					( SELECT * FROM `orders`  JOIN `order_schedule` ON `orders`.`id` = `order_schedule`.`order_id` WHERE orders.active!=0)AS example
         					RIGHT JOIN `schedules` ON example.schedule_id=`schedules`.`id` WHERE `schedules`.`day_id` ='$weekDay_ID' AND `schedules`.`time`!='14:00'");
-        
+       	
         $weekDayDates = $this->getDates();
         $today_id = self::$weekDayArray[date('l')];
         $orders = [
@@ -58,35 +58,15 @@ class indexController extends Controller
 
         ];
 
+        // SELECT * FROM `orders` JOIN order_schedule on orders.id = order_schedule.order_id and orders.active!=0   right join schedules on order_schedule.schedule_id = schedules.id  where schedules.day_id=5
+
         $orderTable = view('pages.orderTable')->with($orders);
         
         return view('pages.index',compact('orderTable','weekDayDates','today_id'));
         
     }
 
-    private function checkInArray($order_id,$arraykeys){
-        foreach($arraykeys as $orderId){
-            if($orderId==$order_id)return true;
-        }
-    }
-
-    private function makeOrdersArray($orders){
-        $finalArray = array();
-        foreach($orders as $order){
-            if(!$this->checkInArray($order->order_id,array_keys($finalArray))){
-                $forTimes = array();
-                array_push($forTimes,$order->time);
-                $finalArray[$order->order_id] = $forTimes;
-            }
-            else{
-                $times = $finalArray[$order->order_id];
-                array_push($times,$order->time);
-                $finalArray[$order->order_id] = $times;
-                
-            }
-        }
-        return $finalArray;
-    }
+    
 
     public function getDayOrders(Request $request){
         $orders = DB::SELECT("SELECT * FROM
@@ -102,7 +82,7 @@ class indexController extends Controller
         return compact('orderTable');
     }
 
-
+    
     public function getDates(){
         date_default_timezone_set('Europe/Paris');
         $weekDayDates = array();
@@ -117,6 +97,8 @@ class indexController extends Controller
         return $weekDayDates;
     }
 
+
+    
     public function emailsend(Request $request){
   //    $to = "gioskofield@gmail.com";
         // $subject = "LaserCombat ".$request->emailabout;
@@ -153,15 +135,29 @@ class indexController extends Controller
         // }
         // return compact('error');
 
-         Mail::send('pages.emails', ['test'=>'great'], function($message){
-                $message->from("gioskofield@gmail.com", "LaserCombat" );
 
-                $message->to('glagh14@freeuni.edu.ge', 'Name')->subject( "awesome" );
-        });
+    	 $user = Auth::user();
+    	 $emailabout = $request->emailabout;
+    	 $from = "LaserCombat No Email";
+    	 if($user!=null && $user->email!=null){
+    	 	$from = $user->email;
+    	 }
+         $sendEmail = Mail::send('pages.emails', ['text'=>$request->emailtext,'about'=>$request->emailabout], function($message) use($from,$emailabout){
+                $message->from("gioskofieldsara@gmail.com", $from );
+
+                $message->to('glagh14@freeuni.edu.ge', 'Name')->subject( $emailabout );
+         });
+         if($sendEmail){
+         	$error = "იმეილი წარმატებით გაიგზავნა.მადლობა თქვენი აზრის დაფიქსირებისთვის";
+         }
+         else{
+         	$error = "იმელის გაგზავნა ვერ მოხერხდა,ცადეთ მოგვიანებით";
+         }
+         return compact('error');
 
     }
 
-    
+    // Gets User's reservation or bought ticket in profile page
     public function getUserOrder(Request $request){
         $user_id= Auth::user()->id;
         $orders = DB::SELECT("SELECT `orders`.`time`, `orders`.`people`,`schedules`.`time` as schedule_time,`orders`.`active`
@@ -191,6 +187,12 @@ class indexController extends Controller
         
         return compact('userOrder');
     }
+
+
+
+    
+
+
 }
 
 

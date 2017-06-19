@@ -289,14 +289,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="row">
-                                                <div class="col span-1-of-4">
-                                                    <button class="button" rel="{{$today_id}}" id="reserve">Buy</button>
-                                                </div>
-                                                  <div class="col span-1-of-4">
-                                                    <input type="text" rel="{{$today_id}}" id="reserve">Buy Prices</button>
-                                                </div>
-                                            </div>
+                                           
                                         </div>
                                     </div>
                                 </div>
@@ -590,7 +583,6 @@
                             data:{start_time:start_time,end_time:end_time,people_range:people_range,week_id:week_id}
                         }) 
                         .done(function (data){
-
                             sweetAlert("Oops...", data.error, "error");
                         });
                     }
