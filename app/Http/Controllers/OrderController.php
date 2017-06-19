@@ -18,6 +18,7 @@ class OrderController extends Controller
 	private $errors;
     public function makeOrder(Request $request){
     	$error="";
+        $price=20;
     	$checkOrder = DB::SELECT("SELECT * FROM  `schedules` JOIN order_schedule ON order_schedule.schedule_id=schedules.id
                                 JOIN `orders` ON `orders`.`id`=`order_schedule`.`order_id`
 								WHERE `schedules`.`time`>='$request->start_time' AND `orders`.`active`!=0 AND `schedules`.`time`<='$request->end_time' and day_id='$request->week_id'"
@@ -40,19 +41,21 @@ class OrderController extends Controller
 			$order->people = $request->people_range;
             $order->active = 2; //2 or 1 or 3 later implementation
             $order->save();
-
+        
 			foreach($scheduleIDs as $schedule){
 				$schedule_order = new scheduleOrder();
 				$schedule_order->order_id = $order->id;
 				$schedule_order->schedule_id = $schedule->id;
 				
-				if($schedule_order->save())$error = "შეკვეთა მიღებულია";
+				if($schedule_order->save()) {$error = $order->id;}
+                else{ $error="შეკვეთა ვერ მივიღეთ";}
+
 
 			}
             
     	}
 
-    	return compact('error');
+    	return compact('error','price');
     	
     }
 

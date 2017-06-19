@@ -15,8 +15,8 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         // Commands\Inspire::class,
         'App\Console\Commands\Inspire',
-        'App\Console\Commands\TbcPay'
-
+        'App\Console\Commands\TbcPay',
+        'App\Console\Commands\deactivateSchedules'
     ];
 
     /**
@@ -33,8 +33,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('TbcCheck')
                 ->hourly();
 
-        $schedule->command('TbcCheck')
-          ->timezone('Asia/Tbilisi')
-          ->dailyAt('02:00');
+        $schedule->command('sheduledestroy')
+            ->dailyAt('02:00')->timezone('Asia/Tbilisi');
     }
 }

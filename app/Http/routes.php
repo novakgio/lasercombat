@@ -26,6 +26,8 @@ Route::get('/login',function(){
 });
 
 
+Route::get('/tbcpayment/{order_id}','TbcController@startPayment');
+
 Route::get('/useremailexcel','AdminController@emails');
 Route::get('/admin','AdminController@index');
 

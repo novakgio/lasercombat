@@ -150,6 +150,8 @@ $(document).ready(function(){
         $('#user-ticket').fadeOut( 'slow' );
         $('#textus').css("display", "none");
         
+        $('#reservepopup').fadeOut( 'slow' );
+        
         $( ".nav-container" ).fadeIn('slow');
     })
     

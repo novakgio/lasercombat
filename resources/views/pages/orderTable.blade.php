@@ -16,7 +16,7 @@
       
 
     @endphp
-    <div class="col span-1-of-6 ten-minute-distance {{$state}}-ten-minute start-time">
+    <div class="col span-1-of-6 ten-minute-distance {{$state}}-ten-minute">
         <div class="popup-time">
             <p>{{$state}}</p>
             <p>{{$order->time}}</p>

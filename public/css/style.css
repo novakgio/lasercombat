@@ -526,27 +526,27 @@ input::-moz-focus-outer {
 }
 
 .popup-time:after, .popup-time:before {
-    top: 100%;
-    left: 50%;
-    border: 2px solid;
-    content: " ";
-    height: 0;
-    width: 0;
-    position: absolute;
-    pointer-events: none;
+	top: 100%;
+	left: 50%;
+	border: 2px solid;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
 }
 
 .popup-time:after {
-    border-color: rgba(136, 183, 213, 0);
-    border-top-color: #202136;
-    border-width: 10px;
-    margin-left: -10px;
+	border-color: rgba(136, 183, 213, 0);
+	border-top-color: #202136;
+	border-width: 10px;
+	margin-left: -10px;
 }
 .popup-time:before {
-    border-color: rgba(194, 225, 245, 0);
-    border-top-color: #d6f1fc;
-    border-width: 16px;
-    margin-left: -16px;
+	border-color: rgba(194, 225, 245, 0);
+	border-top-color: #d6f1fc;
+	border-width: 16px;
+	margin-left: -16px;
 }
 
 .popup-time p {
@@ -799,6 +799,7 @@ input::-moz-focus-outer {
 }
 
 /*-------------------------------header-background-----------------------*/
+
 
 
 

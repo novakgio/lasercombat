@@ -150,13 +150,29 @@
                         <div class="table-container">
                             <div class="row">
                                 <div class="col span-1-of-5 days">
-                                @foreach($weekDayDates as $date)
-                                    <div class="day-cube" rel="{{$date['id']}}">
+                                @php $selected = true;  $className="";@endphp
+                                
+                                <?php foreach($weekDayDates as $date){
+
+                                    if($selected){
+                                        $className = "selected-day";
+                                        $selected=false;
+                                    }
+                                    else{
+                                        
+                                        $className="";
+                                    }
+                                ?>
+
+
+                                    <div class="day-cube <?php echo $className;?>" rel="{{$date['id']}}">
                                         
                                         <p class="cube-label">{{$date['date']}}</p>
                                         <p class="cube-label day-label">{{$date['day']}}</p>
                                     </div>
-                                @endforeach
+
+
+                                <?php }?>
                                 </div>
                                <div class="col span-4-of-5">
                                     <div class="board">
@@ -284,9 +300,7 @@
                                                 <div class="col span-1-of-4">
                                                     <button class="button" rel="{{$today_id}}" id="reserve">Reserve</button>
                                                 </div>
-                                                  <div class="col span-1-of-4">
-                                                    <input type="text" rel="{{$today_id}}" id="reserve">Reserve Prices</button>
-                                                </div>
+                                                 
                                             </div>
 
                                            
@@ -303,36 +317,36 @@
                             <h2>Gallery</h2>
                         </div>
                         <div class="row gallery-container">
-                            <div class="col span-1-of-4">
-                                <div class="gallery-cube">
+                            <div class="col span-1-of-4 responsive-1-4-col">
+                                <div class="gallery-cube"  id="first-gallery">
                                     
                                 </div>
                             </div>
-                            <div class="col span-1-of-4">
-                                <div class="big-gallery-cube">
+                            <div class="col span-1-of-4 responsive-1-4-col">
+                                <div class="big-gallery-cube"  id="second-gallery">
                                     
                                 </div>
                             </div>
-                            <div class="col span-1-of-4">
-                                <div class="big-gallery-cube">
+                            <div class="col span-1-of-4 responsive-1-4-col">
+                                <div class="big-gallery-cube"  id="third-gallery">
                                     
                                 </div>
                             </div>
-                            <div class="col span-1-of-4">
-                                <div class="gallery-cube">
+                            <div class="col span-1-of-4 responsive-1-4-col">
+                                <div class="gallery-cube"  id="fourth-gallery">
                                     
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="section " id="section3">
+               <div class="section " id="section3">
                     <div class="intro">
                         <div class="row">
                             <h2>Contact</h2>
                         </div>
                         <div class="row contact-form-container">
-                            <div class="col span-1-of-2">
+                            <div class="col span-1-of-2 responsive-1-2-col">
                                 <div class="row contact-line">
                                     <div class="icon-big-container address">
                                         <i class="ion-checkmark-round icon-big"></i>
@@ -380,7 +394,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="col span-1-of-2">
+                            <div class="col span-1-of-2  responsive-1-2-col">
                                 <div class="map-container">
                                     <div id="map" style="width:100%;height:100%;"></div>
                                     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbiVr96GbZnwnSs4nc1Yggn63X7V-idMQ&callback&libraries&libraries=places&callback=initMap"></script>
@@ -388,31 +402,20 @@
                             </div>
                         </div>
                     </div>
-                  
+                    <div class="row footer-row">
+                        <p class="long-copy-footer">
+                            <span>This</span> Webpage was created by <span class="yellow"> Laser Combat.</span>
+                        </p>
+                        <p class="long-copy-footer">
+                            Build with<span class="red"> <i class="ion-heart footer-icon "></i> </span> in 2017,   all rights <span class="blue"> reserved.</span>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
 
        @include('layouts.jssurls')
-           <script>
-            var count_particles, stats, update;
-            stats = new Stats;
-            stats.setMode(0);
-            stats.domElement.style.position = 'absolute';
-            stats.domElement.style.left = '0px';
-            stats.domElement.style.top = '0px';
-            document.body.appendChild(stats.domElement);
-            count_particles = document.querySelector('.js-count-particles');
-            update = function() {
-                stats.begin();
-                stats.end();
-                if (window.pJSDom[0].pJS.particles && window.pJSDom[0].pJS.particles.array) {
-                  count_particles.innerText = window.pJSDom[0].pJS.particles.array.length;
-                }
-                requestAnimationFrame(update);
-            };
-            requestAnimationFrame(update);
-        </script>
+          
 
         <script type="text/javascript">
             $(document).ready(function() {
@@ -421,6 +424,9 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         }
                 });
+
+
+                
                 var homeURL = "{{url('')}}";
 
                  
@@ -583,11 +589,44 @@
                             data:{start_time:start_time,end_time:end_time,people_range:people_range,week_id:week_id}
                         }) 
                         .done(function (data){
-                            sweetAlert("Oops...", data.error, "error");
+                            var result = data.error;
+                            if(Number.isInteger(parseInt(result))){
+                                showBuyButton(data.price,result);
+                            }
+                            else{
+                                sweetAlert("Oops...", result, "error");
+                            }
+
+
+
+
+
+                                
                         });
                     }
 
+
+
+
                     
+                }
+
+                $('#buybutton').on('click',function(){
+
+                    var order_id = $('#orderid').val();
+                    window.location.href=homeURL+"/tbcpayment/"+order_id;
+
+                });
+                function showBuyButton($price,result){
+                    $('#price-box').text($price);
+                    $('#orderid').val(result);
+                    console.log($('#orderid').val());
+                    $( ".nav-container" ).fadeOut('slow');
+                    $( "#overlay" ).fadeIn('slow');
+                    $('#reservepopup').fadeIn( 'slow' );
+                    windowOverlay = document.getElementById('overlay').offsetHeight;
+                    registrationHeight = document.getElementById('reservepopup').offsetHeight;
+                    $('#reservepopup').css("margin-top", (windowOverlay - registrationHeight)/2 );
                 }
 
                 // მომხმარებელი აჭერს პროდუქტზე BUY (/buy)-ს. რომელსაც აკონტროლებს პირველი კონტროლერი რაც გამოგიგზავნე. ეგ კონტროლერი თავისით ამისამართებს view-ზე, რომელიც ისევ თავისით ამისამართებს tbc-ს url-ზე, სადაც ხდება ბარათის ნომრის ჩაწერა და გადახდა. სერვერული შეცდომის გარდა ყველა ვარიანტში, თიბისი აბრუნებს შენ /ok ურლ-ზე, თავისი $_REQUEST['trans_id']-ით. რომელსაც შენ ისევ curl-ში აგზავნი და რესპონსად გიბრუნდება ტრანზაქციის აიდის სტატუსი, შესრულდა თუარა ტრანზაქცია წარმატებით.
@@ -618,6 +657,8 @@
 
                 $('.day-cube').on('click',function(){
                     var week_id =$(this).attr('rel');
+                    $('.day-cube').removeClass("selected-day");
+                    $(this).addClass("selected-day");
                     $('#reserve').attr('rel',week_id);
                     $.ajax({
                             method: "POST",

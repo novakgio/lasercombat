@@ -30,7 +30,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.8); 
+    background-color: rgba(0, 0, 0, 0.6); 
     z-index: 2; 
 }
 
@@ -277,8 +277,76 @@
     cursor: pointer;
 }
 
+/*-------------------------------reserve-buy-----------------------*/
 
+.reserve-popup {
+    position: relative;
+    border-radius: 5px;
+    background: #d6f1fc;
+    margin-top: 10%;
+    margin-left: 10%;
+    width: 80%;
+    padding: 50px 0px;
+    display: none;
+}
 
+.succes-h3 {
+    color: #1fbdb5;
+    margin-bottom: 60px;
+}
+
+.under-h3 {
+    text-align: center;
+    font-family: GothamMedium;
+    font-size: 25px;
+    color: rgb(27, 22, 37);
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.partial-container {
+    width: 30%;
+    margin-left: 35%;
+}
+
+.price-box {
+    padding: 5px;
+    border-radius: 5px;
+    border: 2px solid;
+}
+
+/*-------------------------------payment-succes-fail-----------------------*/
+
+.visable-mine {
+    display: block !important;
+}
+
+.middle-alligned-container {
+    position: relative;
+}
+
+.success {
+    color: rgba(31, 189, 181, 0.7);
+}
+
+.centered {
+    text-align: center;
+}
+
+.h3-link {
+    text-align: center;
+    font-family: GothamMedium;
+    font-size: 40px;
+    color: rgba(31, 189, 181, 0.7);
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border-bottom: 3px solid rgba(31, 189, 181, 0.7);
+}
+
+.fail {
+    color: rgba(231, 76, 60, 0.7);
+    border-color: rgba(231, 76, 60, 0.7);
+}
 
 
 

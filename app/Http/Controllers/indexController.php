@@ -49,7 +49,7 @@ class indexController extends Controller
         $weekDay_ID = self::$weekDayArray[date('l')];
         $orders = DB::SELECT("SELECT * FROM
         					( SELECT * FROM `orders`  JOIN `order_schedule` ON `orders`.`id` = `order_schedule`.`order_id` WHERE orders.active!=0)AS example
-        					RIGHT JOIN `schedules` ON example.schedule_id=`schedules`.`id` WHERE `schedules`.`day_id` ='$weekDay_ID' AND `schedules`.`time`!='14:00'");
+        					RIGHT JOIN `schedules` ON example.schedule_id=`schedules`.`id` WHERE `schedules`.`day_id` ='$weekDay_ID' AND `schedules`.`time`!='02:00'");
        	
         $weekDayDates = $this->getDates();
         $today_id = self::$weekDayArray[date('l')];
