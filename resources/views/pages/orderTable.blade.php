@@ -1,16 +1,34 @@
 
 @php $i=0;@endphp
-@php $k=0;@endphp
+@php $previous_time=0; $headerDiv = false;@endphp
 @foreach($orders as $order)
-   
-    @if($i==0)
+    
+    @if($i==0 && $headerDiv==false)
         <div class="col span-1-of-12 one-hour-distance">
         <div class="row one-hour-line">
     @endif
-    @php
-    $state="";
+
     
-     if($order->active==null) $state="free";
+    @php
+    
+
+    if($previous_time==$order->time){
+            $headerDiv=true;
+            continue;
+    }
+    else{
+            $i++;
+            $headerDiv=false;
+    }
+    
+
+
+
+    $previous_time = $order->time;
+
+
+    $state="";
+    if($order->active==null) $state="free";
     else if($order->active==1) $state="bought";
     else $state="reserved";
       
@@ -22,7 +40,7 @@
             <p>{{$order->time}}</p>
         </div>
     </div>
-    @php $i++; @endphp
+    
 
      @if($i==6)   
          </div> 

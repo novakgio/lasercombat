@@ -3,7 +3,7 @@
                     <i class="ion-close-round close-icon"></i>
                 </div>
                 <div class="reserve-popup" id="reservepopup">
-                    <h3 class="succes-h3">გადახდა წარმატებით შესრულდა</h3>
+                    <h3 class="succes-h3">დაჯავშნა წარმატებით შესრულდა</h3>
                     <input type="hidden" id="orderid" value="">
                     <p class="under-h3">შეგიძლიათ იყიდოთ და მიიღოთ 20%იანი ფასდაკლება</p>
                     <p class="under-h3">Total Price: <span class="price-box" id="price-box">300 GEL</span></p>

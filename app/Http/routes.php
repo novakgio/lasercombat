@@ -39,10 +39,13 @@ Route::get('/timeover','AdminController@timeover');
 Route::post('emailsend','indexController@emailsend');
 
 Route::get('/test',function(){
-		Mail::send('pages.emails', ['test'=>'great'], function($message){
-                $message->from("gioskofield@gmail.com", "gio@gmail.com" );
-				$message->to('glagh14@freeuni.edu.ge', 'Name')->subject( "awesome" );
-        });
+		$ch = curl_init("http://141.170.228.129:59055/<nameservice>getktypeforvrmdatacar</nameservice><emailclient>vlookup@inetserv-global.com</emailclient><vrmnum>E11AYC</vrmnum><securecode>4F5A0AAF827EA375753715070F04C2D8</securecode>"); // such as http://example.com/example.xml
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        $data = (string)curl_exec($ch);
+        curl_close($ch);
+
+        var_dump($data);
 	
 });
 

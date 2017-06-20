@@ -15,7 +15,7 @@ class indexController extends Controller
 {
     //
 
-    private static $weekDayArray = array(
+    public  $weekDayArray = array(
         "Sunday"=>1,
         "Monday"=>2,
         "Tuesday"=>3,
@@ -24,6 +24,8 @@ class indexController extends Controller
         "Friday"=>6,
         "Saturday"=>7
     );
+
+
 
     private static $daysByIDs = array(
         1=>'Sunday',
@@ -46,13 +48,13 @@ class indexController extends Controller
 
     public function getMainPage(){
         date_default_timezone_set('Europe/Paris');
-        $weekDay_ID = self::$weekDayArray[date('l')];
+        $weekDay_ID = $this->weekDayArray[date('l')];
         $orders = DB::SELECT("SELECT * FROM
         					( SELECT * FROM `orders`  JOIN `order_schedule` ON `orders`.`id` = `order_schedule`.`order_id` WHERE orders.active!=0)AS example
         					RIGHT JOIN `schedules` ON example.schedule_id=`schedules`.`id` WHERE `schedules`.`day_id` ='$weekDay_ID' AND `schedules`.`time`!='02:00'");
        	
         $weekDayDates = $this->getDates();
-        $today_id = self::$weekDayArray[date('l')];
+        $today_id = $this->weekDayArray[date('l')];
         $orders = [
             'orders'=>$orders
 
@@ -91,7 +93,7 @@ class indexController extends Controller
         for($i=0;$i<7;$i++){
             $weekDayDates[$i]['date'] = date("Y-m-d", strtotime("+".$i ."day"));
             $weekDayDates[$i]['day'] = date('l', strtotime("$today + $i Days"));
-            $weekDayDates[$i]['id'] = self::$weekDayArray[$weekDayDates[$i]['day']];
+            $weekDayDates[$i]['id'] = $this->weekDayArray[$weekDayDates[$i]['day']];
         }   
         
         return $weekDayDates;
