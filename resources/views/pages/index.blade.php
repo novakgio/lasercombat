@@ -429,15 +429,7 @@
                 
                 var homeURL = "{{url('')}}";
 
-                 
-                // $('#fullpage').fullpage({
-                //     anchors: ['firstPage', 'secondPage', '3rdPage'],
-                //     scrollBar: true
-                // });
-
-
-
-
+                
                 $('#createaccount').on('click',function(){
                     var error = "";
                     var name = $('#username').val();
@@ -494,8 +486,7 @@
                     var email = $('#logemail').val();
                     var pass = $('#logpassword').val();
                     if(email=="" ||  pass==""){
-                        sweetAlert("Oops...", "გთხოვთ შეავსოთ ორივე ველი", "error");
-                        
+                        sweetAlert("Oops...", "გთხოვთ შეავსოთ ორივე ველი", "error");  
                     }
                     else
                     {
@@ -518,51 +509,58 @@
                 });
 
 
-                // $('#start_time').keyup(function(){
+                
 
-                //     if( !isNaN($(this).val().split(":")[0]) && !isNaN($(this).val().split(":")[1]) && $(this).val().length==5){
-                        
-                //     }
 
-                  
-
-                // });
+                 function getDifferenceTime(start_time,second_time){
+                    var timeStart = new Date("Mon Jan 01 2007 "+start_time+ " GMT+0530").getTime();
+                    var timeEnd = new Date("Mon Jan 01 2007 "+second_time+" GMT+0530").getTime();
+                    var hourDiff = timeStart - timeEnd; //in ms
+                    var secDiff = hourDiff / 1000; //in s
+                    var minDiff = hourDiff / 60 / 1000; //in minutes
+                    var hDiff = hourDiff / 3600 / 1000; //in hours
+                    var humanReadable = {};
+                    humanReadable.hours = Math.floor(hDiff);
+                    humanReadable.minutes = minDiff - 60 * humanReadable.hours;
+                    return humanReadable;
+                }
 
 
                  function timeValidation(start_time,end_time){
                     
                     var start_firstTime =   parseInt(start_time.split(":")[0]); // like 14,15,16
                     var start_secondTime = parseInt(start_time.split(":")[1]); // like minutes,20,40,50
+                    $min40 = "მინიმუმ შეგიძლიათ შეუკვეთოთ 40 წუთი";
+                    $max80 = "მაქსიმუმ შეგიძლიათ შეუკვეთოთ 80 წუთი";
 
                     var end_firstTime = parseInt(end_time.split(":")[0]);
                     var end_secondTime = parseInt(end_time.split(":")[1]);
                     if(start_time.length!=5 || end_time.length!=5) return false;
-                    if(isNaN(start_secondTime) || isNaN(end_secondTime)){
-                       return false;
-                    }
+                    else if(isNaN(start_secondTime) || isNaN(end_secondTime)) return false;
                     
-                    if((start_firstTime==01 && end_secondTime<60) || (start_firstTime==02 && end_secondTime<60)|| 
-                                    (start_firstTime==00 && end_secondTime<60)) return true;
-                    else if(start_firstTime>end_firstTime) return false;
-                    else if(start_firstTime<14 || start_firstTime>24 || end_firstTime>=60 || end_secondTime>=60) return false;
+                    if( (start_firstTime>=14 && start_firstTime<=23) || start_firstTime==00 || start_firstTime==01){
+                        if( (end_firstTime>=14 && end_firstTime<=23) || end_firstTime==00 || end_firstTime==01 || (end_firstTime==02 && end_secondTime==00)){
+                            if(end_firstTime<start_firstTime) return false;
+                            if(start_secondTime>=60 || end_secondTime>=60) return false;
+                            var humanReadable = getDifferenceTime(end_time,start_time);
+                            if(start_firstTime==23 && end_firstTime==00){
+                                var difference = start_secondTime-end_secondTime;
+                                difference = (difference>0) ? difference : -difference;
+                                if(difference>20) return $max80;
+                                else return true;
+                            }
+                            if(humanReadable.hours==1 && humanReadable.minutes>20) return $max80;
+                            else if(humanReadable.hours==1 && humanReadable.minutes<=20) return true;
 
 
-                    var getFirstTime = end_firstTime - start_firstTime;
-                    var getSecondTime = end_secondTime - start_secondTime;
-                    
-                    if(getFirstTime==0 && getSecondTime<40){
-                        return "მინიმუმ შეგიძლიათ შეუკვეთოთ 40 წუთი";
-                    }
-                    else if(getFirstTime==1 && getSecondTime>20){
-                        return "მაქსიმუმ შეგიძლიათ შეუკვეთოთ 80 წუთი";
-                    }
-                    else { return true;}
+                            else if(humanReadable.hours==0 && humanReadable.minutes<40) return $min40;
+                            else if(humanReadable.hours==0 && humanReadable.minutes>=40) return true;
 
+                            else return $max80;
+                        } else { return false;}
+                    } else{return false;}
 
-
-
-
-
+                    return true;
                 }
 
                 function goToOrder(){
@@ -571,6 +569,7 @@
                     var people_range=$('#people_range').val();
                     var week_id = $('#reserve').attr('rel');
                     var validateTime = timeValidation(start_time,end_time);
+                    console.log(validateTime);
                     if(start_time=="" || end_time=="" || people_range==0){
                         sweetAlert("Oops...", "შეავსეთ ყველა ველი,რათა დაჯავშნოთ", "error");
                     }
@@ -596,27 +595,22 @@
                             else{
                                 sweetAlert("Oops...", result, "error");
                             }
-
-
-
-
-
-                                
                         });
                     }
-
-
-
-
-                    
                 }
 
-                $('#buybutton').on('click',function(){
 
+
+
+                $('#buybutton').on('click',function(){
                     var order_id = $('#orderid').val();
                     window.location.href=homeURL+"/tbcpayment/"+order_id;
 
                 });
+
+
+
+
                 function showBuyButton($price,result){
                     $('#price-box').text($price);
                     $('#orderid').val(result);
@@ -645,14 +639,10 @@
                 }
 
                 $( "#reserve" ).click(function() {
-                    
-                   
-                    if(user!=true){
+                    if(user!=true)
                         showRegister();
-                    }
-                    else{
-                        goToOrder();
-                    }
+                    else 
+                        goToOrder(); 
                 });
 
                 $('.day-cube').on('click',function(){
