@@ -14,9 +14,10 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         // Commands\Inspire::class,
-        'App\Console\Commands\Inspire',
-        'App\Console\Commands\TbcPay',
-        'App\Console\Commands\deactivateSchedules'
+        \App\Console\Commands\Inspire::class,
+        \App\Console\Commands\TbcPay::class,
+        \App\Console\Commands\deactivateSchedules::class,
+        
     ];
 
     /**
@@ -27,13 +28,13 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+
         $schedule->command('inspire')
-                ->hourly();
+                ->everyMinute();
 
-        $schedule->command('TbcCheck')
-                ->hourly();
 
-        $schedule->command('sheduledestroy')
-            ->dailyAt('02:00')->timezone('Asia/Tbilisi');
+        \Log::info("come here");
+        
+        $schedule->command('sheduledestroy')->everyMinute();
     }
 }

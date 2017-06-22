@@ -25,8 +25,8 @@ Route::get('/login',function(){
 
 });
 Route::get('/test',function(){
-	 date_default_timezone_set('Europe/Paris');
-     return date("Y-m-d H:i:s", strtotime("+ 0"." day". " 11 hours"));
+	date_default_timezone_set('Asia/Tbilisi');
+	return date('l', strtotime("+ 0 Days - 20 hours"));
 });
 
 
