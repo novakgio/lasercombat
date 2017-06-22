@@ -25,10 +25,7 @@ Route::get('/login',function(){
 
 });
 Route::get('/test',function(){
- date_default_timezone_set('Asia/Tbilisi');
-        $date = date('Y-m-d H:i:s');
- return $date;
-
+	return var_dump("00" =="00");
 
 });
 
