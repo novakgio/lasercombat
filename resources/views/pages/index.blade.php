@@ -563,6 +563,36 @@
                     return true;
                 }
 
+                $('#start_time').on('focusout',function(){
+                        if($(this).val().length==5){
+                            endTimeSet($(this).val());
+                        }
+                    });
+
+
+                function endTimeSet(time){
+                        
+                        var end_time_minutes = 0;
+                        var first = parseInt(time.split(":")[0]);
+                        var second =parseInt(time.split(":")[1]);
+                        var minutes = 60-second;
+                        if(second<20) {
+                            end_time_minutes=second+40;
+                            if(first<10) first="0"+first;
+                            $('#end_time').val(first+":"+end_time_minutes);
+                        }else{
+                            var first_time = first+1;
+                            if(first_time<10) first_time="0"+first_time;
+                            end_time_minutes=second+40-60;
+                            if(end_time_minutes<10) end_time_minutes="0"+end_time_minutes
+                            $('#end_time').val(first_time+":"+end_time_minutes);
+                        }
+                         
+
+                    }
+
+
+
                 function goToOrder(){
                     var start_time = $('#start_time').val();
                     var end_time = $('#end_time').val();
@@ -711,12 +741,17 @@
                             url: "{{url('getUserOrder')}}"
                         }) 
                         .done(function (data){
-                            $('#profile-popup').fadeOut( 'slow' );
-                            $('#user-ticket').fadeIn( 'slow' );
-                            windowOverlay = document.getElementById('overlay').offsetHeight;
-                            ticketHeight = document.getElementById('user-ticket').offsetHeight;
-                            $('#user-ticket').css("margin-top", (windowOverlay - ticketHeight)/2 );
-                           $('#user-ticket').html(data.userOrder);
+                            if(data.error){
+                                sweetAlert("Oops...", data.error, "error");
+                            }
+                            else{
+                                $('#profile-popup').fadeOut( 'slow' );
+                                $('#user-ticket').fadeIn( 'slow' );
+                                windowOverlay = document.getElementById('overlay').offsetHeight;
+                                ticketHeight = document.getElementById('user-ticket').offsetHeight;
+                                $('#user-ticket').css("margin-top", (windowOverlay - ticketHeight)/2 );
+                                $('#user-ticket').html(data.userOrder);
+                            }
                             
                         });
 

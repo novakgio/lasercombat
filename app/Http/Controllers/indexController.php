@@ -176,18 +176,27 @@ class indexController extends Controller
             $date = $order->time;
             $people = $order->people;
         }
-        $orders = [
-            'count'=>count($orders),
-            'date'=>$date,
-            'people'=>$people,
-            'start_time'=>$start_time,
-            'end_time'=>$end_time,
-            'active'=>$orders[0]->active
-        ];
 
-        $userOrder = view('pages.userticket')->with($orders)->render();
-        
-        return compact('userOrder');
+
+        if( count($orders) != 0){
+
+            $orders = [
+                'count'=>count($orders),
+                'date'=>$date,
+                'people'=>$people,
+                'start_time'=>$start_time,
+                'end_time'=>$end_time,
+                'active'=>$orders[0]->active
+            ];
+
+            $userOrder = view('pages.userticket')->with($orders)->render();
+            
+            return compact('userOrder');
+        }
+        else{
+            $error = "თქვენ არ გაქვთ არცეთი ბილეთი";
+            return compact('error');
+        }
     }
 
 
