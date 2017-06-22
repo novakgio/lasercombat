@@ -5,8 +5,13 @@
                 <div class="reserve-popup" id="reservepopup">
                     <h3 class="succes-h3">დაჯავშნა წარმატებით შესრულდა</h3>
                     <input type="hidden" id="orderid" value="">
-                    <p class="under-h3">შეგიძლიათ იყიდოთ და მიიღოთ 20%იანი ფასდაკლება</p>
-                    <p class="under-h3">Total Price: <span class="price-box" id="price-box">300 GEL</span></p>
+                    <p class="under-h3">თქვენ იყიდეთ პირველი თანხა რაც წერია იმ ფასად ! პირველი ღილაკი (იყიდე ეხლავე და 10 ლარი მოაკელით თქვენს გადასახადს) ! ღილაკი მეორე (იყიდეთ და მოაკელით სრული თანხის 10%</p>
+                    <p class="under-h3">დაჯავშნის ფასი<span class="price-box" id="reserve-price">300 GEL</span></p>
+                    <p class="under-h3">პირველი და მეორე ღილაკების ფასები: <span class="price-box" id="price-box-sale1">300 GEL</span></p><span class="price-box" id="price-box-sale2">300 GEL</span></p>
+                    <div class="row partial-container">
+                        <button class="button" id="buybutton">იყიდე</button>
+                    </div>
+
                     <div class="row partial-container">
                         <button class="button" id="buybutton">იყიდე</button>
                     </div>

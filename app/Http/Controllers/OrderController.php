@@ -12,13 +12,16 @@ use Auth;
 use App\Http\Controllers\indexController as index;
 class OrderController extends Controller 
 {
-    //
-    // mysql time zone not working
-    // send mails
+    private static $beforeEvening = 12;
+    private static $afterEvening = 15;
+    private static $vipDay = 20;
+
+
+
 	private $errors;
     public function makeOrder(Request $request){
     	$error="";
-        $price=20;
+        
     	$checkOrder = DB::SELECT("SELECT * FROM  `schedules` JOIN order_schedule ON order_schedule.schedule_id=schedules.id
                                 JOIN `orders` ON `orders`.`id`=`order_schedule`.`order_id`
 								WHERE `schedules`.`time`>'$request->start_time' AND `orders`.`active`!=0 AND `schedules`.`time`<='$request->end_time' and day_id='$request->week_id'"
@@ -28,25 +31,47 @@ class OrderController extends Controller
     		$error = "ამ დროის შეკვეთა უკვე არსებობს სამწუხაროდ";
     	}
     	else{
-           
-    		$scheduleIDs = DB::SELECT("SELECT * FROM  `schedules`
-								WHERE time>='$request->start_time' AND time<='$request->end_time' and day_id='$request->week_id'"
-							);
-			$user_id = Auth::user()->id;
-			$order = new Order();
-			$order->user_id = $user_id;
-			
+            $firstTime = explode(":",$request->start_time)[0];
+            $secondTime = explode(":",$request->end_time)[0];
+
+            
+            if($firstTime=="23" && $secondTime=="00"){
+                $query = "SELECT * FROM  `schedules`
+                                    WHERE (time>='$firstTime' AND time<='23:50' 
+                                    OR (time>='00:00' AND time<='$request->end_time')) AND day_id='$request->week_id'";
+            }
+            else{
+                $query = "SELECT * FROM  `schedules`
+                                    WHERE time>='$request->start_time' AND time<='$request->end_time' 
+                                    and day_id='$request->week_id'";
+            }
+            
+    		$scheduleIDs = DB::SELECT($query);
+
+
 			date_default_timezone_set('Asia/Tbilisi');
 
 
+			$order = new Order();
+			$order->user_id = Auth::user()->id;
+			
+			
+
             $howManyDays = $this->getUserDate($request->week_id);
+            $order->time = date("Y-m-d H:i:s", strtotime("+".$howManyDays ." day"));
+            
 
-
-		    $order->time = date("Y-m-d H:i:s", strtotime("+".$howManyDays ." day"));
             $order->people = $request->people_range;
-            $order->active = 2; //2 or 1 or 3 later implementation
+            $order->active = 2; //means it's reserved
+
+            $personPrice = $this->calculatePrice($request->start_time,$request->end_time,$request->week_id);
+            $total = $request->people_range* $personPrice;
+
+            $order->price = $total;
+
             $order->save();
         
+           
 			foreach($scheduleIDs as $schedule){
 				$schedule_order = new scheduleOrder();
 				$schedule_order->order_id = $order->id;
@@ -57,12 +82,47 @@ class OrderController extends Controller
 
 
 			}
+            $fivePercent = $total-10;
+            $tenPercent = $total*90/100;
+
+            
+
             
     	}
 
-    	return compact('error','price');
+    	return compact('error','total','fivePercent','tenPercent');
     	
     }
+
+
+    private function calculatePrice($start_time,$end_time,$week_id){
+        if($start_time[0]=="0" && $week_id>=2 && $week_id<=5){
+            return self::$afterEvening;
+        }
+        else if($start_time[0]=="0" && ($week_id==6 && $week_id==7 || $week_id==1)){
+            return self::$vipDay;
+
+        }
+        else if($start_time < "18:00" && $week_id>=2 && $week_id<=6){
+            return self::$beforeEvening;
+        }
+        else if($start_time>="18:00" && $week_id>=2 && $week_id<=5){
+            return self::$afterEvening;
+        }
+        else if( ($start_time>="18:00" && $week_id==6) || $week_id==7 || $week_id==1){
+            return self::$vipDay;
+        }
+
+
+    }
+
+    
+
+    
+
+
+
+
     private function getUserDate($week_id){
         $today = date('l');
         $today_day = date('l', strtotime("$today + 0 Days"));

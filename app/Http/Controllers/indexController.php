@@ -150,10 +150,10 @@ class indexController extends Controller
                 $message->to('glagh14@freeuni.edu.ge', 'Name')->subject( $emailabout );
          });
          if($sendEmail){
-         	$error = "იმეილი წარმატებით გაიგზავნა.მადლობა თქვენი აზრის დაფიქსირებისთვის";
+         	$error = "იმეილი წარმატებით გაიგზავნა. გმადლობთ თქვენი აზრის დაფიქსირებისთვის";
          }
          else{
-         	$error = "იმელის გაგზავნა ვერ მოხერხდა,ცადეთ მოგვიანებით";
+         	$error = "იმელის გაგზავნა ვერ მოხერხდა, სცადეთ მოგვიანებით";
          }
          return compact('error');
 
@@ -176,6 +176,8 @@ class indexController extends Controller
             $date = $order->time;
             $people = $order->people;
         }
+
+        
         $orders = [
             'count'=>count($orders),
             'date'=>$date,

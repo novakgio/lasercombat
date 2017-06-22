@@ -527,7 +527,7 @@
 
 
                  function timeValidation(start_time,end_time){
-                    
+
                     var start_firstTime =   parseInt(start_time.split(":")[0]); // like 14,15,16
                     var start_secondTime = parseInt(start_time.split(":")[1]); // like minutes,20,40,50
                     $min40 = "მინიმუმ შეგიძლიათ შეუკვეთოთ 40 წუთი";
@@ -540,7 +540,7 @@
                     
                     if( (start_firstTime>=14 && start_firstTime<=23) || start_firstTime==00 || start_firstTime==01){
                         if( (end_firstTime>=14 && end_firstTime<=23) || end_firstTime==00 || end_firstTime==01 || (end_firstTime==02 && end_secondTime==00)){
-                            if(end_firstTime<start_firstTime) return false;
+                            if(end_firstTime<start_firstTime && start_firstTime!=23) return false;
                             if(start_secondTime>=60 || end_secondTime>=60) return false;
                             var humanReadable = getDifferenceTime(end_time,start_time);
                             if(start_firstTime==23 && end_firstTime==00){
@@ -569,6 +569,8 @@
                     var people_range=$('#people_range').val();
                     var week_id = $('#reserve').attr('rel');
                     var validateTime = timeValidation(start_time,end_time);
+                    var differenceTime = getDifferenceTime(end_time,start_time);
+                    console.log(differenceTime);
                     console.log(validateTime);
                     if(start_time=="" || end_time=="" || people_range==0){
                         sweetAlert("Oops...", "შეავსეთ ყველა ველი,რათა დაჯავშნოთ", "error");
@@ -585,12 +587,12 @@
                      $.ajax({
                             method: "POST",
                             url: "{{url('checkOrder')}}",
-                            data:{start_time:start_time,end_time:end_time,people_range:people_range,week_id:week_id}
+                            data:{start_time:start_time,end_time:end_time,people_range:people_range,week_id:week_id,differenceTime:differenceTime}
                         }) 
                         .done(function (data){
                             var result = data.error;
                             if(Number.isInteger(parseInt(result))){
-                                showBuyButton(data.price,result);
+                                showBuyButton(data.fivePercent,data.tenPercent,data.total,result);
                             }
                             else{
                                 sweetAlert("Oops...", result, "error");
@@ -598,6 +600,8 @@
                         });
                     }
                 }
+
+
 
 
 
@@ -611,8 +615,10 @@
 
 
 
-                function showBuyButton($price,result){
-                    $('#price-box').text($price);
+                function showBuyButton(pricesale1,pricesale2,reservePrice,result){
+                    $('#price-box-sale1').text(pricesale1);
+                    $('#price-box-sale2').text(pricesale2)
+                    $('#reserve-price').text(reservePrice);
                     $('#orderid').val(result);
                     console.log($('#orderid').val());
                     $( ".nav-container" ).fadeOut('slow');
@@ -622,6 +628,10 @@
                     registrationHeight = document.getElementById('reservepopup').offsetHeight;
                     $('#reservepopup').css("margin-top", (windowOverlay - registrationHeight)/2 );
                 }
+
+               
+
+
 
                 // მომხმარებელი აჭერს პროდუქტზე BUY (/buy)-ს. რომელსაც აკონტროლებს პირველი კონტროლერი რაც გამოგიგზავნე. ეგ კონტროლერი თავისით ამისამართებს view-ზე, რომელიც ისევ თავისით ამისამართებს tbc-ს url-ზე, სადაც ხდება ბარათის ნომრის ჩაწერა და გადახდა. სერვერული შეცდომის გარდა ყველა ვარიანტში, თიბისი აბრუნებს შენ /ok ურლ-ზე, თავისი $_REQUEST['trans_id']-ით. რომელსაც შენ ისევ curl-ში აგზავნი და რესპონსად გიბრუნდება ტრანზაქციის აიდის სტატუსი, შესრულდა თუარა ტრანზაქცია წარმატებით.
 
