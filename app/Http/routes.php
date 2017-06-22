@@ -25,9 +25,11 @@ Route::get('/login',function(){
 
 });
 Route::get('/test',function(){
-	return var_dump("00" =="00");
-
+	 date_default_timezone_set('Europe/Paris');
+     return date("Y-m-d H:i:s", strtotime("+ 0"." day". " 11 hours"));
 });
+
+
 
 Route::get('/tbcpayment/{order_id}','TbcController@startPayment');
 

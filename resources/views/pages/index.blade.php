@@ -183,7 +183,7 @@
                                                         <div class="guid-cube free-cube"></div>
                                                     </div>
                                                     <div class="col span-3-of-4 text-left">
-                                                        <p class="guid-label free-text"> -   Free</p>
+                                                        <p class="guid-label free-text"> -   თავისუფალი</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -193,7 +193,7 @@
                                                         <div class="guid-cube Reserved-cube"></div>
                                                     </div>
                                                     <div class="col span-3-of-4 text-left">
-                                                        <p class="guid-label Reserved-text"> -   Reserved</p>
+                                                        <p class="guid-label Reserved-text"> -   დაჯავშნილი</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -203,7 +203,7 @@
                                                         <div class="guid-cube Bought-cube"></div>
                                                     </div>
                                                     <div class="col span-3-of-4 text-left">
-                                                        <p class="guid-label Bought-text"> -   Bought</p>
+                                                        <p class="guid-label Bought-text"> -   ნაყიდი</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -264,7 +264,7 @@
                                                             <input type="text" placeholder="14:20" id="start_time" class="small-iput">
                                                         </div>
                                                         <div class="col span-1-of-2 text-left">
-                                                            <p class="input-label"> - Start Time</p>
+                                                            <p class="input-label"> - დაწყების დრო</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -276,7 +276,7 @@
                                                             <input type="text" placeholder="15:10" id="end_time" class="small-iput">
                                                         </div>
                                                         <div class="col span-1-of-2 text-left">
-                                                            <p class="input-label"> - End Time</p>
+                                                            <p class="input-label"> - დასრულების დრო</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -290,7 +290,7 @@
                                                     </div>
                                                     <div class="col span-3-of-2 text-left">
                                                         <span class="range-slider__value">0</span>
-                                                        <p class="value-label"> - Poeple Range</p>
+                                                        <p class="value-label"> - ხალხის რაოდენობა</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -298,7 +298,7 @@
                                         <div class="row button-line-container">
                                             <div class="row">
                                                 <div class="col span-1-of-4">
-                                                    <button class="button" rel="{{$today_id}}" id="reserve">Reserve</button>
+                                                    <button class="button" rel="{{$today_id}}" id="reserve">დაჯავშნე</button>
                                                 </div>
                                                  
                                             </div>
@@ -600,8 +600,8 @@
                     var week_id = $('#reserve').attr('rel');
                     var validateTime = timeValidation(start_time,end_time);
                     var differenceTime = getDifferenceTime(end_time,start_time);
-                    console.log(differenceTime);
-                    console.log(validateTime);
+
+                    
                     if(start_time=="" || end_time=="" || people_range==0){
                         sweetAlert("Oops...", "შეავსეთ ყველა ველი,რათა დაჯავშნოთ", "error");
                     }

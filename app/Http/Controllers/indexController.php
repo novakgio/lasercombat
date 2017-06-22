@@ -25,6 +25,18 @@ class indexController extends Controller
         "Saturday"=>7
     );
 
+    public  $weekDayGeorgian = array(
+        "Sunday"=>'კვირა',
+        "Monday"=>'ორშაბათი',
+        "Tuesday"=>'სამშაბათი',
+        "Wednesday"=>'ოთხშაბათი',
+        "Thursday"=>'ხუთშაბათი',
+        "Friday"=>'პარასკევი',
+        "Saturday"=>'შაბათი'
+    );
+
+
+
 
 
     private static $daysByIDs = array(
@@ -49,9 +61,7 @@ class indexController extends Controller
     public function getMainPage(){
         date_default_timezone_set('Europe/Paris');
         $weekDay_ID = $this->weekDayArray[date('l')];
-        $orders = DB::SELECT("SELECT * FROM
-        					( SELECT * FROM `orders`  JOIN `order_schedule` ON `orders`.`id` = `order_schedule`.`order_id` WHERE orders.active!=0)AS example
-        					RIGHT JOIN `schedules` ON example.schedule_id=`schedules`.`id` WHERE `schedules`.`day_id` ='$weekDay_ID' AND `schedules`.`time`!='02:00'");
+        $orders = DB::SELECT("SELECT * FROM `orders` JOIN order_schedule on orders.id = order_schedule.order_id and orders.active!=0   right join schedules on order_schedule.schedule_id = schedules.id  where schedules.day_id=$weekDay_ID and schedules.time!='02:00'");
        	
         $weekDayDates = $this->getDates();
         $today_id = $this->weekDayArray[date('l')];
@@ -60,7 +70,12 @@ class indexController extends Controller
 
         ];
 
-        // SELECT * FROM `orders` JOIN order_schedule on orders.id = order_schedule.order_id and orders.active!=0   right join schedules on order_schedule.schedule_id = schedules.id  where schedules.day_id=5
+
+         // $orders = DB::SELECT("SELECT * FROM
+         //                    ( SELECT * FROM `orders`  JOIN `order_schedule` ON `orders`.`id` = `order_schedule`.`order_id` WHERE orders.active!=0)AS example
+         //                    RIGHT JOIN `schedules` ON example.schedule_id=`schedules`.`id` WHERE `schedules`.`day_id` ='$weekDay_ID' AND `schedules`.`time`!='02:00'");
+        
+         
 
         $orderTable = view('pages.orderTable')->with($orders);
         
@@ -71,10 +86,13 @@ class indexController extends Controller
     
 
     public function getDayOrders(Request $request){
-        $orders = DB::SELECT("SELECT * FROM
-        					( SELECT * FROM `orders`  JOIN `order_schedule` ON `orders`.`id` = `order_schedule`.`order_id` WHERE orders.active!=0)AS example
-        					RIGHT JOIN `schedules` ON example.schedule_id=`schedules`.`id` WHERE `schedules`.`day_id` ='$request->week_id' AND `schedules`.`time`!='14:00'");
+        // $orders = DB::SELECT("SELECT * FROM
+        // 					( SELECT * FROM `orders`  JOIN `order_schedule` ON `orders`.`id` = `order_schedule`.`order_id` WHERE orders.active!=0)AS example
+        // 					RIGHT JOIN `schedules` ON example.schedule_id=`schedules`.`id` WHERE `schedules`.`day_id` ='$request->week_id' AND `schedules`.`time`!='14:00'");
 
+
+        $orders = DB::SELECT("SELECT * FROM `orders` JOIN order_schedule on orders.id = order_schedule.order_id and orders.active!=0   right join schedules on order_schedule.schedule_id = schedules.id  where schedules.day_id=$request->week_id and schedules.time!='02:00'");
+        
         $weekDayDates = $this->getDates();
         $orders = [
             'orders'=>$orders
@@ -91,9 +109,10 @@ class indexController extends Controller
         $today = date('l');
 
         for($i=0;$i<7;$i++){
+            $day= date('l', strtotime("$today + $i Days"));
             $weekDayDates[$i]['date'] = date("Y-m-d", strtotime("+".$i ."day"));
-            $weekDayDates[$i]['day'] = date('l', strtotime("$today + $i Days"));
-            $weekDayDates[$i]['id'] = $this->weekDayArray[$weekDayDates[$i]['day']];
+            $weekDayDates[$i]['day'] = $this->weekDayGeorgian[date('l', strtotime("$today + $i Days"))];
+            $weekDayDates[$i]['id'] = $this->weekDayArray[$day];
         }   
         
         return $weekDayDates;
@@ -102,43 +121,7 @@ class indexController extends Controller
 
     
     public function emailsend(Request $request){
-  //    $to = "gioskofield@gmail.com";
-        // $subject = "LaserCombat ".$request->emailabout;
-        // $txt = "Hello world!";
-        // $headers = "From: LaserCombat  ".$request->emailabout . "\r\n" .
-        // "CC: glagh14@freeuni.edu.ge";
-        // $error="";
-        // if(mail($to,$subject,$txt,$headers)){
-        //  $error = "იმეილი წარმატებით გაიგზავნა.მადლობა თქვენი აზრის დაფიქსირებისთვის";
-
-        // }
-        // else{
-        //  $error = "იმელის გაგზავნა ვერ მოხერხდა,ცადეთ მოგვიანებით";
-        // }
-        // return compact('error');
-        # Include the Autoloader (see "Libraries" for install instructions)
-        
-
-        // # Instantiate the client.
-        // $mgClient = new Mailgun('key-a3248a555cd4daf6c243c2915e9982b8');
-        // $domain = "sandboxf12c64ec56694f11b9e447dce31a0ddb.mailgun.org";
-
-        // # Make the call to the client.
-        // $result = $mgClient->sendMessage("$domain",
-        //           array('from'    => 'From LaserCombat <postmaster@sandboxf12c64ec56694f11b9e447dce31a0ddb.mailgun.org>',
-        //                 'to'      => 'Giorgi <glagh14@freeuni.edu.ge>',
-        //                 'subject' => $request->emailabout,
-        //                 'text'    => $request->emailtext));
-        // if($result){
-        //     $error = "იმეილი წარმატებით გაიგზავნა.მადლობა თქვენი აზრის დაფიქსირებისთვის";
-        // }
-        // else{
-        //     $error = "იმელის გაგზავნა ვერ მოხერხდა,ცადეთ მოგვიანებით";
-        // }
-        // return compact('error');
-
-
-    	 $user = Auth::user();
+         $user = Auth::user();
     	 $emailabout = $request->emailabout;
     	 $from = "LaserCombat No Email";
     	 if($user!=null && $user->email!=null){
