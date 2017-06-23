@@ -59,12 +59,12 @@ class indexController extends Controller
     //xan 0 xan 2, order_scheduleshi orivea da titos sxvadasxva active aqvs orders tableshi
 
     public function getMainPage(){
-        
+        date_default_timezone_set('Asia/Tbilisi');
         $weekDay_ID = $this->weekDayArray[date('l', strtotime("+0 Days - 2 hours"))];
         $orders = DB::SELECT("SELECT * FROM `orders` JOIN order_schedule on orders.id = order_schedule.order_id and orders.active!=0   right join schedules on order_schedule.schedule_id = schedules.id  where schedules.day_id=$weekDay_ID and schedules.time!='02:00'");
        	
         $weekDayDates = $this->getDates();
-        $today_id = $this->weekDayArray[date('l')];
+        $today_id = $this->weekDayArray[date('l', strtotime("+0 Days - 2 hours"))];
         $orders = [
             'orders'=>$orders
 
@@ -104,7 +104,7 @@ class indexController extends Controller
 
     
     public function getDates(){
-        
+        date_default_timezone_set('Asia/Tbilisi');
         $weekDayDates = array();
         
 

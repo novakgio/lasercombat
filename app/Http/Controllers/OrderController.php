@@ -32,12 +32,12 @@ class OrderController extends Controller
     
     public function makeOrder(Request $request){
     	$error="";
-        
+        date_default_timezone_set('Asia/Tbilisi');
         $today_day = date('l', strtotime("+0 Days - 2 hours"));
         $interval = $this->getInterval($request->start_time);
         
 
-        if($interval->h==0 && $this->weekDayArray[$today_day] == $request->week_id){
+        if( $interval->h==0 && $this->weekDayArray[$today_day] == $request->week_id){
             $error = "შეკვეთა უნდა აიღო ამ დროიდან მინიმუმ 1 საათის შემდეგ";
         }
         else{
@@ -120,7 +120,7 @@ class OrderController extends Controller
 
     private function getUserDate($week_id){
         
-       
+       date_default_timezone_set('Asia/Tbilisi');
         $today_day = date('l', strtotime("+0 Days - 2 hours"));
 
         $indexController = new index();
@@ -129,15 +129,13 @@ class OrderController extends Controller
         else if ( $week_id-$today_id<0 ) $userDate = 7-$today_id+$week_id;
         else $userDate = 0;
         
-        return date("Y-m-d H:i:s", strtotime("+".$userDate ." day"));
+        return date("Y-m-d H:i:s", strtotime("+".$userDate ." day - 2 hours"));
     }
 
-    private function getParisTime(){
-        date_default_timezone_set('Europe/Paris');
-        return date('l');
-    }
+   
 
     private function getInterval($start_time){
+        date_default_timezone_set('Asia/Tbilisi');
         $date1 = new DateTime($start_time);
         $date2 = new DateTime(date('H:i'));
         $interval = $date1->diff($date2);
