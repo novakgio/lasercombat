@@ -6,12 +6,16 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use DB;
+use App\Order;
+use Session;
 use App\User;
+use App\scheduleOrder;
 use Box\Spout\Reader\ReaderFactory;
 use Box\Spout\Writer\WriterFactory;
 use Box\Spout\Common\Type;
 use Box\Spout\Writer\Style\StyleBuilder;
 use Box\Spout\Writer\Style\Color;
+
 class AdminController extends Controller
 {
     //
@@ -79,7 +83,7 @@ class AdminController extends Controller
     private function makeQuery($active){
     	
         return DB::SELECT("SELECT `schedules`.`time`,`order_schedule`.`order_id`,`schedules`.`day_id`,
-                            `orders`.`time` as order_time,`orders`.`people`,`orders`.`user_id` FROM `orders`  JOIN `order_schedule` ON `orders`.`id` = `order_schedule`.`order_id` 
+                            `orders`.`time` as order_time,`orders`.`people`,`orders`.`id`,`orders`.`user_id` FROM `orders`  JOIN `order_schedule` ON `orders`.`id` = `order_schedule`.`order_id` 
                     JOIN schedules ON schedules.id = order_schedule.schedule_id WHERE orders.active =$active");
     
 
@@ -108,6 +112,28 @@ class AdminController extends Controller
 
         
         $writer->close();
+    }
+
+    public function disableOrder($id){
+        $order = Order::findOrFail($id);
+        $order->active = 0;
+
+        if($order->save()){
+            Session::flash('orderDisable','ორდერი წარმატებით გაუქმდა');
+        }
+        return back();
+    }
+
+    public function deleteOrder($id){
+        $order = Order::findOrFail($id);
+        if($order){
+            $deleteSchedules = scheduleOrder::where('order_id','=',$order->id)->delete();
+            $order = $order->delete();
+            if($order && $deleteSchedules){
+                Session::flash('deleteOrder','ორდერი წარმატებით წაიშალა');
+            }
+        }
+        return back();
     }
 
 

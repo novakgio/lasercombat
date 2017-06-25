@@ -29,6 +29,8 @@ Route::get('/test',function(){
 });
 
 
+Route::get('/disableOrder/{id}','AdminController@disableOrder');
+Route::get('/deleteOrder/{id}','AdminController@deleteOrder');
 
 Route::get('/tbcpayment/{order_id}','TbcController@startPayment');
 

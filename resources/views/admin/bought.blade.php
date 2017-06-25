@@ -297,7 +297,13 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">წაშალე ან შეცვალე პროდუქტი</h1>
+                @if(Session::has('orderDisable'))
+                    <h1 class="page-header">{{Session::get('orderDisable')}}</h1>
+                @elseif(Session::has('orderDelete'))
+                    <h1 class="page-header">{{Session::get('orderDelete')}}</h1>
+                @else
+                    <h1 class="page-header">ყველა შეკვეთა</h1>
+                @endif
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -310,20 +316,23 @@
 
             </style>
             <!-- /.row -->
-          <div class="container">
- <a href="{{url('useremailexcel')}}">გადმოწერე იმეილების ექსელი</a>    
+            <div class="container">
+ 
+ <a href="{{url('useremailexcel')}}">გადმოწერე იმეილების ექსელი</a>
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th>შეკვეთის აიდი</th>
+       <th>შეკვეთის აიდი</th>
         <th>შეკვეთის დრო</th>
         <th>შეკვეთის ხანგრძლივობა</th>
         <th>ხალხის რაოდენობა</th>
         <th>იუზერის სახელი</th>
          <th>იუზერის მობილური</th>
+         <th>ორდერის წაშლა</th>
+         <th>ორდერის გაუქმება</th>
       </tr>
     </thead>
-    <tbody>
+   <tbody>
     @php $rememberOrders=array(); @endphp
     @foreach($orders as $order)
     <tr>
@@ -347,6 +356,8 @@
             <td>{{$order->people}}</td>
             <td>{{$user->name}}</td>
             <td>{{$user->phone}}</td>
+            <td><a   href="{{ url('/deleteOrder', [$order->id]) }}" class="btn btn-danger">წაშალე ორდერი</a></td>
+            <td><a  href="{{ url('/disableOrder', [$order->id]) }}" class="btn btn-danger">გააუქმე ორდერი</a></td>
         @endif
          @php array_push($rememberOrders,$order->order_id);@endphp
         </tr>
@@ -357,7 +368,6 @@
 
             
         </div>
-        <!-- /#page-wrapper -->
 
     </div>
     <!-- /#wrapper -->
