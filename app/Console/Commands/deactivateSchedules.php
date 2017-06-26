@@ -39,7 +39,7 @@ class deactivateSchedules extends Command
     public function handle()
     {
        
-        \Log::info("look");
+        date_default_timezone_set('Asia/Tbilisi');
         $date = date('Y-m-d H:i:s');
         $mysql = DB::SELECT("UPDATE orders SET active=0 WHERE time<='$date'");
     }

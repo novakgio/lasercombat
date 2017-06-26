@@ -71,6 +71,16 @@ $(document).ready(function(){
     var createAccountHeight;
     var profileHeight;
     
+    $( "#contact-drop-line" ).click(function() {
+        $( ".nav-container" ).fadeOut('slow');
+        $( "#overlay" ).fadeIn('slow');
+        $('#textus').fadeIn( 'slow' );
+        $('#close-textus').css('display', 'none');
+        windowOverlay = document.getElementById('overlay').offsetHeight;
+        textusHeight = document.getElementById('textus').offsetHeight;
+        $('#textus').css("margin-top", (windowOverlay - textusHeight)/2 );
+    });
+    
     $( "#prfile" ).click(function() {
         $( ".nav-container" ).fadeOut('slow');
         $( "#section1" ).fadeOut('slow');
@@ -110,7 +120,14 @@ $(document).ready(function(){
     });
     
     
-    
+    $( "#reserve" ).click(function() {
+        $( ".nav-container" ).fadeOut('slow');
+        $( "#overlay" ).fadeIn('slow');
+        $('#reservepopup').fadeIn( 'slow' );
+        windowOverlay = document.getElementById('overlay').offsetHeight;
+        registrationHeight = document.getElementById('reservepopup').offsetHeight;
+        $('#reservepopup').css("margin-top", (windowOverlay - registrationHeight)/2 );
+    });
     
     $( "#sign-up" ).click(function() {
         $( ".nav-container" ).fadeOut('slow');
@@ -153,6 +170,7 @@ $(document).ready(function(){
         $('#reservepopup').fadeOut( 'slow' );
         
         $( ".nav-container" ).fadeIn('slow');
+        $('#close-textus').css('display', 'block');
     })
     
     $( "#my-contact" ).click(function() {

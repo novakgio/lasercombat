@@ -32,9 +32,6 @@ class Kernel extends ConsoleKernel
         $schedule->command('inspire')
                 ->everyMinute();
 
-
-        \Log::info("come here");
-        
-        $schedule->command('sheduledestroy')->everyMinute();
+        $schedule->command('sheduledestroy')->daily()->at('03:10')->timezone('Asia/Tbilisi');
     }
 }

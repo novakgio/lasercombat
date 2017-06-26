@@ -286,10 +286,10 @@
                                             <div class="row">
                                                 <div class="range-slider">
                                                     <div class="col span-1-of-4">
-                                                        <input class="range-slider__range" id="people_range" type="range" value="0" min="0" max="10">
+                                                        <input class="range-slider__range" id="people_range" type="range" value="4" min="4" max="10">
                                                     </div>
                                                     <div class="col span-3-of-2 text-left">
-                                                        <span class="range-slider__value">0</span>
+                                                        <span class="range-slider__value">4</span>
                                                         <p class="value-label"> - ხალხის რაოდენობა</p>
                                                     </div>
                                                 </div>
@@ -340,7 +340,7 @@
                         </div>
                     </div>
                 </div>
-               <div class="section " id="section3">
+                        <div class="section " id="section3">
                     <div class="intro">
                         <div class="row">
                             <h2>Contact</h2>
@@ -364,6 +364,16 @@
                                     </div>
                                 </div>
                                 <div class="row contact-line">
+                                    <a href="#section4" id="contact-drop-line" class="contact-drop-us-a-line">
+                                        <div class="icon-big-container address instagram">
+                                            <i class="ion-android-mail icon-big"></i>
+                                        </div>
+                                        <div class="icon-text-right address">
+                                            <span class="contact-label instagram">Drop Us A Line</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="row contact-line">
                                     <a href="https://www.google.ge/">
                                         <div class="icon-big-container address facebook">
                                             <i class="ion-social-facebook icon-big-slim"></i>
@@ -379,17 +389,7 @@
                                             <i class="ion-social-googleplus icon-big"></i>
                                         </div>
                                         <div class="icon-text-right address">
-                                            <span class="contact-label googleplus">Google+</span>
-                                        </div>
-                                    </a>
-                                </div>
-                                <div class="row contact-line">
-                                    <a href="https://www.google.ge/">
-                                        <div class="icon-big-container address instagram">
-                                            <i class="ion-social-instagram-outline icon-big"></i>
-                                        </div>
-                                        <div class="icon-text-right address">
-                                            <span class="contact-label instagram">Instagram</span>
+                                            <span class="contact-label googleplus">Info@lasercombat.com</span>
                                         </div>
                                     </a>
                                 </div>

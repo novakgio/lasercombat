@@ -349,7 +349,14 @@
 }
 
 
-
+.dorp-us-text {
+    font-family: GothamMedium;
+    width: 70%;
+    margin-left: 15%;
+    text-align: center;
+    font-size: 25px;
+    color: #202136;
+}
 
 
 
