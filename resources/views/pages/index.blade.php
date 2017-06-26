@@ -614,6 +614,7 @@
                         
                     }
                     else{
+                        
                      $.ajax({
                             method: "POST",
                             url: "{{url('checkOrder')}}",

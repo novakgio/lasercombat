@@ -93,13 +93,13 @@ $(document).ready(function(){
         $('#profile-popup').css("margin-top", (windowOverlay - profileHeight)/2 );
     });
     
-    $( "#my-tikcet" ).click(function() {
-        $('#profile-popup').fadeOut( 'slow' );
-        $('#user-ticket').fadeIn( 'slow' );
-        windowOverlay = document.getElementById('overlay').offsetHeight;
-        ticketHeight = document.getElementById('user-ticket').offsetHeight;
-        $('#user-ticket').css("margin-top", (windowOverlay - ticketHeight)/2 );
-    });
+    // $( "#my-tikcet" ).click(function() {
+    //     $('#profile-popup').fadeOut( 'slow' );
+    //     $('#user-ticket').fadeIn( 'slow' );
+    //     windowOverlay = document.getElementById('overlay').offsetHeight;
+    //     ticketHeight = document.getElementById('user-ticket').offsetHeight;
+    //     $('#user-ticket').css("margin-top", (windowOverlay - ticketHeight)/2 );
+    // });
     
     $( "#close-ticket" ).click(function() {
         $('#user-ticket').fadeOut( 'slow' );
@@ -120,14 +120,14 @@ $(document).ready(function(){
     });
     
     
-    $( "#reserve" ).click(function() {
-        $( ".nav-container" ).fadeOut('slow');
-        $( "#overlay" ).fadeIn('slow');
-        $('#reservepopup').fadeIn( 'slow' );
-        windowOverlay = document.getElementById('overlay').offsetHeight;
-        registrationHeight = document.getElementById('reservepopup').offsetHeight;
-        $('#reservepopup').css("margin-top", (windowOverlay - registrationHeight)/2 );
-    });
+    // $( "#reserve" ).click(function() {
+    //     $( ".nav-container" ).fadeOut('slow');
+    //     $( "#overlay" ).fadeIn('slow');
+    //     $('#reservepopup').fadeIn( 'slow' );
+    //     windowOverlay = document.getElementById('overlay').offsetHeight;
+    //     registrationHeight = document.getElementById('reservepopup').offsetHeight;
+    //     $('#reservepopup').css("margin-top", (windowOverlay - registrationHeight)/2 );
+    // });
     
     $( "#sign-up" ).click(function() {
         $( ".nav-container" ).fadeOut('slow');

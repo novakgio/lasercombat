@@ -5,19 +5,20 @@
                 <div class="reserve-popup" id="reservepopup">
                     <h3 class="succes-h3">დაჯავშნა წარმატებით შესრულდა</h3>
                     <input type="hidden" id="orderid" value="">
-                    <p class="under-h3">თქვენ იყიდეთ პირველი თანხა რაც წერია იმ ფასად ! პირველი ღილაკი (იყიდე ეხლავე და 10 ლარი მოაკელით თქვენს გადასახადს) ! ღილაკი მეორე (იყიდეთ და მოაკელით სრული თანხის 10%</p>
-                    <p class="under-h3">დაჯავშნის ფასი<span class="price-box" id="reserve-price">300 GEL</span></p>
-                    <p class="under-h3">პირველი და მეორე ღილაკების ფასები: <span class="price-box" id="price-box-sale1">300 GEL</span></p><span class="price-box" id="price-box-sale2">300 GEL</span></p>
-                    <div class="row partial-container">
-                        <button class="button" id="buybutton">იყიდე</button>
+                    <p class="under-h3 long-copy">თქვენ იყიდეთ პირველი თანხა რაც წერია იმ ფასად ! პირველი ღილაკი (იყიდე ეხლავე და 10 ლარი მოაკელით თქვენს გადასახადს) ! ღილაკი მეორე (იყიდეთ და მოაკელით სრული თანხის 10%</p>
+                    <p class="under-h3">დაჯავშნის ფასი: <span class="price-box" id="reserve-price">300 GEL</span></p>
+                   
+                    <div class="row partial-container-second modify-container">
+                        <span class="price-first-mine" id="price-box-sale1">300 GEL</span>
+                        <span class="price-second-mine" id="price-box-sale2">300 GEL</span> 
                     </div>
-
-                    <div class="row partial-container">
-                        <button class="button" id="buybutton">იყიდე</button>
+                    <div class="row partial-container-second">
+                        <button class="button-second" id="buybutton">იყიდე</button>
+                        <button class="button-third" id="buybutton">იყიდე</button>
                     </div>
                 </div>
 
-                
+                <!-- price-box-sale2 price-box-sale1 -->
                 
                 <div class="registration-chooser" id="registration-chooser">
                     <div class="row">

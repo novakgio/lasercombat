@@ -46,7 +46,7 @@
 
 h3 {
     text-align: center;
-    font-family: GothamUltra;
+    font-family: BPGWeb002Caps;
     font-size: 40px;
     color: rgb(27, 22, 37);
     margin-top: 30px;
@@ -93,7 +93,7 @@ h3 {
 }
 
 .main-nav li {
-    font-family: GothamMedium;
+    font-family: BPGWeb002;
     display: inline-block;
     margin-left: 40px;
     transition: all .5s ease-in-out;
@@ -178,7 +178,7 @@ h3 {
 #section1 h2 {
     margin-top: 0px;
     margin-bottom: 50px;
-    font-family: GothamUltra;
+     font-family: BPGWeb002Caps;
     font-size: 40px;
     color: rgb(27, 22, 37);
 }
@@ -202,7 +202,7 @@ h3 {
 .day-cube {
     margin-bottom: 10px;
     margin-top: 5px;
-    font-family: GothamMedium;
+    font-family: BPGWeb002;
     width: 90%;
     margin-left: 10%;
     height: 60px;
@@ -263,7 +263,7 @@ h3 {
 }
 
 .guid-label {
-    font-family: GothamMedium;
+    font-family: BPGWeb002;
     font-size: 17px;
     height: 20px;
     vertical-align: middle;
@@ -387,14 +387,14 @@ h3 {
     border: 2px solid #d6f1fc;
     background: #202136;
     font-size: 20px;
-    font-family: GothamMedium;
+    font-family: BPGWeb002;
     color: #d6f1fc;
 }
 
 .input-label {
     margin: 0px;
     font-size: 20px;
-    font-family: GothamMedium;
+    font-family: BPGWeb002;
     color: #d6f1fc;
     margin-top: 10px;
 }
@@ -460,7 +460,7 @@ h3 {
 .range-slider__value {
     font-weight: 300;
     font-size: 20px;
-    font-family: GothamMedium;
+    font-family: BPGWeb002;
     display: inline-block;
     position: relative;
     width: 36px;
@@ -499,7 +499,7 @@ input::-moz-focus-outer {
     display: inline-block;
     margin: 0px;
     font-size: 20px;
-    font-family: GothamMedium;
+    font-family: BPGWeb002;
     color: #d6f1fc;
     margin-top: 10px;
 }
@@ -519,9 +519,64 @@ input::-moz-focus-outer {
     background: #202136;
     height: 35px;
     font-size: 20px;
-    font-family: GothamMedium;
+    font-family: BPGWeb002;
     color: #d6f1fc;
     cursor: pointer;
+}
+
+.button-second {
+    width: 30%;
+    margin-left: 14%;
+    margin-right: 5%;
+    border-radius: 5px;
+    box-shadow: none;
+    border: 2px solid #d6f1fc;
+    background: #202136;
+    height: 35px;
+    font-size: 20px;
+    font-family: BPGWeb002;
+    color: #d6f1fc;
+    cursor: pointer;
+}
+
+.button-third {
+    width: 30%;
+    margin-right: 14%;
+    margin-left: 5%;
+    border-radius: 5px;
+    box-shadow: none;
+    border: 2px solid #d6f1fc;
+    background: #202136;
+    height: 35px;
+    font-size: 20px;
+    font-family: BPGWeb002;
+    color: #d6f1fc;
+    cursor: pointer;
+}
+
+.price-first-mine  {
+    width: 50%;
+    text-align: center;
+    color: #1b1625;
+    border-radius: 5px;
+    border: 2px solid #1b1625;
+    padding: 5px 10px;
+    margin-right: 15%;
+}
+
+.price-second-mine  {
+    width: 50%;
+    text-align: center;
+    color: #1b1625;
+    border-radius: 5px;
+    border: 2px solid #1b1625;
+    padding: 5px 10px;
+    margin-left: 15%;
+}
+
+.modify-container {
+    text-align: center;
+    margin: 30px 0px;
 }
 
 
@@ -568,7 +623,7 @@ input::-moz-focus-outer {
     font-size: 16px;
     margin-top: 7px;
     margin-bottom: 7px;
-    font-family: GothamMedium;
+    font-family: BPGWeb002;
     color: #d6f1fc;
 }
 
@@ -583,7 +638,7 @@ input::-moz-focus-outer {
 }
 
 .time-value-continer {
-    font-family: GothamMedium;
+    font-family: BPGWeb002;
     margin-top: -4px;
     border-radius: 5px;
     padding: 30px;
@@ -638,7 +693,7 @@ input::-moz-focus-outer {
 #section2 h2 {
     margin-top: 0px;
     margin-bottom: 50px;
-    font-family: GothamUltra;
+     font-family: BPGWeb002Caps;
     font-size: 40px;
     color: #d6f1fc;
 }
@@ -687,7 +742,7 @@ input::-moz-focus-outer {
 #section3 h2 {
     margin-top: 0px;
     margin-bottom: 50px;
-    font-family: GothamUltra;
+     font-family: BPGWeb002Caps;
     font-size: 40px;
     color: #202136;
 }
@@ -720,7 +775,7 @@ input::-moz-focus-outer {
 .icon-text-right {
     position: relative;
     height: 50px;
-    font-family: GothamMedium;
+    font-family: BPGWeb002;
     font-size: 30px;
     width: 300px;
     color: #202136;
@@ -806,7 +861,7 @@ input::-moz-focus-outer {
 
 .long-copy-footer {
     font-size: 15px;
-    font-family: GothamMedium;
+    font-family: BPGWeb002;
     color: #1b1625;
 }
 

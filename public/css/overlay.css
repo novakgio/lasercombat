@@ -83,7 +83,7 @@
     border: 2px solid #6cd3d3;
     background: #d6f1fc;
     font-size: 26px;
-    font-family: GothamMedium;
+    font-family: BPGWeb002;
     padding: 10px;
     color: #6cd3d3;
     cursor: pointer;
@@ -121,7 +121,7 @@
     border: 2px solid #6cd3d3;
     background: #d6f1fc;
     font-size: 26px;
-    font-family: GothamMedium;
+    font-family: BPGWeb002;
     padding: 10px;
     color: #6cd3d3;
     cursor: pointer;
@@ -147,7 +147,7 @@
 
 .icon-large-text {
     text-align: center;
-    font-family: GothamMedium;
+    font-family: BPGWeb002;
     font-size: 30px;
     color: #d6f1fc;
     margin-top: 30px;
@@ -218,14 +218,14 @@
 .ticket-title {
     font-size: 30px;
     color: #202136;
-    font-family: GothamUltra;
+    font-family: BPGWeb002Caps;
     padding: 0px 10px;
 }
 
 .ticket-value {
     font-size: 25px;
     color: #202136;
-    font-family: GothamMedium;
+    font-family: BPGWeb002;
     padding: 0px 10px;
 }
 
@@ -258,7 +258,7 @@
     text-align: center;
     margin-top: 0px;
     margin-bottom: 50px;
-    font-family: GothamUltra;
+    font-family: BPGWeb002Caps;
     font-size: 40px;
     color: #202136;
 }
@@ -271,7 +271,7 @@
     border: 2px solid #6cd3d3;
     background: #d6f1fc;
     font-size: 26px;
-    font-family: GothamMedium;
+    font-family: BPGWeb002;
     padding: 10px;
     color: #6cd3d3;
     cursor: pointer;
@@ -297,7 +297,7 @@
 
 .under-h3 {
     text-align: center;
-    font-family: GothamMedium;
+    font-family: BPGWeb002;
     font-size: 25px;
     color: rgb(27, 22, 37);
     margin-top: 30px;
@@ -305,8 +305,12 @@
 }
 
 .partial-container {
-    width: 30%;
+    width: 100%;
     margin-left: 35%;
+}
+
+.partial-container-second {
+    width: 100%;
 }
 
 .price-box {
@@ -335,7 +339,7 @@
 
 .h3-link {
     text-align: center;
-    font-family: GothamMedium;
+    font-family: BPGWeb002;
     font-size: 40px;
     color: rgba(31, 189, 181, 0.7);
     margin-top: 30px;
@@ -350,7 +354,7 @@
 
 
 .dorp-us-text {
-    font-family: GothamMedium;
+    font-family: BPGWeb002;
     width: 70%;
     margin-left: 15%;
     text-align: center;
@@ -358,7 +362,11 @@
     color: #202136;
 }
 
-
+.long-copy {
+    width: 80%;
+    margin-left: 10%;
+    font-family: BPGWeb002;
+}
 
 
 
