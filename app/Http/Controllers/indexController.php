@@ -145,7 +145,7 @@ class indexController extends Controller
     // Gets User's reservation or bought ticket in profile page
     public function getUserOrder(Request $request){
         $user_id= Auth::user()->id;
-        $orders = DB::SELECT("SELECT `orders`.`time`, `orders`.`people`,`schedules`.`time` as schedule_time,`orders`.`active`
+        $orders = DB::SELECT("SELECT `orders`.`time`, `orders`.`people`,`orders`.`price`,`schedules`.`time` as schedule_time,`orders`.`active`
                             FROM `schedules` JOIN `order_schedule` ON `schedules`.`id` = `order_schedule`.`schedule_id`
                             JOIN `orders`  ON `order_schedule`.`order_id` = `orders`.`id`
                             WHERE `orders`.`user_id` = $user_id AND `orders`.`active`!=0

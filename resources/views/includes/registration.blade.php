@@ -3,20 +3,49 @@
                     <i class="ion-close-round close-icon"></i>
                 </div>
                 <div class="reserve-popup" id="reservepopup">
-                    <h3 class="succes-h3">დაჯავშნა წარმატებით შესრულდა</h3>
+                    <h3 class="succes-h3">გადახდის მეთოდები</h3>
                     <input type="hidden" id="orderid" value="">
-                    <p class="under-h3 long-copy">თქვენ იყიდეთ პირველი თანხა რაც წერია იმ ფასად ! პირველი ღილაკი (იყიდე ეხლავე და 10 ლარი მოაკელით თქვენს გადასახადს) ! ღილაკი მეორე (იყიდეთ და მოაკელით სრული თანხის 10%</p>
-                    <p class="under-h3">დაჯავშნის ფასი: <span class="price-box" id="reserve-price">300 GEL</span></p>
-                    <p class="under-h3">ხოლო თქვენი უნიკალური კოდი : <span class="price-box" id="reserve-code">300 GEL</span></p>
+
+                    <!-- <p class="under-h3 long-copy">თქვენ იყიდეთ პირველი თანხა რაც წერია იმ ფასად ! პირველი ღილაკი (იყიდე ეხლავე და 10 ლარი მოაკელით თქვენს გადასახადს) ! ღილაკი მეორე (იყიდეთ და მოაკელით სრული თანხის 10%</p> -->
+                    <div class="row centerd-mine">
+                        <!-- <p class="under-h3 inline">გადაიხადე <span class="price-box" id="reserve-price">300</span> GEL წინასწარ</p>
+                        <button class="button-second" id="buybutton">ყიდვა</button> -->
+                        <div class="col span-3-of-6 centerd-mine righted-mine">
+                            <p class="under-h3 inline">გადაიხადე <span class="price-box" id="reserve-price">300</span> GEL წინასწარ</p>
+                        </div>
+                         <div class="col span-3-of-6 left-but-cont">
+                            <button class="button-second" id="buybutton">ყიდვა</button>
+                         </div>
+                    </div>
+
+                     <div class="row centerd-mine">
+                        <div class="col span-3-of-6 centerd-mine righted-mine">
+                            <p class="under-h3 inline">გადაიხადე <span class="price-box" id="reserve-price">300</span> GEL წინასწარ</p>
+                        </div>
+                         <div class="col span-3-of-6 left-but-cont">
+                            <button class="button-second" id="buybutton">ყიდვა</button>
+                         </div>
+                    </div>
+
+                     <div class="row centerd-mine">
+                        <div class="col span-3-of-6 centerd-mine righted-mine">
+                            <p class="under-h3 inline">ადგილზე გადავიხდი, ფასი <span class="price-box" id="reserve-price">300</span> GEL </p>
+                        </div>
+                         <div class="col span-3-of-6 left-but-cont">
+                            <button class="button-second" id="buybutton">დაჯავშნა</button>
+                         </div>
+                    </div>
+
+                    <!-- <p class="under-h3">ხოლო თქვენი უნიკალური კოდი : <span class="price-box" id="reserve-code">300 GEL</span></p> -->
                    
-                    <div class="row partial-container-second modify-container">
+                    <!-- <div class="row partial-container-second modify-container">
                         <span class="price-first-mine" id="price-box-sale1">300 GEL</span>
                         <span class="price-second-mine" id="price-box-sale2">300 GEL</span> 
-                    </div>
-                    <div class="row partial-container-second">
+                    </div> -->
+                    <!-- <div class="row partial-container-second">
                         <button class="button-second" id="buybutton">იყიდე</button>
                         <button class="button-third" id="buybutton">იყიდე</button>
-                    </div>
+                    </div> -->
                 </div>
 
                 <!-- price-box-sale2 price-box-sale1 -->

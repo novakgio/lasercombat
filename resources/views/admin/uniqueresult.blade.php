@@ -52,14 +52,17 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        <li class="sidebar-search">
+                       <li class="sidebar-search">
                             <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
+                            {!! Form::open(array('route' => 'findcode','method'=>'post')) !!}
+                                <input type="text" name="userkey" class="form-control" placeholder="Search...">
                                 <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
+                                <button class="btn btn-default" type="submit">
                                     <i class="fa fa-search"></i>
                                 </button>
+                            
                             </span>
+                            {!! Form::close()!!}
                             </div>
                             <!-- /input-group -->
                         </li>

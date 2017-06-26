@@ -92,7 +92,7 @@
                 </div>
                 <div class="user-textus-section" id="textus">
                     <i class="ion-close-round close-inner-popup" id="close-textus"></i>
-                    <h2 class="header-textus">Drop Us A Line</h2>
+                    <h2 class="header-textus">მოგვწერეთ</h2>
                     <div class="row butons-container">
                         <div class="row button-container">
                             <input type="text" placeholder="About" id="emailabout" class="big-input">
@@ -122,16 +122,16 @@
                                     <img src="public/resource/img/LaserCombatText.png" alt="Laser Combat logo" class="logo-text">
                                     <div>
                                         <ul class="main-nav js--main-nav">
-                                            <li><a href="#section1">Services</a></li>
-                                            <li><a href="#section2">Gallery</a></li>
-                                            <li><a href="#section3">Contact</a></li>
+                                            <li><a href="#section1">დაჯავშნა</a></li>
+                                            <li><a href="#section2">გალერეა</a></li>
+                                            <li><a href="#section3">კონტაქტი</a></li>
 
                                             @if(!Auth::check())
 
-                                            <li><a href="#" id="sign-up">Sign up</a></li>
+                                            <li><a href="#" id="sign-up">შესვლა</a></li>
                                             @else
-                                             <li><a href="#section0" id="prfile">Profile</a></li>
-                                            <li><a href="{{url('logout')}}" id="sign-up">Sign Out</a></li>
+                                             <li><a href="#section0" id="prfile">პროფილი</a></li>
+                                            <li><a href="{{url('logout')}}" id="sign-up">გამოსვლა</a></li>
                                             @endif
 
                                         </ul>
@@ -145,7 +145,7 @@
                  <div class="section " id="section1">
                     <div class="intro responsive-section-two">
                         <div class="row">
-                            <h2>Serivces</h2>
+                            <h2>დაჯავშნა</h2>
                         </div>
                         <div class="table-container">
                             <div class="row">
@@ -268,6 +268,9 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="col span-1-of-2">
+                                                    <p class="usual-text">ფასი ერთ ადამიანზე: <span>10 GEL</span></p>
+                                                </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col span-1-of-2">
@@ -279,6 +282,9 @@
                                                             <p class="input-label"> - დასრულების დრო</p>
                                                         </div>
                                                     </div>
+                                                </div>
+                                                <div class="col span-1-of-2">
+                                                    <p class="usual-text">ფასი ხუთ ადამიანზე: <span>10 GEL</span></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -314,7 +320,7 @@
                 <div class="section " id="section2">
                     <div class="intro">
                         <div class="row">
-                            <h2>Gallery</h2>
+                            <h2>გალერეა</h2>
                         </div>
                         <div class="row gallery-container">
                             <div class="col span-1-of-4 responsive-1-4-col">
@@ -343,7 +349,7 @@
                         <div class="section " id="section3">
                     <div class="intro">
                         <div class="row">
-                            <h2>Contact</h2>
+                            <h2>კონტაქტი</h2>
                         </div>
                         <div class="row contact-form-container">
                             <div class="col span-1-of-2 responsive-1-2-col">
@@ -352,7 +358,7 @@
                                         <i class="ion-checkmark-round icon-big"></i>
                                     </div>
                                     <div class="icon-text-right address">
-                                        <span class="contact-label">Mithskevichi N5</span>
+                                        <span class="contact-label">სავაჭრო ცენტრი "ისთ ფოინთი", თვალჭრელიძის 2</span>
                                     </div>
                                 </div>
                                 <div class="row contact-line">
@@ -369,7 +375,7 @@
                                             <i class="ion-android-mail icon-big"></i>
                                         </div>
                                         <div class="icon-text-right address">
-                                            <span class="contact-label instagram">Drop Us A Line</span>
+                                            <span class="contact-label instagram">მოგვწერეთ</span>
                                         </div>
                                     </a>
                                 </div>
@@ -404,11 +410,11 @@
                     </div>
                     <div class="row footer-row">
                         <p class="long-copy-footer">
-                            <span>This</span> Webpage was created by <span class="yellow"> Laser Combat.</span>
+                            <span>Laser</span> Combat <span class="yellow">@2017</span>
                         </p>
-                        <p class="long-copy-footer">
+                        <!-- <p class="long-copy-footer">
                             Build with<span class="red"> <i class="ion-heart footer-icon "></i> </span> in 2017,   all rights <span class="blue"> reserved.</span>
-                        </p>
+                        </p> -->
                     </div>
                 </div>
             </div>
@@ -508,7 +514,50 @@
 
                 });
 
+                $('#end_time').on('focusout',function(){
 
+                    if($(this).val()==5){
+                        var first_time = $('#first_time').val();
+                        var end_time = $('#end_time').val();
+                        $.ajax({
+                            method: "POST",
+                            url: "{{url('getprices')}}",
+                            data:{first_time:first_time,end_time:end_time,}
+                        }) 
+                        .done(function (data){
+                            if(data.error == "") {
+                               window.location.href = homeURL;
+                            }
+                            else{
+                                sweetAlert("Oops...", data.error, "error");
+                            }
+                        });
+                    }
+
+                });
+
+
+
+
+
+               
+                $(document).on("click", ".ordertime", function(){
+                    var start_time = $('#start_time').val();
+                    var end_time = $('#end_time').val();
+                    var value = $(this).attr('rel');
+
+                    if(end_time=="" && start_time==""){
+                        $('#start_time').val(value);
+                        endTimeSet(value);
+                    }
+                    else if(end_time!="" && start_time!=""){
+                        $('#start_time').val(value);
+                        endTimeSet(value);
+                    }
+                    
+                    
+
+                });
                 
 
 
@@ -581,7 +630,8 @@
                             if(first<10) first="0"+first;
                             $('#end_time').val(first+":"+end_time_minutes);
                         }else{
-                            var first_time = first+1;
+                            if(first==23){ var first_time = "0";}
+                            else { var first_time = first+1;}
                             if(first_time<10) first_time="0"+first_time;
                             end_time_minutes=second+40-60;
                             if(end_time_minutes<10) end_time_minutes="0"+end_time_minutes
@@ -747,6 +797,7 @@
 
 
                 $('#seeticket').on('click',function(){
+
                    
                      $.ajax({
                             method: "POST",

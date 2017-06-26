@@ -25,3 +25,7 @@
                         <span class="ticket-title">Number Of Players:</span>
                         <span class="ticket-value">{{$people}}</span>
                     </div>
+
+                     <div class="row ticket-line">
+                       <button class="button-gauqmeba" id="buybutton">ყიდვა</button>
+                    </div>

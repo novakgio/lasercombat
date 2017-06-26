@@ -525,9 +525,8 @@ input::-moz-focus-outer {
 }
 
 .button-second {
-    width: 30%;
-    margin-left: 14%;
-    margin-right: 5%;
+    width: 50%;
+    margin-left: 4%;
     border-radius: 5px;
     box-shadow: none;
     border: 2px solid #d6f1fc;
@@ -552,6 +551,36 @@ input::-moz-focus-outer {
     font-family: BPGWeb002;
     color: #d6f1fc;
     cursor: pointer;
+}
+
+.button-gauqmeba {
+    width: 40%;
+    border-radius: 5px;
+    box-shadow: none;
+    border: 2px solid #d6f1fc;
+    background: #202136;
+    height: 35px;
+    font-size: 20px;
+    font-family: BPGWeb002;
+    color: #d6f1fc;
+    cursor: pointer;
+}
+
+.left-but-cont {
+    text-align: left;
+    margin: 35px 0;
+}
+
+.centerd-mine {
+    text-align: center;
+}
+
+.righted-mine {
+    text-align: right;
+}
+
+.inline {
+    display: inline-block;
 }
 
 .price-first-mine  {
@@ -871,8 +900,12 @@ input::-moz-focus-outer {
 
 /*-------------------------------header-background-----------------------*/
 
-
-
+.usual-text {
+    font-family: BPGWeb002;
+    color: #d6f1fc;
+    font-size: 20px;
+    margin: 10px 0px;
+}
 
 
 
