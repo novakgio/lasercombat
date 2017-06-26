@@ -9,6 +9,7 @@ use DB;
 use App\Order;
 use App\scheduleOrder;
 use Auth;
+use Hash;
 use DateTime;
 use App\Http\Controllers\indexController as index;
 class OrderController extends Controller 
@@ -32,6 +33,7 @@ class OrderController extends Controller
     
     public function makeOrder(Request $request){
     	$error="";
+        $key="";
         date_default_timezone_set('Asia/Tbilisi');
         $today_day = date('l', strtotime("+0 Days - 2 hours"));
         $interval = $this->getInterval($request->start_time);
@@ -55,7 +57,21 @@ class OrderController extends Controller
 
 
                 $order = new Order();
-    			$order->user_id = Auth::user()->id;
+                if(!$request->name){
+                    $order->user_id = Auth::user()->id;
+                    $key = substr(Hash::make(Auth::user()->phone),54,6);
+                    $order->userkey = $key;
+                }
+                else{
+                    $order->user_id = null;
+                    $key =  substr(Hash::make($request->phone),54,6);
+                    $order->userKey =$key;
+                    $order->phone = $request->phone;
+                    $order->name = $request->name;
+
+
+                }
+
     			$order->time = $this->getUserDate($request->week_id);
                 $order->people = $request->people_range;
                 $order->active = 2; //means it's reserved
@@ -85,7 +101,12 @@ class OrderController extends Controller
         }
 
 
-    	return compact('error','total','fivePercent','tenPercent');
+    	if(!$request->name){
+            return compact('error','total','fivePercent','tenPercent','key');
+        }
+        else{
+            return compact('error','key');
+        }
     	
     }
 

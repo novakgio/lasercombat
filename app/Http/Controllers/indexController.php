@@ -152,12 +152,15 @@ class indexController extends Controller
         ");
         $timeArray = array();
         $i=1;
+
         foreach($orders as $order){
+
             if($i==1){ $start_time = $order->schedule_time;}
             if($i==count($orders)) {$end_time=$order->schedule_time;};
             $i++;
             $date = $order->time;
             $people = $order->people;
+            $price = $order->price;
         }
 
 
@@ -170,7 +173,8 @@ class indexController extends Controller
                 'people'=>$people,
                 'start_time'=>$start_time,
                 'end_time'=>$end_time,
-                'active'=>$orders[0]->active
+                'active'=>$orders[0]->active,
+                'price'=>$price
             ];
 
             $userOrder = view('pages.userticket')->with($orders)->render();

@@ -614,7 +614,6 @@
                         
                     }
                     else{
-                        
                      $.ajax({
                             method: "POST",
                             url: "{{url('checkOrder')}}",
@@ -622,8 +621,9 @@
                         }) 
                         .done(function (data){
                             var result = data.error;
+                            console.log(data);
                             if(Number.isInteger(parseInt(result))){
-                                showBuyButton(data.fivePercent,data.tenPercent,data.total,result);
+                                showBuyButton(data.fivePercent,data.tenPercent,data.total,result,data.key);
                             }
                             else{
                                 sweetAlert("Oops...", result, "error");
@@ -646,10 +646,11 @@
 
 
 
-                function showBuyButton(pricesale1,pricesale2,reservePrice,result){
+                function showBuyButton(pricesale1,pricesale2,reservePrice,result,key){
                     $('#price-box-sale1').text(pricesale1);
                     $('#price-box-sale2').text(pricesale2)
                     $('#reserve-price').text(reservePrice);
+                    $('#reserve-code').text(key);
                     $('#orderid').val(result);
                     console.log($('#orderid').val());
                     $( ".nav-container" ).fadeOut('slow');

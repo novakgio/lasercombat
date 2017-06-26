@@ -20,6 +20,7 @@
                         <span class="ticket-title">Type:</span>
                         <span class="ticket-value">{{$state}}</span>
                     </div>
+                    
                     <div class="row ticket-line">
                         <span class="ticket-title">Number Of Players:</span>
                         <span class="ticket-value">{{$people}}</span>

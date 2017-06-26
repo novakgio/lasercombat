@@ -57,16 +57,19 @@
                     <ul class="nav" id="side-menu">
                         <li class="sidebar-search">
                             <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
+                            {!! Form::open(array('route' => 'findcode','method'=>'post')) !!}
+                                <input type="text" name="userkey" class="form-control" placeholder="Search...">
                                 <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
+                                <button class="btn btn-default" type="submit">
                                     <i class="fa fa-search"></i>
                                 </button>
+                            
                             </span>
+                            {!! Form::close()!!}
                             </div>
                             <!-- /input-group -->
                         </li>
-                         <li>
+                     <li>
                             <a href="{{url('reserve')}}"><i class="fa fa-dashboard fa-fw"></i>დაჯავშნილების სია</a>
                         </li>
                        
@@ -77,9 +80,10 @@
                          <li>
                             <a href="{{url('timeover')}}"><i class="fa fa-dashboard fa-fw"></i>ვადაგასულების სია</a>
                         </li>
-                       
-                       
-                       
+
+                        <li>
+                            <a href="{{url('addOrder')}}"><i class="fa fa-dashboard fa-fw"></i>დაამატე შეკვეთა</a>
+                        </li>
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
@@ -121,8 +125,11 @@
         <th>ხალხის რაოდენობა</th>
         <th>იუზერის სახელი</th>
          <th>იუზერის მობილური</th>
+         <th>უნიკალური კოდი</th>
+         <th>ფასი</th>
          <th>ორდერის წაშლა</th>
          <th>ორდერის გაუქმება</th>
+
       </tr>
     </thead>
    <tbody>
@@ -133,7 +140,7 @@
             <td>{{$order->order_id}}</td>
             <td>{{$order->order_time}}</td>
             <?php
-            $user = User::findOrFail($order->user_id);
+            $user = User::where('id','=',$order->user_id)->first();//findOrFail($order->user_id);
             $timeArray = $ordersArray[$order->order_id];
             $i=1;
             foreach($timeArray as $time){
@@ -147,8 +154,10 @@
 
             <td>{{$start_time}} : {{$end_time}}</td>
             <td>{{$order->people}}</td>
-            <td>{{$user->name}}</td>
-            <td>{{$user->phone}}</td>
+            <td><?php echo ($user==null) ?  $order->name : $user->name;?></td>
+            <td><?php echo ($user==null) ?  $order->phone : $user->phone;?></td>
+            <td>{{$order->userkey}}</td>
+            <td>{{$order->price}}</td>
             <td><a   href="{{ url('/deleteOrder', [$order->id]) }}" class="btn btn-danger">წაშალე ორდერი</a></td>
             <td><a  href="{{ url('/disableOrder', [$order->id]) }}" class="btn btn-danger">გააუქმე ორდერი</a></td>
         @endif
@@ -161,9 +170,9 @@
 
             
         </div>
+        <!-- /#page-wrapper -->
 
     </div>
-    <!-- /#wrapper -->
 
     <!-- jQuery -->
      <script src="public/vendor/jquery/jquery.min.js"></script>

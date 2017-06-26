@@ -7,6 +7,7 @@
                     <input type="hidden" id="orderid" value="">
                     <p class="under-h3 long-copy">თქვენ იყიდეთ პირველი თანხა რაც წერია იმ ფასად ! პირველი ღილაკი (იყიდე ეხლავე და 10 ლარი მოაკელით თქვენს გადასახადს) ! ღილაკი მეორე (იყიდეთ და მოაკელით სრული თანხის 10%</p>
                     <p class="under-h3">დაჯავშნის ფასი: <span class="price-box" id="reserve-price">300 GEL</span></p>
+                    <p class="under-h3">ხოლო თქვენი უნიკალური კოდი : <span class="price-box" id="reserve-code">300 GEL</span></p>
                    
                     <div class="row partial-container-second modify-container">
                         <span class="price-first-mine" id="price-box-sale1">300 GEL</span>

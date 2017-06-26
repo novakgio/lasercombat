@@ -20,6 +20,27 @@ class AdminController extends Controller
 {
     //
 
+     public  $weekDayGeorgian = array(
+        "Sunday"=>'კვირა',
+        "Monday"=>'ორშაბათი',
+        "Tuesday"=>'სამშაბათი',
+        "Wednesday"=>'ოთხშაბათი',
+        "Thursday"=>'ხუთშაბათი',
+        "Friday"=>'პარასკევი',
+        "Saturday"=>'შაბათი'
+    );
+
+      public  $weekDayArray = array(
+        "Sunday"=>1,
+        "Monday"=>2,
+        "Tuesday"=>3,
+        "Wednesday"=>4,
+        "Thursday"=>5,
+        "Friday"=>6,
+        "Saturday"=>7
+    );
+
+
     public function index(){
     	$orders = $this->makeQuery(2);
     	
@@ -82,8 +103,8 @@ class AdminController extends Controller
 
     private function makeQuery($active){
     	
-        return DB::SELECT("SELECT `schedules`.`time`,`order_schedule`.`order_id`,`schedules`.`day_id`,
-                            `orders`.`time` as order_time,`orders`.`people`,`orders`.`id`,`orders`.`user_id` FROM `orders`  JOIN `order_schedule` ON `orders`.`id` = `order_schedule`.`order_id` 
+        return DB::SELECT("SELECT `schedules`.`time`,`order_schedule`.`order_id`,`orders`.`name`,`orders`.`phone`,`orders`.`userkey`,`schedules`.`day_id`,
+                            `orders`.`time` as order_time,`orders`.`people`,`orders`.`price`,`orders`.`id`,`orders`.`user_id` FROM `orders`  JOIN `order_schedule` ON `orders`.`id` = `order_schedule`.`order_id` 
                     JOIN schedules ON schedules.id = order_schedule.schedule_id WHERE orders.active =$active");
     
 
@@ -136,5 +157,33 @@ class AdminController extends Controller
         return back();
     }
 
+
+    public function addOrder(){
+        $weekDayDates = $this->getDates();
+        return view('admin.addorder',compact('weekDayDates'));
+    }
+
+    public function getDates(){
+        date_default_timezone_set('Asia/Tbilisi');
+        $weekDayDates = array();
+        
+
+        for($i=0;$i<7;$i++){
+            $day= date('l', strtotime("+$i Days -2 hours"));
+            $weekDayDates[$i]['date'] = date("Y-m-d", strtotime("+".$i ."day - 2 hours"));
+            $weekDayDates[$i]['day'] = $this->weekDayGeorgian[date('l', strtotime("+$i Days - 2 hours"))];
+            $weekDayDates[$i]['id'] = $this->weekDayArray[$day];
+        }   
+        
+        return $weekDayDates;
+    }
+
+    public function findcode(Request $request){
+        $orders =  DB::SELECT("SELECT `schedules`.`time`,`order_schedule`.`order_id`,`orders`.`name`,`orders`.`phone`,`orders`.`price`,`orders`.`userkey`,`schedules`.`day_id`,
+                            `orders`.`time` as order_time,`orders`.`people`,`orders`.`price`,`orders`.`id`,`orders`.`user_id` FROM `orders`  JOIN `order_schedule` ON `orders`.`id` = `order_schedule`.`order_id` 
+                    JOIN schedules ON schedules.id = order_schedule.schedule_id WHERE orders.userkey ='$request->userkey'");
+        $ordersArray = $this->makeOrdersArray($orders);
+        return view('admin.uniqueresult',compact('orders','ordersArray'));
+    }
 
 }

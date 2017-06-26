@@ -25,8 +25,12 @@ Route::get('/login',function(){
 
 });
 Route::get('/test',function(){
-	
+	return Hash::make("gio");
 });
+
+
+Route::post('/findcode','AdminController@findCode')->name('findcode');
+Route::get('/addOrder','AdminController@addOrder');
 
 
 Route::get('/disableOrder/{id}','AdminController@disableOrder');
