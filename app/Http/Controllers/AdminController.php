@@ -103,7 +103,7 @@ class AdminController extends Controller
 
     private function makeQuery($active){
     	
-        return DB::SELECT("SELECT `schedules`.`time`,`order_schedule`.`order_id`,`orders`.`name`,`orders`.`phone`,`orders`.`userkey`,`schedules`.`day_id`,
+        return DB::SELECT("SELECT `schedules`.`time`,`order_schedule`.`order_id`,`orders`.`name`,`orders`.`phone`,`orders`.`success`,`orders`.`userkey`,`schedules`.`day_id`,
                             `orders`.`time` as order_time,`orders`.`people`,`orders`.`price`,`orders`.`id`,`orders`.`user_id` FROM `orders`  JOIN `order_schedule` ON `orders`.`id` = `order_schedule`.`order_id` 
                     JOIN schedules ON schedules.id = order_schedule.schedule_id WHERE orders.active =$active");
     
@@ -153,6 +153,15 @@ class AdminController extends Controller
             if($order && $deleteSchedules){
                 Session::flash('deleteOrder','ორდერი წარმატებით წაიშალა');
             }
+        }
+        return back();
+    }
+
+    public function successpayment($id){
+        $order = Order::findOrFail($id);
+        if($order){
+            $order->success=1;
+            $order->save();
         }
         return back();
     }

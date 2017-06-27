@@ -10,6 +10,7 @@ use App\Schedule;
 use DB;
 use Mailgun\Mailgun;
 use Auth;
+use App\scheduleOrder;
 use Mail;
 class indexController extends Controller
 {
@@ -145,7 +146,7 @@ class indexController extends Controller
     // Gets User's reservation or bought ticket in profile page
     public function getUserOrder(Request $request){
         $user_id= Auth::user()->id;
-        $orders = DB::SELECT("SELECT `orders`.`time`, `orders`.`people`,`orders`.`price`,`schedules`.`time` as schedule_time,`orders`.`active`
+        $orders = DB::SELECT("SELECT `orders`.`time`, `orders`.`id`,`orders`.`people`,`orders`.`userkey`,`orders`.`price`,`schedules`.`time` as schedule_time,`orders`.`active`
                             FROM `schedules` JOIN `order_schedule` ON `schedules`.`id` = `order_schedule`.`schedule_id`
                             JOIN `orders`  ON `order_schedule`.`order_id` = `orders`.`id`
                             WHERE `orders`.`user_id` = $user_id AND `orders`.`active`!=0
@@ -158,9 +159,11 @@ class indexController extends Controller
             if($i==1){ $start_time = $order->schedule_time;}
             if($i==count($orders)) {$end_time=$order->schedule_time;};
             $i++;
+            $id = $order->id;
             $date = $order->time;
             $people = $order->people;
             $price = $order->price;
+            $code = $order->userkey;
         }
 
 
@@ -174,7 +177,9 @@ class indexController extends Controller
                 'start_time'=>$start_time,
                 'end_time'=>$end_time,
                 'active'=>$orders[0]->active,
-                'price'=>$price
+                'price'=>$price,
+                'id'=>$id,
+                'code'=>$code
             ];
 
             $userOrder = view('pages.userticket')->with($orders)->render();
@@ -188,7 +193,19 @@ class indexController extends Controller
     }
 
 
-
+    public function deactiveorder(Request $request){
+        $order = Order::findOrFail($request->id);
+        $error="";
+        if($order){
+            $deleteSchedules = scheduleOrder::where('order_id','=',$order->id)->delete();
+            $order = $order->delete();
+            if($order && $deleteSchedules){
+                $error = 1;
+            }
+        }
+        return compact('error');
+       
+    }
     
 
 

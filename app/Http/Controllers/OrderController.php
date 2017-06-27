@@ -132,6 +132,38 @@ class OrderController extends Controller
 
     }
 
+
+    public function priceGetter(Request $request){
+        $onePerson = $this->calculatePrice($request->start_time,$request->end_time,$request->week_id);
+        return compact('onePerson');
+    }
+
+    public function calculateEachPrice(Request $request){
+        $total =  $this->calculatePrice($request->start_time,$request->end_time,$request->week_id)*$request->people_range;
+        $fivePercent = $total-10;
+        $tenPercent = $total*90/100;
+
+        $error="";
+        $key="";
+        date_default_timezone_set('Asia/Tbilisi');
+        $today_day = date('l', strtotime("+0 Days - 2 hours"));
+        $interval = $this->getInterval($request->start_time);
+        
+
+        if( $interval->h==0 && $this->weekDayArray[$today_day] == $request->week_id){
+            $error = "შეკვეთა უნდა აიღო ამ დროიდან მინიმუმ 1 საათის შემდეგ";
+        }
+        else{
+            //check if order exists
+            $checkOrder = $this->checkExistence($request->start_time,$request->end_time,$request->week_id);
+            if(!empty($checkOrder)){ $error = "ამ დროის შეკვეთა უკვე არსებობს სამწუხაროდ";}
+
+
+        }
+
+        return compact('total','fivePercent','tenPercent','error');
+    }
+    
     
 
     
@@ -150,7 +182,7 @@ class OrderController extends Controller
         else if ( $week_id-$today_id<0 ) $userDate = 7-$today_id+$week_id;
         else $userDate = 0;
         
-        return date("Y-m-d H:i:s", strtotime("+".$userDate ." day - 2 hours"));
+        return date("Y-m-d H:i:s", strtotime("+".$userDate ." day"));
     }
 
    

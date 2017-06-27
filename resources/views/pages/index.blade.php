@@ -269,7 +269,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col span-1-of-2">
-                                                    <p class="usual-text">ფასი ერთ ადამიანზე: <span>10 GEL</span></p>
+                                                    <p class="usual-text">ფასი ერთ ადამიანზე: <span id="1person">10 GEL</span></p>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -284,7 +284,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col span-1-of-2">
-                                                    <p class="usual-text">ფასი ხუთ ადამიანზე: <span>10 GEL</span></p>
+                                                    <p class="usual-text">ფასი ხუთ ადამიანზე: <span id="morepeople">10 GEL</span></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -432,10 +432,48 @@
                 });
 
 
+
+
+
                 
                 var homeURL = "{{url('')}}";
 
-                
+                $(document).on("keyup", "#end_time", function(){
+                   
+                        getPrices();
+
+                });
+
+                $('#people_range').on('change',function(){
+                    getPrices();
+
+
+                });
+
+                function getPrices(){
+                     var start_time = $('#start_time').val();
+                    var end_time = $('#end_time').val();
+                    var people_range = $('#people_range').val();
+                    var week_id = $('#reserve').attr('rel');
+                   
+                    if(start_time!="" && end_time!=""){
+                        $.ajax({
+                            method: "POST",
+                            url: "{{url('pricegetter')}}",
+                            data:{start_time:start_time,end_time:end_time,people_range:people_range,week_id:week_id}
+                        }) 
+                        .done(function (data){
+                            $('#1person').text(data.onePerson);
+                            $('#morepeople').text(data.onePerson * people_range);
+
+                        });
+                    }
+
+
+                }
+
+
+
                 $('#createaccount').on('click',function(){
                     var error = "";
                     var name = $('#username').val();
@@ -514,27 +552,6 @@
 
                 });
 
-                $('#end_time').on('focusout',function(){
-
-                    if($(this).val()==5){
-                        var first_time = $('#first_time').val();
-                        var end_time = $('#end_time').val();
-                        $.ajax({
-                            method: "POST",
-                            url: "{{url('getprices')}}",
-                            data:{first_time:first_time,end_time:end_time,}
-                        }) 
-                        .done(function (data){
-                            if(data.error == "") {
-                               window.location.href = homeURL;
-                            }
-                            else{
-                                sweetAlert("Oops...", data.error, "error");
-                            }
-                        });
-                    }
-
-                });
 
 
 
@@ -554,6 +571,7 @@
                         $('#start_time').val(value);
                         endTimeSet(value);
                     }
+                    getPrices();
                     
                     
 
@@ -664,26 +682,111 @@
                         
                     }
                     else{
-                     $.ajax({
+                        $.ajax({
                             method: "POST",
-                            url: "{{url('checkOrder')}}",
+                            url: "{{url('getpriceorders')}}",
                             data:{start_time:start_time,end_time:end_time,people_range:people_range,week_id:week_id,differenceTime:differenceTime}
                         }) 
                         .done(function (data){
-                            var result = data.error;
-                            console.log(data);
-                            if(Number.isInteger(parseInt(result))){
-                                showBuyButton(data.fivePercent,data.tenPercent,data.total,result,data.key);
+                            if(data.error==""){
+                             showBuyButton(data.fivePercent,data.tenPercent,data.total);
                             }
                             else{
-                                sweetAlert("Oops...", result, "error");
+                                sweetAlert("Oops...", data.error, "error");
                             }
                         });
                     }
                 }
 
 
+                // $.ajax({
+                //             method: "POST",
+                //             url: "{{url('getpriceorders')}}",
+                //             data:{start_time:start_time,end_time:end_time,people_range:people_range,week_id:week_id,differenceTime:differenceTime}
+                //         }) 
+                //         .done(function (data){
+                //             var result = data.error;
+                //             console.log(data);
+                //             if(Number.isInteger(parseInt(result))){
+                //                 showBuyButton(data.fivePercent,data.tenPercent,data.total,result,data.key);
+                //             }
+                //             else{
+                //                 sweetAlert("Oops...", result, "error");
+                //             }
+                //         });
+                //     }
 
+
+                $(document).on("click", "#deactivateorder", function(){
+
+                        var id = $(this).attr('rel');
+                        $.ajax({
+                            method: "POST",
+                            url: "{{url('deactiveorderajax')}}",
+                            data:{id:id}
+                        }) 
+                        .done(function (data){
+                            swal({
+                                      title: "შეტყობინება!",
+                                      text: "თქვენ წარმატებით გააუქმეთ ჯავშანი",
+                                      type: "success",
+                                      showConfirmButton: true,
+                                      confirmButtonColor: "#DD6B55",
+                                      confirmButtonText: "დამკლიკე",
+                                     
+                                },
+                                function(isConfirm){
+                                  if (isConfirm) {
+                                    window.location.href = homeURL;
+                                  } 
+                                });
+                            
+                        });
+
+                });
+                $('#reservebutton').on('click',function(){
+
+                    var start_time = $('#start_time').val();
+                    var end_time = $('#end_time').val();
+                    var people_range=$('#people_range').val();
+                    var week_id = $('#reserve').attr('rel');
+                     var differenceTime = getDifferenceTime(end_time,start_time);
+                    $.ajax({
+                            method: "POST",
+                            url: "{{url('checkOrder')}}",
+                            data:{start_time:start_time,end_time:end_time,people_range:people_range,week_id:week_id,differenceTime:differenceTime}
+                        }) 
+                        .done(function (data){
+                            var result = data.error;
+                            
+                            if(Number.isInteger(parseInt(result))){
+                                
+
+                                swal({
+                                      title: "თქვენი უნიკალური კოდი! "+ data.key,
+                                      text: "თქვენ წარმატებით დაჯავშნეთ,თქვენი უნიკალური კოდია "+data.key,
+                                      type: "success",
+                                      showConfirmButton: true,
+                                      confirmButtonColor: "#DD6B55",
+                                      confirmButtonText: "დამკლიკე",
+                                     
+                                },
+                                function(isConfirm){
+                                  if (isConfirm) {
+                                    window.location.href = homeURL;
+                                  } 
+                                });
+
+
+
+                            }
+                            else{
+                                sweetAlert("Oops...", result, "error");
+                            }
+                        });
+                    });
+
+                
 
 
 
@@ -697,8 +800,10 @@
 
 
                 function showBuyButton(pricesale1,pricesale2,reservePrice,result,key){
-                    $('#price-box-sale1').text(pricesale1);
-                    $('#price-box-sale2').text(pricesale2)
+                    $('#buytenpercent').text(pricesale2);
+                    $('#buyfivepercent').text(pricesale1)
+                    $('#buytenpercent_button').attr('rel',pricesale2);
+                    $('#buyfivepercent_button').attr('rel',pricesale1);
                     $('#reserve-price').text(reservePrice);
                     $('#reserve-code').text(key);
                     $('#orderid').val(result);
@@ -749,8 +854,10 @@
                         }) 
                         .done(function (data){
                             $('.show_order_table').html(data.orderTable);
+                            getPrices();
                             
                     });
+
 
                 });
 
@@ -812,7 +919,7 @@
                                 $('#user-ticket').fadeIn( 'slow' );
                                 windowOverlay = document.getElementById('overlay').offsetHeight;
                                 ticketHeight = document.getElementById('user-ticket').offsetHeight;
-                                $('#user-ticket').css("margin-top", (windowOverlay - ticketHeight)/2 );
+                                $('#user-ticket').css("margin-top", (windowOverlay - ticketHeight)/5 );
                                 $('#user-ticket').html(data.userOrder);
                             }
                             

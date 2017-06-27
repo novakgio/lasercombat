@@ -24,9 +24,14 @@ Route::get('/login',function(){
 	
 
 });
+
+
+Route::post('pricegetter','OrderController@priceGetter');
 Route::get('/test',function(){
 	return Hash::make("gio");
 });
+
+Route::post('getpriceorders','OrderController@calculateEachPrice');
 
 
 Route::post('/findcode','AdminController@findCode')->name('findcode');
@@ -49,11 +54,11 @@ Route::get('/timeover','AdminController@timeover');
 Route::post('emailsend','indexController@emailsend');
 
 
-
+Route::post('deactiveorderajax','indexController@deactiveorder');
 Route::get('/afteruserpayment','paymentController@ok');
 Route::post('checkOrder','OrderController@makeOrder');
 Route::post('dayOrder','indexController@getDayOrders');
-
+Route::get('/successpayment/{id}','AdminController@successpayment');
 Route::post('getUserOrder','indexController@getUserOrder');
 Route::get('/check',function(){
 	

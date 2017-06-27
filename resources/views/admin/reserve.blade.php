@@ -126,6 +126,7 @@
          <th>ფასი</th>
          <th>ორდერის წაშლა</th>
          <th>ორდერის გაუქმება</th>
+         <th>დადასტურება</th>
 
       </tr>
     </thead>
@@ -157,6 +158,9 @@
             <td>{{$order->price}}</td>
             <td><a   href="{{ url('/deleteOrder', [$order->id]) }}" class="btn btn-danger">წაშალე ორდერი</a></td>
             <td><a  href="{{ url('/disableOrder', [$order->id]) }}" class="btn btn-danger">გააუქმე ორდერი</a></td>
+            @if($order->success!=1)
+            <td><a  href="{{ url('/successpayment', [$order->id]) }}" class="btn btn-danger">დაადასტურე გადახდა</a></td>
+            @endif
         @endif
          @php array_push($rememberOrders,$order->order_id);@endphp
         </tr>

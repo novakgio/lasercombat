@@ -11,19 +11,19 @@
                         <!-- <p class="under-h3 inline">გადაიხადე <span class="price-box" id="reserve-price">300</span> GEL წინასწარ</p>
                         <button class="button-second" id="buybutton">ყიდვა</button> -->
                         <div class="col span-3-of-6 centerd-mine righted-mine">
-                            <p class="under-h3 inline">გადაიხადე <span class="price-box" id="reserve-price">300</span> GEL წინასწარ</p>
+                            <p class="under-h3 inline">გადაიხადე <span class="price-box" id="buytenpercent">300</span> GEL წინასწარ</p>
                         </div>
                          <div class="col span-3-of-6 left-but-cont">
-                            <button class="button-second" id="buybutton">ყიდვა</button>
+                            <button class="button-second" id="buytenpercent_button">ყიდვა</button>
                          </div>
                     </div>
 
                      <div class="row centerd-mine">
                         <div class="col span-3-of-6 centerd-mine righted-mine">
-                            <p class="under-h3 inline">გადაიხადე <span class="price-box" id="reserve-price">300</span> GEL წინასწარ</p>
+                            <p class="under-h3 inline">გადაიხადე <span class="price-box" id="buyfivepercent">300</span> GEL წინასწარ</p>
                         </div>
                          <div class="col span-3-of-6 left-but-cont">
-                            <button class="button-second" id="buybutton">ყიდვა</button>
+                            <button class="button-second" id="buyfivepercent_button">ყიდვა</button>
                          </div>
                     </div>
 
@@ -32,7 +32,7 @@
                             <p class="under-h3 inline">ადგილზე გადავიხდი, ფასი <span class="price-box" id="reserve-price">300</span> GEL </p>
                         </div>
                          <div class="col span-3-of-6 left-but-cont">
-                            <button class="button-second" id="buybutton">დაჯავშნა</button>
+                            <button class="button-second" id="reservebutton">დაჯავშნა</button>
                          </div>
                     </div>
 
