@@ -7,4 +7,7 @@
 <link rel="stylesheet" type="text/css" href="{{asset('public/css/jquery.fullpage.css')}}" />
 
 <link rel="stylesheet" type="text/css" href="{{asset('public/css/sweetalert.css')}}" />
+<!-- Start WOWSlider.com HEAD section -->
+<link rel="stylesheet" type="text/css" href="{{asset('public/engine1/style.css')}}" />
+<!-- End WOWSlider.com HEAD section -->
 <meta name="csrf-token" content="{{ csrf_token() }}">

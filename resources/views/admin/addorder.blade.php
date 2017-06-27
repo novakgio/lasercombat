@@ -59,6 +59,7 @@
                     <ul class="nav" id="side-menu">
                         <li class="sidebar-search">
                             <div class="input-group custom-search-form">
+
                             {!! Form::open(array('route' => 'findcode','method'=>'post')) !!}
                                 <input type="text" name="userkey" class="form-control" placeholder="Search...">
                                 <span class="input-group-btn">
@@ -85,6 +86,16 @@
 
                         <li>
                             <a href="{{url('addOrder')}}"><i class="fa fa-dashboard fa-fw"></i>დაამატე შეკვეთა</a>
+                        </li>
+                        <li>
+                            <a href="{{url('uploadphoto')}}"><i class="fa fa-dashboard fa-fw"></i>ატვირთე ფოტო</a>
+                        </li>
+                         <li>
+                            <a href="{{url('allphoto')}}"><i class="fa fa-dashboard fa-fw"></i>ყველა ფოტო</a>
+                        </li>
+                        
+                        <li>
+                            <a href="{{url('logoutadmin')}}"><i class="fa fa-dashboard fa-fw"></i>გამოსვლა</a>
                         </li>
                        
                        
@@ -154,7 +165,22 @@
 
                 <div class="form-group">
                   <label for="pwd">რაოდენობა:</label>
-                  <input type="text" class="form-control" id="people_range">
+                 <select id="people_range">
+
+                 <option value="4">4</option>
+                 <option value="5">5</option>
+                 <option value="6">6</option>
+                 <option value="7">7</option>
+                 <option value="8">8</option>
+                 <option value="9">9</option>
+                 <option value="10">10</option>
+                 <option value="11">11</option>
+                 <option value="12">12</option>
+                 <option value="13">13</option>
+                 <option value="14">14</option>
+                 <option value="15">15</option>
+                 <option value="16">16</option>
+                 </select>
                 </div>
 
                 <div class="form-group">

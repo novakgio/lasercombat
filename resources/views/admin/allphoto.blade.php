@@ -87,7 +87,7 @@
                         <li>
                             <a href="{{url('uploadphoto')}}"><i class="fa fa-dashboard fa-fw"></i>ატვირთე ფოტო</a>
                         </li>
-                        <li>
+                         <li>
                             <a href="{{url('allphoto')}}"><i class="fa fa-dashboard fa-fw"></i>ყველა ფოტო</a>
                         </li>
                          <li>
@@ -128,57 +128,26 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-       <th>შეკვეთის აიდი</th>
-        <th>შეკვეთის დრო</th>
-        <th>შეკვეთის ხანგრძლივობა</th>
-        <th>ხალხის რაოდენობა</th>
-        <th>იუზერის სახელი</th>
-         <th>იუზერის მობილური</th>
-         <th>უნიკალური კოდი</th>
-         <th>ფასი</th>
-         <th>ორდერის წაშლა</th>
-         <th>ორდერის გაუქმება</th>
-         <th>დადასტურება</th>
-
+       <th>სურათი</th>
+        <th>წაშლა</th>
+      
       </tr>
     </thead>
    <tbody>
-    @php $rememberOrders=array(); @endphp
-    @foreach($orders as $order)
-    <tr>
-        @if(!in_array($order->order_id,$rememberOrders))
-            <td>{{$order->order_id}}</td>
-            <td>{{substr($order->order_time,0,10)}}</td>
-            <?php
-            $user = User::where('id','=',$order->user_id)->first();//findOrFail($order->user_id);
-            $timeArray = $ordersArray[$order->order_id];
-            $i=1;
-            foreach($timeArray as $time){
-                if($i==1) $start_time = $time;
-               
-                if($i==count($timeArray)) $end_time = $time;
-                 $i++;
-            }
-            
-            ?>
-
-            <td>{{$start_time}} : {{$end_time}}</td>
-            <td>{{$order->people}}</td>
-            <td><?php echo ($user==null) ?  $order->name : $user->name;?></td>
-            <td><?php echo ($user==null) ?  $order->phone : $user->phone;?></td>
-            <td>{{$order->userkey}}</td>
-            <td>{{$order->price}}</td>
-            <td><a   href="{{ url('/deleteOrder', [$order->id]) }}" class="btn btn-danger">წაშალე ორდერი</a></td>
-            <td><a  href="{{ url('/disableOrder', [$order->id]) }}" class="btn btn-danger">გააუქმე ორდერი</a></td>
-            @if($order->success!=1)
-            <td><a  href="{{ url('/successpayment', [$order->id]) }}" class="btn btn-danger">დაადასტურე გადახდა</a></td>
-            @else
-           <td>გადახდილია</td>
-           @endif
-        @endif
-         @php array_push($rememberOrders,$order->order_id);@endphp
+  <style>
+   .img{
+    width:70px;
+    height:70px;
+   }
+   </style>
+        @foreach($photos as $photo)
+        <tr>
+        <td><img class="img" src="public/galleryimages/<?php echo $photo->img;?>"></td>
+        <td><a  href="{{ url('/deletephoto', [$photo->id]) }}" class="btn btn-danger">წაშალე სურათი</a></td>
         </tr>
-    @endforeach
+        @endforeach
+   
+    
     </tbody>
   </table>
 </div>

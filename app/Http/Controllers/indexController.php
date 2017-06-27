@@ -12,6 +12,7 @@ use Mailgun\Mailgun;
 use Auth;
 use App\scheduleOrder;
 use Mail;
+use App\Photo;
 class indexController extends Controller
 {
     //
@@ -62,8 +63,10 @@ class indexController extends Controller
     public function getMainPage(){
         date_default_timezone_set('Asia/Tbilisi');
         $weekDay_ID = $this->weekDayArray[date('l', strtotime("+0 Days - 2 hours"))];
-        $orders = DB::SELECT("SELECT * FROM `orders` JOIN order_schedule on orders.id = order_schedule.order_id and orders.active!=0   right join schedules on order_schedule.schedule_id = schedules.id  where schedules.day_id=$weekDay_ID and schedules.time!='02:00'");
-       	
+        $orders = DB::SELECT("SELECT * FROM `orders` JOIN order_schedule on orders.id = order_schedule.order_id and orders.active!=0   right join schedules on order_schedule.schedule_id = schedules.id  where schedules.day_id=$weekDay_ID and schedules.time!='02:00' ORDER BY schedules.id ASC");
+        
+
+        $imgs = Photo::all();
         $weekDayDates = $this->getDates();
         $today_id = $this->weekDayArray[date('l', strtotime("+0 Days - 2 hours"))];
         $orders = [
@@ -80,7 +83,7 @@ class indexController extends Controller
 
         $orderTable = view('pages.orderTable')->with($orders);
         
-        return view('pages.index',compact('orderTable','weekDayDates','today_id'));
+        return view('pages.index',compact('orderTable','weekDayDates','today_id','imgs'));
         
     }
 
@@ -92,7 +95,8 @@ class indexController extends Controller
         // 					RIGHT JOIN `schedules` ON example.schedule_id=`schedules`.`id` WHERE `schedules`.`day_id` ='$request->week_id' AND `schedules`.`time`!='14:00'");
 
 
-        $orders = DB::SELECT("SELECT * FROM `orders` JOIN order_schedule on orders.id = order_schedule.order_id and orders.active!=0   right join schedules on order_schedule.schedule_id = schedules.id  where schedules.day_id=$request->week_id and schedules.time!='02:00'");
+        $orders = DB::SELECT("SELECT * FROM `orders` JOIN order_schedule on orders.id = order_schedule.order_id and orders.active!=0   right join schedules on order_schedule.schedule_id = schedules.id  where schedules.day_id=$request->week_id and schedules.time!='02:00' ORDER BY schedules.id ASC");
+
         
         $weekDayDates = $this->getDates();
         $orders = [

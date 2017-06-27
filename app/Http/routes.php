@@ -25,16 +25,22 @@ Route::get('/login',function(){
 
 });
 
+Route::get('/deletephoto/{id}','AdminController@deletePhoto');
+Route::get('/allphoto','AdminController@getAllPhotos');
 
+Route::post('/uploadphoto','AdminController@uploadPhoto')->name('uploadphoto');
+Route::get('/uploadphoto','AdminController@photoUpload');
 Route::post('pricegetter','OrderController@priceGetter');
-Route::get('/test',function(){
-	return Hash::make("gio");
-});
+
 
 Route::post('getpriceorders','OrderController@calculateEachPrice');
 
 
-Route::post('/findcode','AdminController@findCode')->name('findcode');
+Route::get('/test',function(){
+
+return crc32("bdadad");
+
+});
 Route::get('/addOrder','AdminController@addOrder');
 
 
@@ -44,13 +50,16 @@ Route::get('/deleteOrder/{id}','AdminController@deleteOrder');
 Route::get('/tbcpayment/{order_id}','TbcController@startPayment');
 
 Route::get('/useremailexcel','AdminController@emails');
-Route::get('/admin','AdminController@index');
+ Route::get('/admin','AdminController@index');
+Route::group(['middleware' => ['login']], function () {
+   
+	Route::get('/reserve','AdminController@reserved');
+	Route::get('/bought','AdminController@bought');
+	Route::get('/timeover','AdminController@timeover');
+	Route::post('/findcode','AdminController@findCode')->name('findcode');
 
-
-Route::get('/reserve','AdminController@reserved');
-Route::get('/bought','AdminController@bought');
-Route::get('/timeover','AdminController@timeover');
-
+});
+Route::post('/checkAdmin','AdminController@checkAdmin')->name('checkAdmin');
 Route::post('emailsend','indexController@emailsend');
 
 
@@ -155,7 +164,7 @@ Route::get('/check',function(){
 });
 Route::get('/logout','RegistrationController@logout')->name('logout');
 
-
+Route::get('/logoutadmin','AdminController@logoutAdmin');
 
 Route::get('/loginfacebook', 'facebookController@redirectToProvider');
 Route::get('/callback', 'facebookController@handleProviderCallback');

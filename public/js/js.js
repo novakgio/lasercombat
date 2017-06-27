@@ -238,6 +238,10 @@ $(document).ready(function() {
         //profile
         $( ".responsive-1-3-col" ).css( "width", "99%" );
         $( ".responsive-1-3-col" ).css( "margin", "0.5%" );
+        $( ".font-18" ).css( "font-size", "18px" );
+        $( ".font-15" ).css( "font-size", "15px" );
+        $( ".font-13" ).css( "font-size", "13px" );
+        $( ".font-10" ).css( "font-size", "10px" );
     }
     
     /* Mobile navigation */

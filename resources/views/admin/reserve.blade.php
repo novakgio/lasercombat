@@ -81,6 +81,15 @@
                         <li>
                             <a href="{{url('addOrder')}}"><i class="fa fa-dashboard fa-fw"></i>დაამატე შეკვეთა</a>
                         </li>
+                        <li>
+                            <a href="{{url('uploadphoto')}}"><i class="fa fa-dashboard fa-fw"></i>ატვირთე ფოტო</a>
+                        </li>
+                         <li>
+                            <a href="{{url('allphoto')}}"><i class="fa fa-dashboard fa-fw"></i>ყველა ფოტო</a>
+                        </li>
+                         <li>
+                            <a href="{{url('logoutadmin')}}"><i class="fa fa-dashboard fa-fw"></i>გამოსვლა</a>
+                        </li>
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
@@ -136,7 +145,7 @@
     <tr>
         @if(!in_array($order->order_id,$rememberOrders))
             <td>{{$order->order_id}}</td>
-            <td>{{$order->order_time}}</td>
+            <td>{{substr($order->order_time,0,10)}}</td>
             <?php
             $user = User::where('id','=',$order->user_id)->first();//findOrFail($order->user_id);
             $timeArray = $ordersArray[$order->order_id];
@@ -160,7 +169,9 @@
             <td><a  href="{{ url('/disableOrder', [$order->id]) }}" class="btn btn-danger">გააუქმე ორდერი</a></td>
             @if($order->success!=1)
             <td><a  href="{{ url('/successpayment', [$order->id]) }}" class="btn btn-danger">დაადასტურე გადახდა</a></td>
-            @endif
+            @else
+           <td>გადახდილია</td>
+           @endif
         @endif
          @php array_push($rememberOrders,$order->order_id);@endphp
         </tr>

@@ -28,6 +28,6 @@ class Inspire extends Command
      */
     public function handle()
     {
-        \Log::info("blax");
+        
     }
 }

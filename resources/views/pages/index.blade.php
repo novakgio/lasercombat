@@ -5,7 +5,7 @@
     <head>
         <meta charset="utf-8">
 
-        <title>The HTML5 Herald</title>
+        <title>Laser Combat</title>
         <meta name="description" content="The HTML5 Herald">
         <meta name="author" content="SitePoint">
         
@@ -50,7 +50,7 @@
             
               <div class="profile-form" id="profile-popup">
                     <div class="row distance-big">
-                        <h3 class="header-third">User Profile</h3>
+                        <h3 class="header-third">ჩემი ბილეთები</h3>
                     </div>
                     <div class="row profile-row">
                         <div class="col span-1-of-3 responsive-1-3-col">
@@ -61,7 +61,7 @@
                             </div>
                             <div class="row centered-row">
                                 <div class="ticket" id="seeticket">
-                                    <h4 class="icon-large-text">Your tickets</h4>
+                                    <h4 class="icon-large-text">ჩემი ბილეთები</h4>
                                 </div>
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                                 </div>
                             </div>
                             <div class="row centered-row">
-                                <h4 class="icon-large-text">Drop us a line</h4>
+                                <h4 class="icon-large-text">მოგვწერეთ</h4>
                             </div>
                         </div>
                         <div class="col span-1-of-3 responsive-1-3-col">
@@ -82,7 +82,7 @@
                                 </div>
                             </div>
                             <div class="row centered-row">
-                                <h4 class="icon-large-text">Contact information</h4>
+                                <h4 class="icon-large-text">კონტაქტი</h4>
                             </div>
                         </div>
                     </div>
@@ -113,7 +113,7 @@
                         <span class="js-count-particles">--</span> particles
                     </div>
                     <!-- particles.js container -->
-                    <div  class="particles-myjs" id="particles-js"></div>
+                    <div  class="partickles-mine" id="particles-js"></div>
                     <div class="intro">
                         <div class="nav-container">
                             <nav class="sticky">
@@ -168,7 +168,7 @@
                                     <div class="day-cube <?php echo $className;?>" rel="{{$date['id']}}">
                                         
                                         <p class="cube-label">{{$date['date']}}</p>
-                                        <p class="cube-label day-label">{{$date['day']}}</p>
+                                        <p class="cube-label day-label font-18">{{$date['day']}}</p>
                                     </div>
 
 
@@ -183,7 +183,7 @@
                                                         <div class="guid-cube free-cube"></div>
                                                     </div>
                                                     <div class="col span-3-of-4 text-left">
-                                                        <p class="guid-label free-text"> -   თავისუფალი</p>
+                                                        <p class="guid-label free-text font-15"> -   თავისუფალი</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -193,7 +193,7 @@
                                                         <div class="guid-cube Reserved-cube"></div>
                                                     </div>
                                                     <div class="col span-3-of-4 text-left">
-                                                        <p class="guid-label Reserved-text"> -   დაჯავშნილი</p>
+                                                        <p class="guid-label Reserved-text font-15"> -   დაჯავშნილი</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -203,7 +203,7 @@
                                                         <div class="guid-cube Bought-cube"></div>
                                                     </div>
                                                     <div class="col span-3-of-4 text-left">
-                                                        <p class="guid-label Bought-text"> -   ნაყიდი</p>
+                                                        <p class="guid-label Bought-text font-15"> -   ნაყიდი</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -219,41 +219,41 @@
                                         </div>
                                         <div class="row time-value-continer">
                                             <div class="col span-1-of-12 border-left">
-                                                <p class="time-value">14:00</p>
+                                                <p class="time-value font-10">14:00</p>
                                             </div>
                                             <div class="col span-1-of-12 border-left">
-                                                <p class="time-value">15:00</p>
+                                                <p class="time-value font-10">15:00</p>
                                             </div>
                                             <div class="col span-1-of-12 border-left">
-                                                <p class="time-value">16:00</p>
+                                                <p class="time-value font-10">16:00</p>
                                             </div>
                                             <div class="col span-1-of-12 border-left">
-                                                <p class="time-value">17:00</p>
+                                                <p class="time-value font-10">17:00</p>
                                             </div>
                                             <div class="col span-1-of-12 border-left">
-                                                <p class="time-value">18:00</p>
+                                                <p class="time-value font-10">18:00</p>
                                             </div>
                                             <div class="col span-1-of-12 border-left">
-                                                <p class="time-value">19:00</p>
+                                                <p class="time-value font-10">19:00</p>
                                             </div>
                                             <div class="col span-1-of-12 border-left">
-                                                <p class="time-value">20:00</p>
+                                                <p class="time-value font-10">20:00</p>
                                             </div>
                                             <div class="col span-1-of-12 border-left">
-                                                <p class="time-value">21:00</p>
+                                                <p class="time-value font-10">21:00</p>
                                             </div>
                                             <div class="col span-1-of-12 border-left">
-                                                <p class="time-value">22:00</p>
+                                                <p class="time-value font-10">22:00</p>
                                             </div>
                                             <div class="col span-1-of-12 border-left">
-                                                <p class="time-value">23:00</p>
+                                                <p class="time-value font-10">23:00</p>
                                             </div>
                                             <div class="col span-1-of-12 border-left">
-                                                <p class="time-value">24:00</p>
+                                                <p class="time-value font-10">24:00</p>
                                             </div>
                                             <div class="col span-1-of-12 border-left">
-                                                <p class="time-value">01:00</p>
-                                                <p class="time-value-right">02:00</p>
+                                                <p class="time-value font-10">01:00</p>
+                                                <p class="time-value-right font-10">02:00</p>
                                             </div>
                                         </div>
                                         <div class="row times-line-container">
@@ -264,12 +264,13 @@
                                                             <input type="text" placeholder="14:20" id="start_time" class="small-iput">
                                                         </div>
                                                         <div class="col span-1-of-2 text-left">
-                                                            <p class="input-label"> - დაწყების დრო</p>
+                                                            <p class="input-label font-13"> - დაწყების დრო</p>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col span-1-of-2">
-                                                    <p class="usual-text">ფასი ერთ ადამიანზე: <span id="1person">10 GEL</span></p>
+                                                    <p class="usual-text font-13">ფასი ერთ ადამიანზე: <span id="1person">X</span>
+                                                    ლარი</p>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -279,12 +280,12 @@
                                                             <input type="text" placeholder="15:10" id="end_time" class="small-iput">
                                                         </div>
                                                         <div class="col span-1-of-2 text-left">
-                                                            <p class="input-label"> - დასრულების დრო</p>
+                                                            <p class="input-label font-13"> - დასრულების დრო</p>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="col span-1-of-2">
-                                                    <p class="usual-text">ფასი ხუთ ადამიანზე: <span id="morepeople">10 GEL</span></p>
+                                                    <p class="usual-text font-13">ფასი <span id="howmanypeople"> 4 </span> ადამიანზე: <span id="morepeople">X</span>ლარი</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -292,11 +293,11 @@
                                             <div class="row">
                                                 <div class="range-slider">
                                                     <div class="col span-1-of-4">
-                                                        <input class="range-slider__range" id="people_range" type="range" value="4" min="4" max="10">
+                                                        <input class="range-slider__range" id="people_range" type="range" value="4" min="4" max="14">
                                                     </div>
                                                     <div class="col span-3-of-2 text-left">
                                                         <span class="range-slider__value">4</span>
-                                                        <p class="value-label"> - ხალხის რაოდენობა</p>
+                                                        <p class="value-label font-13"> - ხალხის რაოდენობა</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -304,7 +305,7 @@
                                         <div class="row button-line-container">
                                             <div class="row">
                                                 <div class="col span-1-of-4">
-                                                    <button class="button" rel="{{$today_id}}" id="reserve">დაჯავშნე</button>
+                                                    <button class="button font-13" rel="{{$today_id}}" id="reserve">დაჯავშნე</button>
                                                 </div>
                                                  
                                             </div>
@@ -323,26 +324,19 @@
                             <h2>გალერეა</h2>
                         </div>
                         <div class="row gallery-container">
-                            <div class="col span-1-of-4 responsive-1-4-col">
-                                <div class="gallery-cube"  id="first-gallery">
-                                    
-                                </div>
-                            </div>
-                            <div class="col span-1-of-4 responsive-1-4-col">
-                                <div class="big-gallery-cube"  id="second-gallery">
-                                    
-                                </div>
-                            </div>
-                            <div class="col span-1-of-4 responsive-1-4-col">
-                                <div class="big-gallery-cube"  id="third-gallery">
-                                    
-                                </div>
-                            </div>
-                            <div class="col span-1-of-4 responsive-1-4-col">
-                                <div class="gallery-cube"  id="fourth-gallery">
-                                    
-                                </div>
-                            </div>
+                            <!-- Start WOWSlider.com BODY section -->
+                            <div id="wowslider-container1">
+                            <div class="ws_images"><ul>
+                            @php $i=0;@endphp
+                            @foreach($imgs as $img)
+
+                                    <li><img src="public/galleryimages/<?php echo $img->img;?>" alt="first - Copy (2)" title="first - Copy (2)" id="wows1_$i"/></li>
+                                    $i++;
+                            @endforeach
+                                </ul></div>
+                            </div>  
+                            
+                            <!-- End WOWSlider.com BODY section -->
                         </div>
                     </div>
                 </div>
@@ -430,28 +424,35 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         }
                 });
-
-
-
-
-
-                
+                console.log($('.buyfivepercent').text());
                 var homeURL = "{{url('')}}";
 
                 $(document).on("keyup", "#end_time", function(){
-                   
                         getPrices();
+                });
+
+                $(document).on('focusout','#end_time',function(){
+                    if($(this).val().split(":")[1]!="0" && $(this).val().split(":")[1]!="00")
+                        var final;
+                        var value = $(this).val().split(":")[0]+":";
+                        var round = Math.round(parseInt($(this).val().split(":")[1])/ 10) * 10;
+                        if(round==0){
+                            final = value+"0"+round;
+                            $('#end_time').val(final);
+                        }
+                        else{
+
+                            $('#end_time').val(value+round);
+                        }
 
                 });
 
                 $('#people_range').on('change',function(){
                     getPrices();
-
-
                 });
 
                 function getPrices(){
-                     var start_time = $('#start_time').val();
+                    var start_time = $('#start_time').val();
                     var end_time = $('#end_time').val();
                     var people_range = $('#people_range').val();
                     var week_id = $('#reserve').attr('rel');
@@ -465,6 +466,7 @@
                         .done(function (data){
                             $('#1person').text(data.onePerson);
                             $('#morepeople').text(data.onePerson * people_range);
+                            $('#howmanypeople').text(people_range);
 
                         });
                     }
@@ -597,7 +599,7 @@
 
                     var start_firstTime =   parseInt(start_time.split(":")[0]); // like 14,15,16
                     var start_secondTime = parseInt(start_time.split(":")[1]); // like minutes,20,40,50
-                    $min40 = "მინიმუმ შეგიძლიათ შეუკვეთოთ 40 წუთი";
+                    $min40 = "მინიმუმ შეგიძლიათ შეუკვეთოთ 30 წუთი";
                     $max80 = "მაქსიმუმ შეგიძლიათ შეუკვეთოთ 80 წუთი";
 
                     var end_firstTime = parseInt(end_time.split(":")[0]);
@@ -620,8 +622,8 @@
                             else if(humanReadable.hours==1 && humanReadable.minutes<=20) return true;
 
 
-                            else if(humanReadable.hours==0 && humanReadable.minutes<40) return $min40;
-                            else if(humanReadable.hours==0 && humanReadable.minutes>=40) return true;
+                            else if(humanReadable.hours==0 && humanReadable.minutes<30) return $min40;
+                            else if(humanReadable.hours==0 && humanReadable.minutes>=30) return true;
 
                             else return $max80;
                         } else { return false;}
@@ -632,8 +634,25 @@
 
                 $('#start_time').on('focusout',function(){
                         if($(this).val().length==5){
+                            var final;
+                            if($(this).val().split(":")[1]!="0" && $(this).val().split(":")[1]!="00"){
+                                var value = $(this).val().split(":")[0]+":";
+                                var round = Math.round(parseInt($(this).val().split(":")[1])/ 10) * 10;
+                                if(round==0){
+                                    final = value+"0"+round;
+                                    $('#start_time').val(final);
+                                }
+                                else{
+
+                                    $('#start_time').val(value+round);
+                                }
+                                
+                            }
                             endTimeSet($(this).val());
+
+                                
                         }
+
                     });
 
 
@@ -643,15 +662,16 @@
                         var first = parseInt(time.split(":")[0]);
                         var second =parseInt(time.split(":")[1]);
                         var minutes = 60-second;
-                        if(second<20) {
-                            end_time_minutes=second+40;
+                        if(second<30) {
+
+                            end_time_minutes=second+30;
                             if(first<10) first="0"+first;
                             $('#end_time').val(first+":"+end_time_minutes);
                         }else{
                             if(first==23){ var first_time = "0";}
                             else { var first_time = first+1;}
                             if(first_time<10) first_time="0"+first_time;
-                            end_time_minutes=second+40-60;
+                            end_time_minutes=second+30-60;
                             if(end_time_minutes<10) end_time_minutes="0"+end_time_minutes
                             $('#end_time').val(first_time+":"+end_time_minutes);
                         }
@@ -674,7 +694,7 @@
                         sweetAlert("Oops...", "შეავსეთ ყველა ველი,რათა დაჯავშნოთ", "error");
                     }
                     else if(validateTime==false){
-                        sweetAlert("Oops...", "დრო შეგყავთ შემდეგი ფორმატით -  14:40, ღამის 12 საათი ითვლება 00:00,ხოლო ღამის პირველი საათი 01:00", "error");
+                        sweetAlert("Oops...", "დროს შეყვანის წესები: მიუთითეთ დროები 14:00 საათიდან ღამის 02:00 საათამდე,ნებისმიერი სხვა დროის ჩანაწერით ვერ მოახერხებთ დაჯავშნას.მაგალითად . 14:00  და 15:00", "error");
                         
                     }
                     else if(validateTime!=true && validateTime!=false){
@@ -689,7 +709,7 @@
                         }) 
                         .done(function (data){
                             if(data.error==""){
-                             showBuyButton(data.fivePercent,data.tenPercent,data.total);
+                             showBuyButton(data.personPrice,data.fivePercent,data.tenPercent,data.total);
                             }
                             else{
                                 sweetAlert("Oops...", data.error, "error");
@@ -799,14 +819,24 @@
 
 
 
-                function showBuyButton(pricesale1,pricesale2,reservePrice,result,key){
-                    $('#buytenpercent').text(pricesale2);
-                    $('#buyfivepercent').text(pricesale1)
-                    $('#buytenpercent_button').attr('rel',pricesale2);
-                    $('#buyfivepercent_button').attr('rel',pricesale1);
-                    $('#reserve-price').text(reservePrice);
-                    $('#reserve-code').text(key);
-                    $('#orderid').val(result);
+                function showBuyButton(personPrice,fivePercent,tenPercent,total,key){
+                    console.log(personPrice);
+                    console.log(fivePercent);
+                    console.log(tenPercent);
+                    console.log(total);
+                    console.log($('.buyfivepercent').text());
+                    $('.buyfivepercent').text(personPrice);
+                    $('.buyfivepercent_final').text(fivePercent);
+
+                    $('.buytenpercent').text(total);
+                    $('.buytenpercent_final').text(tenPercent);
+
+
+                    $('#buytenpercent_button').attr('rel',tenPercent);
+                    $('#buyfivepercent_button').attr('rel',fivePercent);
+                    $('#reserve-price').text(total);
+                    
+                    $('#orderid').val('1');
                     console.log($('#orderid').val());
                     $( ".nav-container" ).fadeOut('slow');
                     $( "#overlay" ).fadeIn('slow');

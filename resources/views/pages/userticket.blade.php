@@ -1,7 +1,7 @@
 <i class="ion-close-round close-inner-popup" id="close-ticket"></i>
                     <div class="row ticket-line">
                         <span class="ticket-title">თარიღი:</span>
-                        <span class="ticket-value">{{$date}}</span>
+                        <span class="ticket-value">{{substr($date,0,10)}}</span>
                     </div>
                     <div class="row ticket-line">
                         <span class="ticket-title">დაწყების დრო:</span>

@@ -4,7 +4,6 @@
 
 <head>
 
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,7 +13,7 @@
     <title>SB Admin 2 - Bootstrap Admin Theme</title>
 
     <!-- Bootstrap Core CSS -->
-     <link href="public/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="public/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
     <link href="public/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
@@ -49,9 +48,7 @@
             </div>
             <!-- /.navbar-header -->
 
-            
-            <!-- /.navbar-top-links -->
-
+           
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
@@ -69,7 +66,7 @@
                             </div>
                             <!-- /input-group -->
                         </li>
-                     <li>
+                        <li>
                             <a href="{{url('reserve')}}"><i class="fa fa-dashboard fa-fw"></i>დაჯავშნილების სია</a>
                         </li>
                        
@@ -84,12 +81,14 @@
                         <li>
                             <a href="{{url('addOrder')}}"><i class="fa fa-dashboard fa-fw"></i>დაამატე შეკვეთა</a>
                         </li>
+
                         <li>
                             <a href="{{url('uploadphoto')}}"><i class="fa fa-dashboard fa-fw"></i>ატვირთე ფოტო</a>
                         </li>
-                        <li>
+                         <li>
                             <a href="{{url('allphoto')}}"><i class="fa fa-dashboard fa-fw"></i>ყველა ფოტო</a>
                         </li>
+
                          <li>
                             <a href="{{url('logoutadmin')}}"><i class="fa fa-dashboard fa-fw"></i>გამოსვლა</a>
                         </li>
@@ -103,13 +102,9 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                @if(Session::has('orderDisable'))
-                    <h1 class="page-header">{{Session::get('orderDisable')}}</h1>
-                @elseif(Session::has('orderDelete'))
-                    <h1 class="page-header">{{Session::get('orderDelete')}}</h1>
-                @else
-                    <h1 class="page-header">ყველა შეკვეთა</h1>
-                @endif
+                @if(Session::has('choosephoto'))
+                    <h1 class="page-header">{{Session::get('choosephoto')}}</h1>
+               @endif
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -122,65 +117,15 @@
 
             </style>
             <!-- /.row -->
-             <div class="container">
+            <div class="container">
  
  <a href="{{url('useremailexcel')}}">გადმოწერე იმეილების ექსელი</a>
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-       <th>შეკვეთის აიდი</th>
-        <th>შეკვეთის დრო</th>
-        <th>შეკვეთის ხანგრძლივობა</th>
-        <th>ხალხის რაოდენობა</th>
-        <th>იუზერის სახელი</th>
-         <th>იუზერის მობილური</th>
-         <th>უნიკალური კოდი</th>
-         <th>ფასი</th>
-         <th>ორდერის წაშლა</th>
-         <th>ორდერის გაუქმება</th>
-         <th>დადასტურება</th>
+  {{ Form::open(array('files' => true,'route'=>'uploadphoto','class'=>'form-group')) }}
 
-      </tr>
-    </thead>
-   <tbody>
-    @php $rememberOrders=array(); @endphp
-    @foreach($orders as $order)
-    <tr>
-        @if(!in_array($order->order_id,$rememberOrders))
-            <td>{{$order->order_id}}</td>
-            <td>{{substr($order->order_time,0,10)}}</td>
-            <?php
-            $user = User::where('id','=',$order->user_id)->first();//findOrFail($order->user_id);
-            $timeArray = $ordersArray[$order->order_id];
-            $i=1;
-            foreach($timeArray as $time){
-                if($i==1) $start_time = $time;
-               
-                if($i==count($timeArray)) $end_time = $time;
-                 $i++;
-            }
-            
-            ?>
+   {!! Form::file('image', null) !!}
+  <input type="submit" name="submit">ატვირთე
 
-            <td>{{$start_time}} : {{$end_time}}</td>
-            <td>{{$order->people}}</td>
-            <td><?php echo ($user==null) ?  $order->name : $user->name;?></td>
-            <td><?php echo ($user==null) ?  $order->phone : $user->phone;?></td>
-            <td>{{$order->userkey}}</td>
-            <td>{{$order->price}}</td>
-            <td><a   href="{{ url('/deleteOrder', [$order->id]) }}" class="btn btn-danger">წაშალე ორდერი</a></td>
-            <td><a  href="{{ url('/disableOrder', [$order->id]) }}" class="btn btn-danger">გააუქმე ორდერი</a></td>
-            @if($order->success!=1)
-            <td><a  href="{{ url('/successpayment', [$order->id]) }}" class="btn btn-danger">დაადასტურე გადახდა</a></td>
-            @else
-           <td>გადახდილია</td>
-           @endif
-        @endif
-         @php array_push($rememberOrders,$order->order_id);@endphp
-        </tr>
-    @endforeach
-    </tbody>
-  </table>
+  {{Form::close()}}
 </div>
 
             
@@ -188,9 +133,10 @@
         <!-- /#page-wrapper -->
 
     </div>
+    <!-- /#wrapper -->
 
     <!-- jQuery -->
-     <script src="public/vendor/jquery/jquery.min.js"></script>
+    <script src="public/vendor/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="public/vendor/bootstrap/js/bootstrap.min.js"></script>
@@ -200,6 +146,7 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="public/dist/js/sb-admin-2.js"></script>
+
 </body>
 
 </html>

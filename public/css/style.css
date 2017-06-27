@@ -525,7 +525,7 @@ input::-moz-focus-outer {
 }
 
 .button-second {
-    width: 50%;
+    width: 90%;
     margin-left: 4%;
     border-radius: 5px;
     box-shadow: none;
@@ -564,6 +564,10 @@ input::-moz-focus-outer {
     font-family: BPGWeb002;
     color: #d6f1fc;
     cursor: pointer;
+}
+
+.fonti-erti-xazistvis {
+    font-size: 15px;
 }
 
 .left-but-cont {

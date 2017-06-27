@@ -59,12 +59,12 @@ class OrderController extends Controller
                 $order = new Order();
                 if(!$request->name){
                     $order->user_id = Auth::user()->id;
-                    $key = substr(Hash::make(Auth::user()->phone),54,6);
+                    $key = substr(crc32(substr(Hash::make(Auth::user()->phone),54,6)),2);
                     $order->userkey = $key;
                 }
                 else{
                     $order->user_id = null;
-                    $key =  substr(Hash::make($request->phone),54,6);
+                    $key =  substr(crc32(substr(Hash::make($request->phone),54,6)),2);
                     $order->userKey =$key;
                     $order->phone = $request->phone;
                     $order->name = $request->name;
@@ -95,14 +95,15 @@ class OrderController extends Controller
                 }
 
 
-    		    $fivePercent = $total-10;
-                $tenPercent = $total*90/100;
+    		    $fivePercent = round(($total-$personPrice)*95/100);
+
+                $tenPercent = round($total*90/100);
             }
         }
 
 
     	if(!$request->name){
-            return compact('error','total','fivePercent','tenPercent','key');
+            return compact('error','total','personPrice','fivePercent','tenPercent','key');
         }
         else{
             return compact('error','key');
@@ -139,9 +140,10 @@ class OrderController extends Controller
     }
 
     public function calculateEachPrice(Request $request){
-        $total =  $this->calculatePrice($request->start_time,$request->end_time,$request->week_id)*$request->people_range;
-        $fivePercent = $total-10;
-        $tenPercent = $total*90/100;
+        $personPrice =  $this->calculatePrice($request->start_time,$request->end_time,$request->week_id);
+        $total=$personPrice*$request->people_range;
+         $fivePercent = round(($total-$personPrice)*95/100);
+        $tenPercent = round($total*90/100);
 
         $error="";
         $key="";
@@ -161,7 +163,7 @@ class OrderController extends Controller
 
         }
 
-        return compact('total','fivePercent','tenPercent','error');
+        return compact('total','personPrice','fivePercent','tenPercent','error');
     }
     
     
