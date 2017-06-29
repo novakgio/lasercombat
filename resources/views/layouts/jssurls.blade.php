@@ -5,6 +5,7 @@
 <script type="text/javascript" src="{{asset('public/js/scrolloverflow.js')}}"></script>
 <script type="text/javascript" src="{{asset('public/js/jquery.fullPage.js')}}"></script>
 <script type="text/javascript" src="{{asset('public/engine1/wowslider.js')}}"></script>
+
                             <script type="text/javascript" src="{{asset('public/engine1/script.js')}}"></script>
 <script>
 
@@ -21,7 +22,6 @@
 <script type="text/javascript" src="{{asset('public/js/app.js')}}"></script>
 <script type="text/javascript" src="{{asset('public/js/sweetalert.min.js')}}"></script>
 
-<script type="text/javascript" src="{{asset('public/engine1/jquery.js')}}"></script>
 
 
 

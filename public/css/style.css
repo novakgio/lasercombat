@@ -912,5 +912,46 @@ input::-moz-focus-outer {
 }
 
 
+.header-info {
+    font-family: BPGWeb002Caps;
+    text-align: center;
+    font-size: 45px;
+    color: rgba(214, 241, 252, 0.9);
+}
+
+.header-info-container {
+    margin-top: 15%;
+    width: 100%;
+    position: absolute;
+}
+
+.js-header-1,
+.js-header-2,
+.js-header-3,
+.js-header-4,
+.js-header-6,
+.js-header-5 {
+    display: none;
+}
+
+.centered-second {
+    text-align: center;
+}
+
+.js--header-icon {
+    cursor: pointer;
+    font-size: 60px;
+    color: #d6f1fc;
+    transition: all 0.5s;
+}
+
+.buttonich {
+    width: 40%;
+    margin-left: 30%;
+    padding: 10px 5px;
+    border-radius: 5px;
+    border: 2px solid #d6f1fc;
+    background: rgba(214, 241, 252, 0.2);
+}
 
 

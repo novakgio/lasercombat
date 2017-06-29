@@ -109,6 +109,20 @@
             </div>
             <div id="fullpage">
                 <div class="section " id="section0">
+                    <div class="row header-info-container">
+                        <div class="first-wave">
+                            <h3 class="header-info js-header-1">მოემზადე</h3>
+                            <h3 class="header-info js-header-2">დატენე შენი ბლასტერი</h3>
+                            <h3 class="header-info js-header-3">ისთ ფოინთში ლაზერული ომები იწყება!</h3>
+                        </div>
+                        <h3 class="header-info js-header-4">დაიწყე თამაში ახლავე</h3>
+                        <div class="row centered-second js-header-5">
+                            <i class="ion-arrow-down-c js--header-icon"></i>
+                        </div>
+                        <a href="#section1">
+                            <h3 class="header-info buttonich js-header-6">დაჯავშნე</h3>
+                        </a>
+                    </div>
                     <div class="count-particles" id="particles-myfirst">
                         <span class="js-count-particles">--</span> particles
                     </div>
@@ -544,6 +558,9 @@
                         .done(function (data){
                             if(data.error == "") {
                                window.location.href = homeURL;
+                                $('html, body').animate({
+                                    scrollTop: $("#section1").offset().top
+                                }, 2000);
                             }
                             else{
                                 sweetAlert("Oops...", data.error, "error");
@@ -576,6 +593,11 @@
                     getPrices();
                     
                     
+
+                });
+                $(document).on("click", "#section1", function(){
+                   if(user!=true)
+                        showRegister();
 
                 });
                 
@@ -656,6 +678,8 @@
                     });
 
 
+
+
                 function endTimeSet(time){
                         
                         var end_time_minutes = 0;
@@ -701,6 +725,7 @@
                         sweetAlert("Oops...", validateTime, "error");
                         
                     }
+
                     else{
                         $.ajax({
                             method: "POST",
@@ -708,7 +733,10 @@
                             data:{start_time:start_time,end_time:end_time,people_range:people_range,week_id:week_id,differenceTime:differenceTime}
                         }) 
                         .done(function (data){
-                            if(data.error==""){
+                            if(data.userPhone!=0){
+                                
+                            }
+                            else if(data.error==""){
                              showBuyButton(data.personPrice,data.fivePercent,data.tenPercent,data.total);
                             }
                             else{

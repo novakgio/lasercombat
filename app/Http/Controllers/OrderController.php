@@ -142,9 +142,13 @@ class OrderController extends Controller
     public function calculateEachPrice(Request $request){
         $personPrice =  $this->calculatePrice($request->start_time,$request->end_time,$request->week_id);
         $total=$personPrice*$request->people_range;
-         $fivePercent = round(($total-$personPrice)*95/100);
+        $fivePercent = round(($total-$personPrice)*95/100);
         $tenPercent = round($total*90/100);
 
+        $userPhone=0;
+        if(Auth::user()->phone==null){
+            $userPhone = Auth::user()->id;
+        }
         $error="";
         $key="";
         date_default_timezone_set('Asia/Tbilisi');
@@ -163,7 +167,7 @@ class OrderController extends Controller
 
         }
 
-        return compact('total','personPrice','fivePercent','tenPercent','error');
+        return compact('total','personPrice','fivePercent','tenPercent','error','userPhone');
     }
     
     
