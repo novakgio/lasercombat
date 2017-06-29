@@ -33,7 +33,9 @@ class Kernel extends ConsoleKernel
                 ->everyMinute();
 
         
+        $schedule->command("TbcCheck")->daily();
 
+       
         $schedule->command('sheduledestroy')->dailyAt('01:59')->timezone('Asia/Tbilisi');
     }
 }

@@ -142,7 +142,7 @@ class OrderController extends Controller
     public function calculateEachPrice(Request $request){
         $personPrice =  $this->calculatePrice($request->start_time,$request->end_time,$request->week_id);
         $total=$personPrice*$request->people_range;
-        $fivePercent = round(($total-$personPrice)*95/100);
+        $fivePercent = round(($total)*95/100-$personPrice);
         $tenPercent = round($total*90/100);
 
         $userPhone=0;
@@ -213,7 +213,7 @@ class OrderController extends Controller
     }
 
 
-    private function getScheduleIDs($firstTime,$secondTime,$start_time,$end_time,$day_id){
+    public function getScheduleIDs($firstTime,$secondTime,$start_time,$end_time,$day_id){
         $query = "SELECT * FROM  `schedules`
                         WHERE time>='$start_time' AND time<='$end_time' 
                         and day_id='$day_id'";

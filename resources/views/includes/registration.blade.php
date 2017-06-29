@@ -30,7 +30,7 @@
 
                      <div class="row centerd-mine">
                         <div class="col span-5-of-7 centerd-mine righted-mine">
-                            <p class="under-h3 inline fonti-erti-xazistvis">ადგილზე გადავიხდი, ფასი <span class="price-box" id="reserve-price">300</span> ₾ </p>
+                            <p class="under-h3 inline fonti-erti-xazistvis">ადგილზე გადავიხდი <span class="price-box" id="reserve-price">300</span> ლარს </p>
                         </div>
                          <div class="col span-2-of-7 left-but-cont">
                             <button class="button-second" id="reservebutton">დაჯავშნა</button>

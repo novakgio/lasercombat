@@ -210,7 +210,28 @@ class indexController extends Controller
         return compact('error');
        
     }
-    
+    public function checkMobile(){
+        $user = Auth::user();
+        $error;
+        if($user->phone==null){
+            $error = 0;
+        }else{$error=1;}
+
+        return compact('error');
+    }
+
+    public function savemobile(Request $request){
+        $user = Auth::user();
+        $error;
+        $user->phone =$request->phone;
+        if($user->save()){
+            $error=1;
+        }
+        else{
+            $error=0;
+        }
+        return compact('error');
+    }
 
 
 }

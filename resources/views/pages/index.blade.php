@@ -105,11 +105,24 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="user-textus-section" id="mobile-us">
+                    <i class="ion-close-round close-inner-popup" id="close-textus"></i>
+                    <h2 class="header-textus">შეიყვანეთ ტელეფონის ნომერი</h2>
+                    <div class="row butons-container">
+                        <div class="row button-container">
+                            <input type="text" placeholder="მიუთითეთ ნომერი" id="mobileus" class="big-input">
+                        </div>
+                        <div class="row button-container">
+                            <div class="button-login account-button" id="mobilesend">Send</div>
+                        </div>
+                    </div>
+                </div>
                 
             </div>
             <div id="fullpage">
                 <div class="section " id="section0">
-                    <div class="row header-info-container">
+                    <div class="row header-info-container" id="header-info">
                         <div class="first-wave">
                             <h3 class="header-info js-header-1">მოემზადე</h3>
                             <h3 class="header-info js-header-2">დატენე შენი ბლასტერი</h3>
@@ -122,9 +135,6 @@
                         <a href="#section1">
                             <h3 class="header-info buttonich js-header-6">დაჯავშნე</h3>
                         </a>
-                    </div>
-                    <div class="count-particles" id="particles-myfirst">
-                        <span class="js-count-particles">--</span> particles
                     </div>
                     <!-- particles.js container -->
                     <div  class="partickles-mine" id="particles-js"></div>
@@ -465,6 +475,8 @@
                     getPrices();
                 });
 
+            
+
                 function getPrices(){
                     var start_time = $('#start_time').val();
                     var end_time = $('#end_time').val();
@@ -591,6 +603,10 @@
                         endTimeSet(value);
                     }
                     getPrices();
+
+                    $(".popup-selected").css( "visibility", "hidden" );
+                    $(this).children(".popup-selected").css( "visibility", "visible" );
+
                     
                     
 
@@ -734,7 +750,7 @@
                         }) 
                         .done(function (data){
                             if(data.userPhone!=0){
-                                
+
                             }
                             else if(data.error==""){
                              showBuyButton(data.personPrice,data.fivePercent,data.tenPercent,data.total);
@@ -746,6 +762,18 @@
                     }
                 }
 
+
+                $('#buyfivepercent_button').on('click',function(){
+
+                    var price = $(this).attr('rel');
+                    var start_time = $('#start_time').val();
+                    var end_time = $('#end_time').val();
+                    var week_id = $('#reserve').attr('rel');
+                    var people = $('#people_range').val();
+                    var buyfivepercent = homeURL+"/"+price+"/"+start_time+"/"+end_time+"/"+week_id+"/"+people;
+                    window.location.href= buyfivepercent;
+
+                });
 
                 // $.ajax({
                 //             method: "POST",
@@ -861,11 +889,10 @@
 
 
                     $('#buytenpercent_button').attr('rel',tenPercent);
-                    $('#buyfivepercent_button').attr('rel',fivePercent);
+                    $('#buyfivepercent_button').attr('rel',personPrice);
                     $('#reserve-price').text(total);
                     
-                    $('#orderid').val('1');
-                    console.log($('#orderid').val());
+                   
                     $( ".nav-container" ).fadeOut('slow');
                     $( "#overlay" ).fadeIn('slow');
                     $('#reservepopup').fadeIn( 'slow' );
@@ -895,10 +922,61 @@
 
                 $( "#reserve" ).click(function() {
                     if(user!=true)
-                        showRegister();
-                    else 
-                        goToOrder(); 
+                      showRegister();
+                    else{
+                        $.ajax({
+                            method: "POST",
+                            url: "{{url('checkUserMobile')}}",
+                            
+                        }) 
+                        .done(function (data){
+                            if(data.error==0){
+                                showMobileUs();
+                            }
+                            else{
+                                goToOrder();
+                            }
+                            
+                        });
+                       
+                    }
+
+                     
+                    
+
+                    
                 });
+
+
+                $('#mobilesend').on('click',function(){
+
+                    var phone = $('#mobileus').val();
+                    if(phone=="" || phone.length<9 || phone.length>9){
+                        sweetAlert("Oops...", "შეიყვანეთ ვალიდური მობილურის ნომერი", "error");
+                    }
+                    else{
+                        $.ajax({
+                            method: "POST",
+                            url: "{{url('savemobile')}}",
+                            data:{phone:phone}
+                        }) 
+                        .done(function (data){
+                           if(data.error==1){
+                                goToOrder();
+                           }
+                            
+                    });
+                    }
+
+                });
+
+                function showMobileUs(){
+                    $( "#overlay" ).fadeIn('slow');
+                    $('#mobile-us').fadeIn( 'slow' );
+                    windowOverlay = document.getElementById('overlay').offsetHeight;
+                    registrationHeight = document.getElementById('mobile-us').offsetHeight;
+                    $('#mobile-us').css("margin-top", (windowOverlay - registrationHeight)/2 );
+                }
 
                 $('.day-cube').on('click',function(){
                     var week_id =$(this).attr('rel');

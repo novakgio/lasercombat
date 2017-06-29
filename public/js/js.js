@@ -66,6 +66,8 @@ $(document).ready(function(){
 
 
 
+
+
 $(document).ready(function() {
   var rangeSlider = function(){
   var slider = $('.range-slider'),
@@ -112,6 +114,7 @@ $(document).ready(function(){
         $( "#section1" ).fadeOut('slow');
         $( "#section2" ).fadeOut('slow');
         $( "#section3" ).fadeOut('slow');
+        $( "#header-info" ).css('visibility', 'hidden');
         $( "#overlay" ).fadeIn('slow');
         $('#profile-popup').fadeIn( 'slow' );
         windowOverlay = document.getElementById('overlay').offsetHeight;
@@ -197,6 +200,8 @@ $(document).ready(function(){
         
         $( ".nav-container" ).fadeIn('slow');
         $('#close-textus').css('display', 'block');
+
+        $( "#header-info" ).css('visibility', 'visible');
     })
     
     $( "#my-contact" ).click(function() {

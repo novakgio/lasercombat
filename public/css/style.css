@@ -660,6 +660,44 @@ input::-moz-focus-outer {
     color: #d6f1fc;
 }
 
+.popup-selected {
+    visibility: hidden;
+    background: #1b1625;
+    border-radius: 5px;
+    z-index: 2;
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    color: #d6f1fc;
+    top: -20px;
+    left: 0px;
+    border: 2px solid #d6f1fc;
+}
+
+.popup-selected:after, .popup-selected:before {
+    top: 100%;
+    left: 50%;
+    border: 2px solid;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.popup-selected:after {
+    border-color: rgba(136, 183, 213, 0);
+    border-top-color: #1b1625;
+    border-width: 10px;
+    margin-left: -10px;
+}
+.popup-selected:before {
+    border-color: rgba(194, 225, 245, 0);
+    border-top-color: #d6f1fc;
+    border-width: 16px;
+    margin-left: -16px;
+}
+
 .ten-minute-distance:hover .popup-time {
     visibility: visible;
 }

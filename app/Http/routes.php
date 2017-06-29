@@ -38,16 +38,24 @@ Route::post('getpriceorders','OrderController@calculateEachPrice');
 
 Route::get('/test',function(){
 
-return crc32("bdadad");
+return getcwd();
 
 });
 Route::get('/addOrder','AdminController@addOrder');
 
 
+//tbc
+Route::post('/tbcpayment/ok', 'TbcController@ok')->name('okPayment');
+Route::get('/tbcpayment/fail', 'TbcController@fail')->name('failPayment');
+Route::get('/tbcpayment/{price}/{start_time}/{end_time}/{week_id}/{people}','TbcController@startPayment');
+
+
+Route::post('checkUserMobile','indexController@checkMobile');
+Route::post('savemobile','indexController@savemobile');
+
 Route::get('/disableOrder/{id}','AdminController@disableOrder');
 Route::get('/deleteOrder/{id}','AdminController@deleteOrder');
 
-Route::get('/tbcpayment/{order_id}','TbcController@startPayment');
 
 Route::get('/useremailexcel','AdminController@emails');
  Route::get('/admin','AdminController@index');

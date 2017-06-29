@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-
+use Curl\Curl;
 class TbcPay extends Command
 {
     /**
@@ -37,7 +37,27 @@ class TbcPay extends Command
      */
     public function handle()
     {
-        
-        \Log::info("nice one");
+            date_default_timezone_set('Asia/Tbilisi');
+
+            $certpath = getcwd().'/public/certificate/lasercertificate.pem';
+            $certpass = 'Gkluyro0756kjyDJGYrj';
+
+            $curl = new Curl();
+            $curl->setOpt(CURLOPT_SSLCERT, $certpath);
+            $curl->setOpt(CURLOPT_SSLKEY, $certpath);
+            $curl->setOpt(CURLOPT_SSLKEYPASSWD, $certpass);
+            $curl->setOpt(CURLOPT_SSL_VERIFYPEER, 0);
+            $curl->setOpt(CURLOPT_SSL_VERIFYHOST, 0);
+            $curl->setOpt(CURLOPT_TIMEOUT, 120);
+            $curl->post('https://securepay.ufc.ge:18443/ecomm2/MerchantHandler', array(
+              'command' => 'b',
+            ));
+
+
+            if ($curl->error) {
+              \Log::info('Error: ' . $curl->errorCode . ': ' . $curl->errorMessage . "\n";)
+            } else {
+               \Log::info("response:  ".$curl->response);
+            } 
     }
 }
