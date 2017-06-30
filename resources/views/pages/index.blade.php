@@ -448,82 +448,29 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         }
                 });
-                console.log($('.buyfivepercent').text());
+                
                 var homeURL = "{{url('')}}";
 
-                $(document).on("keyup", "#end_time", function(){
-                        getPrices();
-                });
 
-                $(document).on('focusout','#end_time',function(){
-                    if($(this).val().split(":")[1]!="0" && $(this).val().split(":")[1]!="00"){
-                        var final;
-                        var value = $(this).val().split(":")[0]+":";
-                        var round = Math.round(parseInt($(this).val().split(":")[1])/ 10) * 10;
-                        if(round==0){
-                            final = value+"0"+round;
-                            $('#end_time').val(final);
-                        }
-                        else{
-
-                            $('#end_time').val(value+round);
-                        }
-                    }
-
-                  
-
-                });
-
-                $('#people_range').on('change',function(){
-                    getPrices();
-                });
-
-            
-
-                function getPrices(){
-                    var start_time = $('#start_time').val();
-                    var end_time = $('#end_time').val();
-                    var people_range = $('#people_range').val();
-                    var week_id = $('#reserve').attr('rel');
-                   
-                    if(start_time!="" && end_time!=""){
-                        $.ajax({
-                            method: "POST",
-                            url: "{{url('pricegetter')}}",
-                            data:{start_time:start_time,end_time:end_time,people_range:people_range,week_id:week_id}
-                        }) 
-                        .done(function (data){
-                            $('#1person').text(data.onePerson);
-                            $('#morepeople').text(data.onePerson * people_range);
-                            $('#howmanypeople').text(people_range);
-
-                        });
-                    }
-
-
-                }
+                /* ============================USER AJAX REGISTRATION AND LOGIN====================================*/
 
 
 
                 $('#createaccount').on('click',function(){
                     var error = "";
-                    var name = $('#username').val();
-                    var email = $('#email').val();
-                    var phone = $('#phone').val();
-                    var pass = $('#password').val();
+                    var name = $('#username').val(); var email = $('#email').val();
+                    var phone = $('#phone').val();   var pass = $('#password').val();
+
                     var confirmpass = $('#confirmpass').val();
-                    if(name=="" || phone=="" || pass=="" || confirmpass==""){
-                        error = "გთხოვთ შეავსოთ ყველა ველი";
-                    }
-                    else if(pass!=confirmpass){
-                        error = "პაროლები არ ემთხვევა";
-                    }
-                    else if(!Number.isInteger(parseInt(phone)) || phone.length<9){
-                        error = "მობილურის ფორმატი არასწორია"
-                    }
-                    if(error!=""){
-                        sweetAlert("Oops...", error, "error");
-                    }
+
+                    if(name=="" || phone=="" || pass=="" || confirmpass==""){ error = "გთხოვთ შეავსოთ ყველა ველი";}
+
+                    else if(pass!=confirmpass){error = "პაროლები არ ემთხვევა";}
+
+                    else if(!Number.isInteger(parseInt(phone)) || phone.length!=9){error = "მობილურის ფორმატი არასწორია";}
+
+                    if(error!=""){ sweetAlert("Oops...", error, "error");}
+
                     else 
                     {
                         $.ajax({
@@ -543,86 +490,153 @@
                                      
                                 },
                                 function(isConfirm){
-                                  if (isConfirm) {
-                                    window.location.href = homeURL;
-                                  } 
+                                  if (isConfirm) {window.location.href = homeURL;} 
                                 });
-                              
                             }
-                            else{
-                                sweetAlert("Oops...", data.error, "error");
-                            }
+                            else{ sweetAlert("Oops...", data.error, "error"); }
                         });
                     }
 
 
                 });
+
+
+
                 $('#loginuser').on('click',function(){
-                    var email = $('#logemail').val();
-                    var pass = $('#logpassword').val();
+                    var email = $('#logemail').val();  var pass = $('#logpassword').val();
                     if(email=="" ||  pass==""){
                         sweetAlert("Oops...", "გთხოვთ შეავსოთ ორივე ველი", "error");  
                     }
-                    else
-                    {
+                    else{
                         $.ajax({
                             method: "POST",
                             url: "{{url('login')}}",
                             data:{email:email,pass:pass}
                         }) 
                         .done(function (data){
-                            if(data.error == "") {
-                               window.location.href = homeURL;
-                                $('html, body').animate({
-                                    scrollTop: $("#section1").offset().top
-                                }, 2000);
-                            }
-                            else{
-                                sweetAlert("Oops...", data.error, "error");
-                            }
+                            if(data.error == "") { window.location.href = homeURL; }
+
+                            else{ sweetAlert("Oops...", data.error, "error");}
                         });
                     }
 
 
                 });
 
+                /* ===================USER REGISTRATION LOGIN FINISHED ========================================
 
 
 
 
+                
+                /* ====================ON USER TIME INPUT FIELDS, GETTING PRICES IF VALID TIME====================*/
 
-               
-                $(document).on("click", ".ordertime", function(){
-                    var start_time = $('#start_time').val();
-                    var end_time = $('#end_time').val();
-                    var value = $(this).attr('rel');
-
-                    if(end_time=="" && start_time==""){
-                        $('#start_time').val(value);
-                        endTimeSet(value);
+                $(document).on("keyup", "#end_time", function(){
+                    if($(this).val().length==5 && $('#start_time').val().length==5)  {
+                        var minutes = Math.round( (parseInt($(this).val().split(":")[1]) /10))*10;
+                        if(minutes==0) minutes = "00";
+                        $(this).val($(this).val().split(":")[0]+":"+minutes);
+                        getPrices();
+                        
                     }
-                    else if(end_time!="" && start_time!=""){
-                        $('#start_time').val(value);
-                        endTimeSet(value);
+                    else{
+                        $('#1person').text("0");
+                        $('#morepeople').text("0");
+                        $('#howmanypeople').text("0");
                     }
+                });
+                $(document).on("keyup", "#start_time", function(){
+                    if($(this).val().length==5)  {
+                        var minutes = Math.round( (parseInt($(this).val().split(":")[1]) /10))*10;
+                        if(minutes==0) minutes = "00";
+                        $(this).val($(this).val().split(":")[0]+":"+minutes);
+                        endTimeSet($(this).val());
+                        getPrices();
+                    }
+                   
+                });
+                $(document).on("focus", "#end_time", function(){
+                    if($('#start_time').val().length == 5 && $(this).val().length!=5){
+                        endTimeSet($('#start_time').val());
+                    }
+
+                });
+                // $('#start_time').on('focusout',function(){
+                //     if($(this).val().length==5){
+                //         if(putValuesFocusOutEvents($(this).val(),"start_time"))endTimeSet($(this).val());
+                //     }
+                //     endTimeSet($(this).val());
+                // });
+
+
+
+                // $(document).on('focusout','#end_time',function(){
+                //     putValuesFocusOutEvents($(this).val(),"end_time");
+                //     getPrices();
+                // });
+
+
+                
+
+                $('#people_range').on('change',function(){
                     getPrices();
-
-                    $(".popup-selected").css( "visibility", "hidden" );
-                    $(this).children(".popup-selected").css( "visibility", "visible" );
-
-                    
-                    
-
                 });
-                $(document).on("click", "#section1", function(){
-                   if(user!=true)
-                        showRegister();
 
-                });
+
+
+                // function putValuesFocusOutEvents(timeInput,inputName){
+                //     var final;
+                //     if(timeInput.split(":")[1]!="0" && timeInput.split(":")[1]!="00" && !isNaN(timeInput.split(":")[1])){
+                //         var value = timeInput.split(":")[0]+":";
+                //         var round = Math.round(parseInt(timeInput.split(":")[1])/ 10) * 10;
+                //         if(round==0){
+                //             final = value+"0"+round;
+                //             $('#'+inputName).val(final);
+                //         }
+                //         else{ $('#'+inputName).val(value+round);}
+                //         return true;
+                //     }
+                //     return false;
+                // }
+
+                function endTimeSet(time){
+                    var first = parseInt(time.split(":")[0]); 
+                    var second =(time.split(":")[1]);
+                    
+                    var end_time_minutes = 0;                
+                    var minutes = 60-second;
+
+                    if(second=="00") second = 0;
+                    else second = parseInt(time.split(":")[1]);
+                    
+                    if(second<40) {
+                        end_time_minutes=Math.round( ((second+20)/10)*10);
+                        if(first<10) first="0"+first;
+
+                        $('#end_time').val(first+":"+end_time_minutes);
+                       
+                    }else{
+                        if(first==23){ var first_time = "0";}
+                        else { var first_time = first+1;}
+                        if(first_time<10) first_time="0"+first_time;
+                        end_time_minutes=second-40;
+                        if(end_time_minutes<10) end_time_minutes="0"+end_time_minutes
+                        $('#end_time').val(first_time+":"+end_time_minutes);
+                    }
+                }
+
+
+
+
+                // ======================= USER INPUT FIELDS FINISHING ==========================================
+
+
                 
 
 
-                 function getDifferenceTime(start_time,second_time){
+
+                //**************** TIME VALIDATION *****************************************************
+                function getDifferenceTime(start_time,second_time){
                     var timeStart = new Date("Mon Jan 01 2007 "+start_time+ " GMT+0530").getTime();
                     var timeEnd = new Date("Mon Jan 01 2007 "+second_time+" GMT+0530").getTime();
                     var hourDiff = timeStart - timeEnd; //in ms
@@ -640,7 +654,7 @@
 
                     var start_firstTime =   parseInt(start_time.split(":")[0]); // like 14,15,16
                     var start_secondTime = parseInt(start_time.split(":")[1]); // like minutes,20,40,50
-                    $min40 = "მინიმუმ შეგიძლიათ შეუკვეთოთ 30 წუთი";
+                    $min40 = "მინიმუმ შეგიძლიათ შეუკვეთოთ 20 წუთი";
                     $max80 = "მაქსიმუმ შეგიძლიათ შეუკვეთოთ 80 წუთი";
 
                     var end_firstTime = parseInt(end_time.split(":")[0]);
@@ -663,8 +677,8 @@
                             else if(humanReadable.hours==1 && humanReadable.minutes<=20) return true;
 
 
-                            else if(humanReadable.hours==0 && humanReadable.minutes<30) return $min40;
-                            else if(humanReadable.hours==0 && humanReadable.minutes>=30) return true;
+                            else if(humanReadable.hours==0 && humanReadable.minutes<20) return $min40;
+                            else if(humanReadable.hours==0 && humanReadable.minutes>=20) return true;
 
                             else return $max80;
                         } else { return false;}
@@ -673,64 +687,39 @@
                     return true;
                 }
 
-                $('#start_time').on('focusout',function(){
-                        if($(this).val().length==5){
-                            var final;
-                            if($(this).val().split(":")[1]!="0" && $(this).val().split(":")[1]!="00"){
-                                var value = $(this).val().split(":")[0]+":";
-                                var round = Math.round(parseInt($(this).val().split(":")[1])/ 10) * 10;
-                                if(round==0){
-                                    final = value+"0"+round;
-                                    $('#start_time').val(final);
-                                }
-                                else{
 
-                                    $('#start_time').val(value+round);
-                                }
-                                
-                            }
-                            endTimeSet($(this).val());
+                /* TIME VALIDATION ENDING ============================================================ */
 
-                                
-                        }
+            
 
-                    });
+               
+                    
+                /* MAIN FUNCTIONS,GETTING ALL PRICES ON EACH PAGE ,EACH PRICE AND EACH BUTTONS WITH ITS TBC REDIRECTIONS */
 
+                 function getPrices(){
+                    var start_time = $('#start_time').val();  var end_time = $('#end_time').val();
+                    var people_range = $('#people_range').val();  var week_id = $('#reserve').attr('rel');
+                   
+                    if(start_time!="" && end_time!=""){
+                        $.ajax({
+                            method: "POST",
+                            url: "{{url('pricegetter')}}",
+                            data:{start_time:start_time,end_time:end_time,people_range:people_range,week_id:week_id}
+                        }) 
+                        .done(function (data){
+                            $('#1person').text(data.onePerson);
+                            $('#morepeople').text(data.onePerson * people_range);
+                            $('#howmanypeople').text(people_range);
 
-
-
-                function endTimeSet(time){
-                        
-                        var end_time_minutes = 0;
-                        var first = parseInt(time.split(":")[0]);
-                        var second =parseInt(time.split(":")[1]);
-                        var minutes = 60-second;
-                        if(second<30) {
-
-                            end_time_minutes=second+30;
-                            if(first<10) first="0"+first;
-                            $('#end_time').val(first+":"+end_time_minutes);
-                        }else{
-                            if(first==23){ var first_time = "0";}
-                            else { var first_time = first+1;}
-                            if(first_time<10) first_time="0"+first_time;
-                            end_time_minutes=second+30-60;
-                            if(end_time_minutes<10) end_time_minutes="0"+end_time_minutes
-                            $('#end_time').val(first_time+":"+end_time_minutes);
-                        }
-                         
-
+                        });
                     }
-
+                }
 
 
                 function goToOrder(){
-                    var start_time = $('#start_time').val();
-                    var end_time = $('#end_time').val();
-                    var people_range=$('#people_range').val();
-                    var week_id = $('#reserve').attr('rel');
-                    var validateTime = timeValidation(start_time,end_time);
-                    var differenceTime = getDifferenceTime(end_time,start_time);
+                    var start_time = $('#start_time').val(); var end_time = $('#end_time').val();
+                    var people_range=$('#people_range').val(); var week_id = $('#reserve').attr('rel');
+                    var validateTime = timeValidation(start_time,end_time); var differenceTime = getDifferenceTime(end_time,start_time);
 
                     
                     if(start_time=="" || end_time=="" || people_range==0){
@@ -742,7 +731,6 @@
                     }
                     else if(validateTime!=true && validateTime!=false){
                         sweetAlert("Oops...", validateTime, "error");
-                        
                     }
 
                     else{
@@ -753,7 +741,6 @@
                         }) 
                         .done(function (data){
                             if(data.userPhone!=0){
-
                             }
                             else if(data.error==""){
                              showBuyButton(data.personPrice,data.fivePercent,data.tenPercent,data.total);
@@ -765,134 +752,139 @@
                     }
                 }
 
-
-                $('#buyfivepercent_button').on('click',function(){
-
-                    var price = $(this).attr('rel');
+                function getRedirectButtonTbc(button){
+                    var price = button.attr('rel');
+                    var remaining = button.attr('data-total');
                     var start_time = $('#start_time').val();
                     var end_time = $('#end_time').val();
                     var week_id = $('#reserve').attr('rel');
                     var people = $('#people_range').val();
-                    var buyfivepercent = homeURL+"/tbcpayment"+"/"+price+"/"+start_time.split(":")[0]+"/"+start_time.split(":")[1]+"/"+end_time.split(":")[0]+"/"+end_time.split(":")[1]+"/"+week_id+"/"+people;
+                    var buyfivepercent = homeURL+"/tbcpayment"+"/"+price+"/"+remaining+"/"+start_time.split(":")[0]+"/"+start_time.split(":")[1]+"/"+end_time.split(":")[0]+"/"+end_time.split(":")[1]+"/"+week_id+"/"+people;
                     window.location.href= buyfivepercent;
+                }
+
+
+                $('#buyfivepercent_button').on('click',function(){
+                    getRedirectButtonTbc($(this));
+                });
+
+                $('#buytenpercent_button').on('click',function(){
+                    getRedirectButtonTbc($(this));
+                });
+
+
+                /* END OF MAIN FUNCTIONS */
+
+
+
+                //WHEN CLICKING ON EACH TIME , IT SHOWS BEAUTIFULLY SELECTED CLASS
+                $(document).on("click", ".ordertime", function(){
+                    var start_time = $('#start_time').val();
+                    var end_time = $('#end_time').val();
+                    var value = $(this).attr('rel');
+
+                    if(end_time=="" && start_time==""){
+                        $('#start_time').val(value);
+                        endTimeSet(value);
+                    }
+                    else if(end_time!="" && start_time!=""){
+                        $('#start_time').val(value);
+                        endTimeSet(value);
+                    }
+                    getPrices();
+
+                    $(".popup-selected").css( "visibility", "hidden" );
+                    $(this).children(".popup-selected").css( "visibility", "visible" );
 
                 });
 
-                // $.ajax({
-                //             method: "POST",
-                //             url: "{{url('getpriceorders')}}",
-                //             data:{start_time:start_time,end_time:end_time,people_range:people_range,week_id:week_id,differenceTime:differenceTime}
-                //         }) 
-                //         .done(function (data){
-                //             var result = data.error;
-                //             console.log(data);
-                //             if(Number.isInteger(parseInt(result))){
-                //                 showBuyButton(data.fivePercent,data.tenPercent,data.total,result,data.key);
-                //             }
-                //             else{
-                //                 sweetAlert("Oops...", result, "error");
-                //             }
-                //         });
-                //     }
+
+                $(document).on("click", "#section1", function(){
+                   if(user!=true) showRegister();
+                });
+
 
 
                 $(document).on("click", "#deactivateorder", function(){
-
-                        var id = $(this).attr('rel');
-                        $.ajax({
-                            method: "POST",
-                            url: "{{url('deactiveorderajax')}}",
-                            data:{id:id}
-                        }) 
-                        .done(function (data){
-                            swal({
-                                      title: "შეტყობინება!",
-                                      text: "თქვენ წარმატებით გააუქმეთ ჯავშანი",
-                                      type: "success",
-                                      showConfirmButton: true,
-                                      confirmButtonColor: "#DD6B55",
-                                      confirmButtonText: "დამკლიკე",
-                                     
-                                },
-                                function(isConfirm){
-                                  if (isConfirm) {
-                                    window.location.href = homeURL;
-                                  } 
-                                });
-                            
+                    var id = $(this).attr('rel');
+                    $.ajax({
+                        method: "POST",
+                        url: "{{url('deactiveorderajax')}}",
+                        data:{id:id}
+                    }) 
+                    .done(function (data){
+                        swal({
+                            title: "შეტყობინება!",
+                            text: "თქვენ წარმატებით გააუქმეთ ჯავშანი",
+                            type: "success",
+                            showConfirmButton: true,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: "დამკლიკე",
+                        },
+                        function(isConfirm){
+                          if (isConfirm)  window.location.href = homeURL; 
                         });
+                            
+                    });
 
                 });
                 $('#reservebutton').on('click',function(){
+                    var start_time = $('#start_time').val();  var end_time = $('#end_time').val();
+                    var people_range=$('#people_range').val(); var week_id = $('#reserve').attr('rel');
+                    var differenceTime = getDifferenceTime(end_time,start_time);
 
-                    var start_time = $('#start_time').val();
-                    var end_time = $('#end_time').val();
-                    var people_range=$('#people_range').val();
-                    var week_id = $('#reserve').attr('rel');
-                     var differenceTime = getDifferenceTime(end_time,start_time);
+
                     $.ajax({
-                            method: "POST",
-                            url: "{{url('checkOrder')}}",
-                            data:{start_time:start_time,end_time:end_time,people_range:people_range,week_id:week_id,differenceTime:differenceTime}
-                        }) 
+                        method: "POST",
+                        url: "{{url('checkOrder')}}",
+                        data:{start_time:start_time,end_time:end_time,people_range:people_range,week_id:week_id,differenceTime:differenceTime}
+                    }) 
                         .done(function (data){
                             var result = data.error;
-                            
                             if(Number.isInteger(parseInt(result))){
-                                
-
-                                swal({
-                                      title: "თქვენი უნიკალური კოდი! "+ data.key,
-                                      text: "თქვენ წარმატებით დაჯავშნეთ,თქვენი უნიკალური კოდია "+data.key,
-                                      type: "success",
-                                      showConfirmButton: true,
-                                      confirmButtonColor: "#DD6B55",
-                                      confirmButtonText: "დამკლიკე",
+                                    swal({
+                                          title: "თქვენი უნიკალური კოდი! "+ data.key,
+                                          text: "თქვენ წარმატებით დაჯავშნეთ,თქვენი უნიკალური კოდია "+data.key,
+                                          type: "success",
+                                          showConfirmButton: true,
+                                          confirmButtonColor: "#DD6B55",
+                                          confirmButtonText: "დამკლიკე",
                                      
-                                },
-                                function(isConfirm){
-                                  if (isConfirm) {
-                                    window.location.href = homeURL;
-                                  } 
-                                });
-
-
-
+                                    },
+                                    function(isConfirm){
+                                      if (isConfirm) window.location.href = homeURL;
+                                      
+                                    });
                             }
-                            else{
-                                sweetAlert("Oops...", result, "error");
-                            }
+                            else{ sweetAlert("Oops...", result, "error"); }
                         });
-                    });
+                });
 
                 
 
 
 
-                $('#buybutton').on('click',function(){
-                    var order_id = $('#orderid').val();
-                    window.location.href=homeURL+"/tbcpayment/"+order_id;
-
-                });
+                
 
 
 
 
                 function showBuyButton(personPrice,fivePercent,tenPercent,total,key){
-                    console.log(personPrice);
-                    console.log(fivePercent);
-                    console.log(tenPercent);
-                    console.log(total);
-                    console.log($('.buyfivepercent').text());
+                    
+
+
                     $('.buyfivepercent').text(personPrice);
-                    $('.buyfivepercent_final').text(fivePercent);
+                    $('.buyfivepercent_final').text(personPrice);
+                    $('#buyfivepercent_button').attr('rel',personPrice);
+                    $('#buyfivepercent_button').attr('data-total',fivePercent);
+
+
 
                     $('.buytenpercent').text(total);
                     $('.buytenpercent_final').text(tenPercent);
-
-
                     $('#buytenpercent_button').attr('rel',tenPercent);
-                    $('#buyfivepercent_button').attr('rel',personPrice);
+                    $('#buytenpercent_button').attr('data-total',tenPercent);
+                    
                     $('#reserve-price').text(total);
                     
                    
@@ -908,9 +900,7 @@
 
 
 
-                // მომხმარებელი აჭერს პროდუქტზე BUY (/buy)-ს. რომელსაც აკონტროლებს პირველი კონტროლერი რაც გამოგიგზავნე. ეგ კონტროლერი თავისით ამისამართებს view-ზე, რომელიც ისევ თავისით ამისამართებს tbc-ს url-ზე, სადაც ხდება ბარათის ნომრის ჩაწერა და გადახდა. სერვერული შეცდომის გარდა ყველა ვარიანტში, თიბისი აბრუნებს შენ /ok ურლ-ზე, თავისი $_REQUEST['trans_id']-ით. რომელსაც შენ ისევ curl-ში აგზავნი და რესპონსად გიბრუნდება ტრანზაქციის აიდის სტატუსი, შესრულდა თუარა ტრანზაქცია წარმატებით.
-
-               
+              
 
 
 
@@ -924,31 +914,27 @@
                 }
 
                 $( "#reserve" ).click(function() {
-                    if(user!=true)
-                      showRegister();
+                    if(user!=true) showRegister();
                     else{
                         $.ajax({
                             method: "POST",
                             url: "{{url('checkUserMobile')}}",
-                            
                         }) 
                         .done(function (data){
-                            if(data.error==0){
-                                showMobileUs();
-                            }
-                            else{
-                                goToOrder();
-                            }
+                            if(data.error==0){ showMobileUs();}
+                            else{   goToOrder();    }
                             
                         });
                        
+
                     }
+                });
 
                      
                     
 
                     
-                });
+                
 
 
                 $('#mobilesend').on('click',function(){

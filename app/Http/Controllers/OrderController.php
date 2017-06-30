@@ -30,16 +30,29 @@ class OrderController extends Controller
 
 	private $errors;
 
+
+    private function validateOrder($week_id,$start_time){
+        date_default_timezone_set('Asia/Tbilisi');
+        $today_day = date('l', strtotime("+0 Days - 2 hours"));
+        
+        $day = (date('H')=="00" || date('H')=="01") ? 14 :13;
+
+        $order_time = strtotime("2008-12-13 ".$start_time);
+        $now_time = strtotime("2008-12-".$day." ".date('H:i'));
+
+        if(round($order_time-$now_time)<60 && $this->weekDayArray[$today_day] == $week_id) return false;
+        return true;
+
+    }
     
     public function makeOrder(Request $request){
     	$error="";
         $key="";
-        date_default_timezone_set('Asia/Tbilisi');
-        $today_day = date('l', strtotime("+0 Days - 2 hours"));
-        $interval = $this->getInterval($request->start_time);
+       
         
 
-        if( $interval->h==0 && $this->weekDayArray[$today_day] == $request->week_id){
+        $validateOrder = $this->validateOrder($request->week_id,$request->start_time);
+        if(!$validateOrder){
             $error = "შეკვეთა უნდა აიღო ამ დროიდან მინიმუმ 1 საათის შემდეგ";
         }
         else{
@@ -53,6 +66,17 @@ class OrderController extends Controller
                 
                 $firstTime = explode(":",$request->start_time)[0];
                 $secondTime = explode(":",$request->end_time)[0];
+                $secondTimeMinutes = explode(":",$request->end_time)[1];
+                $secondFirstTime= explode(":",$request->start_time)[1];
+
+                $finalMinutes=$secondTimeMinutes;
+                if($secondTimeMinutes=="00") {$finalMinutes = "10";}
+                else if($secondTimeMinutes=="50") {$finalMinutes=="00";}
+                else {$finalMinutes=(int)$finalMinutes+10;}
+
+
+                $request->end_time = $secondTime.":".$finalMinutes;
+
                 $scheduleIDs = $this->getScheduleIDs($firstTime,$secondTime,$request->start_time,$request->end_time,$request->week_id);
 
 
@@ -134,14 +158,32 @@ class OrderController extends Controller
     }
 
 
+    public function getMinuteDifference($start_time,$end_time){
+        $day_number=13;
+        if( (int) explode(":",$start_time)[1]>=60 || (int) explode(":",$end_time)[1]>=60) return 0;
+
+
+        if(explode(":",$start_time)[0] == "23" && explode(":",$end_time)[0]=="00"){
+            $day_number = 14;
+        }
+        $to_time = strtotime("2008-12-13 ".$start_time);
+        $from_time = strtotime("2008-12-".$day_number." ".$end_time);
+        return round(abs($from_time - $to_time) / 60);
+
+    }
     public function priceGetter(Request $request){
-        
+        $minutes = $this->getMinuteDifference($request->start_time,$request->end_time);
         $onePerson = $this->calculatePrice($request->start_time,$request->end_time,$request->week_id);
+        $onePerson = round($minutes * $onePerson/20);
+        //$onePerson=$onePerson*$minutes;
         return compact('onePerson');
     }
 
     public function calculateEachPrice(Request $request){
-        $personPrice =  $this->calculatePrice($request->start_time,$request->end_time,$request->week_id);
+
+        $minutes = $this->getMinuteDifference($request->start_time,$request->end_time);
+
+        $personPrice =  round($minutes * $this->calculatePrice($request->start_time,$request->end_time,$request->week_id)/20);
         $total=$personPrice*$request->people_range;
         $fivePercent = round(($total)*95/100-$personPrice);
         $tenPercent = round($total*90/100);
@@ -152,20 +194,14 @@ class OrderController extends Controller
         }
         $error="";
         $key="";
-        date_default_timezone_set('Asia/Tbilisi');
-        $today_day = date('l', strtotime("+0 Days - 2 hours"));
-        $interval = $this->getInterval($request->start_time);
-        
-
-        if( $interval->h==0 && $this->weekDayArray[$today_day] == $request->week_id){
+        $validateOrder = $this->validateOrder($request->week_id,$request->start_time);
+        if(!$validateOrder){
             $error = "შეკვეთა უნდა აიღო ამ დროიდან მინიმუმ 1 საათის შემდეგ";
         }
         else{
             //check if order exists
             $checkOrder = $this->checkExistence($request->start_time,$request->end_time,$request->week_id);
             if(!empty($checkOrder)){ $error = "ამ დროის შეკვეთა უკვე არსებობს სამწუხაროდ";}
-
-
         }
 
         return compact('total','personPrice','fivePercent','tenPercent','error','userPhone');
@@ -178,7 +214,7 @@ class OrderController extends Controller
     // roca davsjavshni gamis 12-is mere,ra tarigit unda chaiweros dajavshna?
 
 
-    private function getUserDate($week_id){
+    public function getUserDate($week_id){
         
        date_default_timezone_set('Asia/Tbilisi');
         $today_day = date('l', strtotime("+0 Days - 2 hours"));
@@ -194,13 +230,7 @@ class OrderController extends Controller
 
    
 
-    private function getInterval($start_time){
-        date_default_timezone_set('Asia/Tbilisi');
-        $date1 = new DateTime($start_time);
-        $date2 = new DateTime(date('H:i'));
-        $interval = $date1->diff($date2);
-        return $interval;
-    }
+    
 
 
 

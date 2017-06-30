@@ -8,25 +8,28 @@ use App\Http\Requests;
 use Session;
 use Auth;
 use Curl\Curl;
+use App\Order;
 use Hash;
+use App\scheduleOrder;
 
-use App\Http\Controllers\OrderController as order;
+use App\Http\Controllers\OrderController as orderControl;
 class TbcController extends Controller
 {
     //
 
 
-	public function fail(){
+ 
 
-		return "veerr gadaixada oe";
-	}
+	
 	public function ok(){
 		$certpath = public_path().'/certificate/cert.pem';
   		$certpass = 'Gkluyro0756kjyDJGYrj';
   		$ip = $_SERVER['REMOTE_ADDR'];
 	    $tid = $_REQUEST['trans_id'];
+	    $error;
 
 
+	    
 	    $post_fields = array(
     		'command' => 'c',
 	      	'trans_id' => $tid,
@@ -36,44 +39,52 @@ class TbcController extends Controller
 	    $string = $this->build_query_string($post_fields);
     	$result = $this->curl($string,$certpass,$certpath,$submit_url);
     	$parsed = $this->parse_result($result);
-    	return var_dump($parsed);
+    	if($parsed['RESULT']=="FAILED"){
+    		$error="სამწუხაროდ გადახდა წარუმატებლად დასრულდა";
+    		return view('pages.fail',compact('error'));
+    	}
+    	else {
+		    	$userArray = Session::get('userOrder');
+		    	
+		    	$OrderController = new orderControl;
+			    $order = new Order();
+		        $order->user_id = Auth::user()->id;
+		        $key =  substr(crc32(substr(Hash::make(Auth::user()->phone),54,6)),2);
+		        $order->userkey =$key;
+		        $order->phone = Auth::user()->phone;
+		        $order->time = $OrderController->getUserDate($userArray[4]);
+		        $order->people = $userArray[5];
+		        $order->active = 1; //means it's bought
+		        $order->trans_id = $tid;
+		        $order->paid = $userArray[0];
+		        $order->remaining = ($userArray[0] == $userArray[1]) ? 0 : $userArray[1];
 
-	    // $array = explode(" ", $curl->response);
-	    // if($array[1] == "FAILED") {
-	    //   $error = "ვერ მოხერხდა თანხის დამუშავება/გადახდა";
-	    //   return view('pages.fail',compact('error'));
-	    // } else {
-	    // 	$userArray = Session::get('userOrder');
-	    // 	return var_dump($userArray);
-	    // 	$OrderController = new order;
-		   //  $order = new Order();
-	    //     $order->user_id = Auth::user()->id;
-	    //     $key =  substr(crc32(substr(Hash::make(Auth::user()->phone),54,6)),2);
-	    //     $order->userKey =$key;
-	    //     $order->phone = Auth::user()->phone;
-	    //     $order->time = $OrderController->getUserDate($userArray[3]);
-	    //     $order->people = $userArray[4];
-	    //     $order->active = 1; //means it's bought
-
-	    //     $firstTime = explode(":",$userArray[1])[0];
-     //        $secondTime = explode(":",$userArray[2])[0];
-            
-     //        $scheduleIDs = $OrderController->getScheduleIDs($firstTime,$secondTime,$userArray[1],$userArray[2],$userArray[3]);
+		        $saveOrder = $order->save();
 
 
-     //        foreach($scheduleIDs as $schedule){
-    	// 		$schedule_order = new scheduleOrder();
-    	// 		$schedule_order->order_id = $order->id;
-    	// 		$schedule_order->schedule_id = $schedule->id;
-    	// 		$schedule_order->save();
-     //        }
 
-     //        $error = "ტრანზაქცია წარმატებით დასრულდა! თქვენ გადამისამართდებით რამდენიმე წამში...";
-     //        Session::forget('userOrder');
-     //        return view('pages.ok',compact('error'));
+		        $firstTime = explode(":",$userArray[2])[0];
+	            $secondTime = explode(":",$userArray[3])[0];
+				    $scheduleIDs = $OrderController->getScheduleIDs($firstTime,$secondTime,$userArray[2],$userArray[3],$userArray[4]);
 
-	      
-    	// }
+
+	            foreach($scheduleIDs as $schedule){
+	    			$schedule_order = new scheduleOrder();
+	    			$schedule_order->order_id = $order->id;
+	    			$schedule_order->schedule_id = $schedule->id;
+	    			$schedule_order->save();
+	            }
+	            if($saveOrder){
+					$error = "ტრანზაქცია წარმატებით დასრულდა! ";
+	            }
+	            else{
+	            	$error = "სამწუხაროდ შეკვეთის დაფიქსირება ვერ მოხერხდა. გთხოვთ მობრძანდეთ თქვენი უნიკალური კოდით";
+	            }
+	            Session::forget('userOrder');
+	            return view('pages.ok',compact('error','key'));
+
+		      
+	    }
 
 
 
@@ -82,9 +93,19 @@ class TbcController extends Controller
 
 
 	}
-    public function startPayment($price,$start_time_first,$start_time_second,$end_time_first,$end_time_second,$week_id,$people){
+    public function startPayment($price,$remaining,$start_time_first,$start_time_second,$end_time_first,$end_time_second,$week_id,$people){
+    	$userArray=[];
+  		$userArray[] = $price;
+  		$userArray[] = $remaining;
+  		$userArray[]=$start_time_first.":".$start_time_second;
+  		$userArray[]=$end_time_first.":".$end_time_second;
+  		$userArray[]=$week_id;
+  		$userArray[]=$people;
+
+
     	$currency = 981;
-  		$price = (int)$price*100;
+  		// $price = (int)$price*100;
+      $price=5;
   		$description = "dada";
   		$lang = 'GE';
   		$type = 'SMS';
@@ -95,12 +116,7 @@ class TbcController extends Controller
   		$ip = $_SERVER['REMOTE_ADDR'];
 
 
-  		$userArray=[];
-  		$userArray[] = $price;
-  		$userArray[]=$start_time_first.":".$start_time_second;
-  		$userArray[]=$end_time_first.":".$end_time_second;
-  		$userArray[]=$week_id;
-  		$userArray[]=$people;
+  		
   
 	  	$post_fields = array(
     		'command'        => 'v', // identifies a request for transaction registration

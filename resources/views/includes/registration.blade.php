@@ -11,7 +11,7 @@
                         <!-- <p class="under-h3 inline">გადაიხადე <span class="price-box" id="reserve-price">300</span> GEL წინასწარ</p>
                         <button class="button-second" id="buybutton">ყიდვა</button> -->
                         <div class="col span-5-of-7 centerd-mine righted-mine">
-                            <p class="under-h3 inline fonti-erti-xazistvis">გადაიხადე <span class="price-box buyfivepercent">300</span> ₾ წინასწარ და მიიღე 5-%იანი ფასდაკლება.  ფასი:<span class="price-box buyfivepercent_final">300</span> ₾</p>
+                            <p class="under-h3 inline fonti-erti-xazistvis">გადაიხადე <span class="price-box buyfivepercent">300</span> ლ წინასწარ და მიიღე 5%-იანი ფასდაკლება მთლიან თანხაზე.  ფასი:<span class="price-box buyfivepercent_final">300</span> ₾</p>
                         </div>
                          <div class="col span-2-of-7 left-but-cont">
                             <button class="button-second" id="buyfivepercent_button">ყიდვა</button>
@@ -21,7 +21,7 @@
                      <div class="row centerd-mine">
                         <div class="col span-5-of-7 centerd-mine righted-mine">
                             <p class="under-h3 inline fonti-erti-xazistvis">გადაიხადე <!-- <span class="price-box buytenpercent">300</span> -->
-                            სრული ფასი  წინასწარ და მიიღე 10-%იანი ფასდაკლება. ფასი:<span class="price-box buytenpercent_final">300</span> ₾</p>
+                            სრული თანხა  წინასწარ და მიიღე 10%-იანი ფასდაკლება. ფასი:<span class="price-box buytenpercent_final">300</span> ₾</p>
                         </div>
                          <div class="col span-2-of-7 left-but-cont">
                             <button class="button-second" id="buytenpercent_button">ყიდვა</button>

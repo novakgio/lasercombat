@@ -37,21 +37,18 @@ Route::post('pricegetter','OrderController@priceGetter');
 
 Route::post('getpriceorders','OrderController@calculateEachPrice');
 
-
-Route::get('/test',function(){
-
-return view('pages.test');
-
-});
-
+Route::get('/testing','TbcController@test');
 
 Route::get('/addOrder','AdminController@addOrder');
 
 
 //tbc
-Route::post('/tbcpayment/ok', 'TbcController@ok')->name('okPayment');
+Route::get('/tbcpayment/ok', 'TbcController@ok')->name('okPayment');
+
 Route::get('/tbcpayment/fail', 'TbcController@fail')->name('failPayment');
-Route::get('/tbcpayment/{price}/{start_time_first}/{start_time_second}/{end_time_first}/{end_time_second}/{week_id}/{people}','TbcController@startPayment');
+Route::get('/tbcpayment/{price}/{remaining}/{start_time_first}/{start_time_second}/{end_time_first}/{end_time_second}/{week_id}/{people}','TbcController@startPayment');
+
+
 
 
 Route::post('checkUserMobile','indexController@checkMobile');
