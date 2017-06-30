@@ -135,6 +135,7 @@ class OrderController extends Controller
 
 
     public function priceGetter(Request $request){
+        
         $onePerson = $this->calculatePrice($request->start_time,$request->end_time,$request->week_id);
         return compact('onePerson');
     }

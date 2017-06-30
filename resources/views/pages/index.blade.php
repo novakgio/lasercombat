@@ -456,7 +456,7 @@
                 });
 
                 $(document).on('focusout','#end_time',function(){
-                    if($(this).val().split(":")[1]!="0" && $(this).val().split(":")[1]!="00")
+                    if($(this).val().split(":")[1]!="0" && $(this).val().split(":")[1]!="00"){
                         var final;
                         var value = $(this).val().split(":")[0]+":";
                         var round = Math.round(parseInt($(this).val().split(":")[1])/ 10) * 10;
@@ -468,6 +468,9 @@
 
                             $('#end_time').val(value+round);
                         }
+                    }
+
+                  
 
                 });
 
@@ -770,7 +773,7 @@
                     var end_time = $('#end_time').val();
                     var week_id = $('#reserve').attr('rel');
                     var people = $('#people_range').val();
-                    var buyfivepercent = homeURL+"/"+price+"/"+start_time+"/"+end_time+"/"+week_id+"/"+people;
+                    var buyfivepercent = homeURL+"/tbcpayment"+"/"+price+"/"+start_time.split(":")[0]+"/"+start_time.split(":")[1]+"/"+end_time.split(":")[0]+"/"+end_time.split(":")[1]+"/"+week_id+"/"+people;
                     window.location.href= buyfivepercent;
 
                 });

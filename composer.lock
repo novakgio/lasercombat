@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "fe9ad87d38aa4b99fb902cc61570195e",
+    "content-hash": "4c76c0b9bad821e449c4d5128186d8b3",
     "packages": [
         {
             "name": "box/spout",
@@ -2941,6 +2941,45 @@
             "time": "2016-09-01T10:05:43+00:00"
         },
         {
+            "name": "wearede/tbcpay-php",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wearede/tbcpay-php.git",
+                "reference": "55b35f74ab58f45a3c205163d6ec79016e1512e4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wearede/tbcpay-php/zipball/55b35f74ab58f45a3c205163d6ec79016e1512e4",
+                "reference": "55b35f74ab58f45a3c205163d6ec79016e1512e4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "WeAreDe\\TbcPay\\": "src/"
+                },
+                "psr-4": {
+                    "WeAreDe\\TbcPay\\": "src/WeAreDe/TbcPay/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sandro Dzneladze",
+                    "email": "sandro@weare.de.com"
+                }
+            ],
+            "description": "online payments php SDK - collect credit card payments via TbcBank processor",
+            "time": "2017-05-26 18:59:12"
+        },
+        {
             "name": "webmozart/assert",
             "version": "1.2.0",
             "source": {
@@ -4328,7 +4367,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "wearede/tbcpay-php": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

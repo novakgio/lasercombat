@@ -1,6 +1,7 @@
 <html>
 <head>
-<title>Merchant example post template to ECOMM</title>
+<title>LASERCOMBAT PAYMENT</title>
+
 <script type='text/javascript' language='javascript'>
 function redirect() {
   document.returnform.submit();
@@ -9,14 +10,16 @@ function redirect() {
 </head>
 <body onLoad='javascript:redirect()'>
 <form name='returnform' action='https://securepay.ufc.ge/ecomm2/ClientHandler' method='POST'>
-{{ csrf_field() }}	
-  <input type='hidden' name='trans_id' value='{{$tid}}'>
+	
+  <input type='hidden' name='trans_id' value="{{$trans_id}}">
 
 <noscript>
     <center>Please click the submit button below.<br>
     <input type='submit' name='submit' value='Submit'></center>
 </noscript>
+
+
 </form>
  
 </body>
-</html> 
+</html> }}
