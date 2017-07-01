@@ -109,7 +109,9 @@ class AdminController extends Controller
 
     private function makeQuery($active){
     	
-        return DB::SELECT("SELECT `schedules`.`time`,`order_schedule`.`order_id`,`orders`.`name`,`orders`.`phone`,`orders`.`success`,`orders`.`userkey`,`schedules`.`day_id`,`orders`.`active`,
+        return DB::SELECT("SELECT `schedules`.`time`,`order_schedule`.`order_id`,`orders`.`name`,`orders`.`phone`,
+            `orders`.`trans_id`,`orders`.`phone`,`orders`.`remaining`,
+            `orders`.`success`,`orders`.`userkey`,`schedules`.`day_id`,`orders`.`active`,
                             `orders`.`time` as order_time,`orders`.`people`,`orders`.`price`,`orders`.`id`,`orders`.`user_id` FROM `orders`  JOIN `order_schedule` ON `orders`.`id` = `order_schedule`.`order_id` 
                     JOIN schedules ON schedules.id = order_schedule.schedule_id WHERE orders.active =$active");
     
@@ -195,6 +197,7 @@ class AdminController extends Controller
 
     public function findcode(Request $request){
         $orders =  DB::SELECT("SELECT `schedules`.`time`,`order_schedule`.`order_id`,`orders`.`name`,`orders`.`success`,`orders`.`phone`,`orders`.`price`,`orders`.`userkey`,`orders`.`active`,`schedules`.`day_id`,
+            `orders`.`trans_id`,`orders`.`phone`,`orders`.`remaining`,
                             `orders`.`time` as order_time,`orders`.`people`,`orders`.`price`,`orders`.`id`,`orders`.`user_id` FROM `orders`  JOIN `order_schedule` ON `orders`.`id` = `order_schedule`.`order_id` 
                     JOIN schedules ON schedules.id = order_schedule.schedule_id WHERE orders.userkey ='$request->userkey'");
         $ordersArray = $this->makeOrdersArray($orders);
