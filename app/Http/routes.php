@@ -11,7 +11,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
+use App\Order;
 Route::get('/', 'indexController@getMainPage');
 
 Route::post('/register','RegistrationController@store');
@@ -42,15 +42,7 @@ Route::get('/testing','TbcController@test');
 
 
 Route::get('/bla',function(){
-$array=[];
-$array[] = 20;
- $path= storage_path('/logs/tbc.log');
- $bytes_written = File::append($path, $array);
- $bytes_written = File::append($path, "\n");
-if ($bytes_written === false)
-{
-    die("Error writing to file");
-}
+		  return Order::where('active','!=',0)->where('user_id','=',Auth::user()->id)->first();
 });
 
 Route::get('/addOrder','AdminController@addOrder');

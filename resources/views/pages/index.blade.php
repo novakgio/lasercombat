@@ -12,7 +12,7 @@
        @include('layouts.cssurls')
     <script>
           function initMap() {
-            var uluru = {lat: 41.721349, lng: 44.789097};
+            var uluru = {lat: 41.6891713, lng: 44.895987};
             var map = new google.maps.Map(document.getElementById('map'), {
               zoom: 15,
               center: uluru
@@ -384,7 +384,7 @@
                                         <i class="ion-ios-telephone icon-big"></i>
                                     </div>
                                     <div class="icon-text-right address">
-                                        <span class="contact-label">593 245 123</span>
+                                        <span class="contact-label">596 31 30 00 </span>
                                     </div>
                                 </div>
                                 <div class="row contact-line">

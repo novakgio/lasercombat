@@ -9,7 +9,7 @@ use DB;
 use App\Order;
 use App\scheduleOrder;
 use Auth;
-use App\Exception;
+
 use Hash;
 use DateTime;
 use App\Http\Controllers\indexController as index;
@@ -40,7 +40,7 @@ class OrderController extends Controller
         $order_time = strtotime("2008-12-".$start_time_day." ".$start_time);
         $now_time = strtotime("2008-12-".$day." ".date('H:i'));
 
-        if(round($order_time-$now_time)<60 && $this->weekDayArray[$today_day] == $week_id) return false;
+        if(round($order_time-$now_time)/60<60 && $this->weekDayArray[$today_day] == $week_id) return false;
         return true;
 
     }
@@ -87,9 +87,7 @@ class OrderController extends Controller
 
                 //23:50 01:00
                 $request->end_time = $secondTime.":".$finalMinutes;
-                $exception = new Exception();
-                $exception->error = $request->end_time;
-                $exception->save();
+               
 
                 $scheduleIDs = $this->getScheduleIDs($firstTime,$secondTime,$request->start_time,$request->end_time,$request->week_id);
 
@@ -206,15 +204,22 @@ class OrderController extends Controller
         }
         $error="";
         $key="";
+        $checkOrder = $this->checkExistence($request->start_time,$request->end_time,$request->week_id);
         $validateOrder = $this->validateOrder($request->week_id,$request->start_time);
+        $userOrder = Order::where('active','!=',0)->where('user_id','=',Auth::user()->id)->first();
         if(!$validateOrder){
             $error = "შეკვეთა უნდა აიღო ამ დროიდან მინიმუმ 1 საათის შემდეგ";
         }
-        else{
+        else if(!empty($checkOrder)){
             //check if order exists
-            $checkOrder = $this->checkExistence($request->start_time,$request->end_time,$request->week_id);
-            if(!empty($checkOrder)){ $error = "ამ დროის შეკვეთა უკვე არსებობს სამწუხაროდ";}
+            
+             $error = "ამ დროის შეკვეთა უკვე არსებობს სამწუხაროდ";
         }
+    
+            
+        else if($userOrder!=null){$error = "თქვენ უკვე გაკეთებული გაქვთ შეკვეთა";}
+        
+
 
         return compact('total','personPrice','fivePercent','tenPercent','error','userPhone');
     }

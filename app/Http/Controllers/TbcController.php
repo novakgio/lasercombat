@@ -129,9 +129,9 @@ class TbcController extends Controller
 
 
     	$currency = 981;
-  		// $price = (int)$price*100;
-      $price=100000;
-  		$description = "dada";
+  		$price = (int)$price*100;
+      
+  		$description = "LaserCombat";
   		$lang = 'GE';
   		$type = 'SMS';
   		$submit_url = 'https://securepay.ufc.ge:18443/ecomm2/MerchantHandler';

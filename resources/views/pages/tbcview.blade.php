@@ -22,4 +22,4 @@ function redirect() {
 </form>
  
 </body>
-</html> }}
+</html>
