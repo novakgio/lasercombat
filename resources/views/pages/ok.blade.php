@@ -47,7 +47,7 @@
                     <h3 class="success">{{$error}}</h3>
                     <h3 class="success">თქვენი უნიკალური კოდია {{$key}}</h3>
                     <div class="row centered">
-                        <a href="index.html"><span class="h3-link">დაბრუნდით მთავარ გვერდზე</span></a>
+                        <a href="{{url('/')}}"><span class="h3-link">დაბრუნდით მთავარ გვერდზე</span></a>
                     </div>
                 </div>
             </div>

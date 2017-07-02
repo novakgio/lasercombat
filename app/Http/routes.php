@@ -39,6 +39,20 @@ Route::post('getpriceorders','OrderController@calculateEachPrice');
 
 Route::get('/testing','TbcController@test');
 
+
+
+Route::get('/bla',function(){
+$array=[];
+$array[] = 20;
+ $path= storage_path('/logs/tbc.log');
+ $bytes_written = File::append($path, $array);
+ $bytes_written = File::append($path, "\n");
+if ($bytes_written === false)
+{
+    die("Error writing to file");
+}
+});
+
 Route::get('/addOrder','AdminController@addOrder');
 
 

@@ -1,4 +1,4 @@
-<?php use App\User;?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-
+    <meta charset="UTF-8">
     <title>SB Admin 2 - Bootstrap Admin Theme</title>
 
     <!-- Bootstrap Core CSS -->
@@ -23,6 +23,8 @@
 
     <!-- Custom Fonts -->
     <link href="public/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{{asset('public/css/sweetalert.css')}}" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -148,9 +150,17 @@
            goToOrder();
 
         });
-        function getDifferenceTime(start_time,second_time){
-                    var timeStart = new Date("Mon Jan 01 2007 "+start_time+ " GMT+0530").getTime();
-                    var timeEnd = new Date("Mon Jan 01 2007 "+second_time+" GMT+0530").getTime();
+       function getDifferenceTime(start_time,second_time){
+                    var day1="01";
+                    var day2="01";
+                    if(start_time.split(":")[0]=="00" || start_time.split(":")[0]=="01" || start_time.split(":")[0]=="02"){
+                        day1="02";
+                    }
+                    if(second_time.split(":")[0]=="00" || second_time.split(":")[0]=="01" || second_time.split(":")[0]=="02"){
+                        day2="02";
+                    }
+                    var timeStart = new Date("Mon Jan "+day1+" 2007 "+start_time+ " GMT+0530").getTime();
+                    var timeEnd = new Date("Mon Jan "+day2+" 2007 "+second_time+" GMT+0530").getTime();
                     var hourDiff = timeStart - timeEnd; //in ms
                     var secDiff = hourDiff / 1000; //in s
                     var minDiff = hourDiff / 60 / 1000; //in minutes
@@ -158,45 +168,46 @@
                     var humanReadable = {};
                     humanReadable.hours = Math.floor(hDiff);
                     humanReadable.minutes = minDiff - 60 * humanReadable.hours;
+
                     return humanReadable;
                 }
 
-        function timeValidation(start_time,end_time){
+        
+                 function timeValidation(start_time,end_time){
 
-            var start_firstTime =   parseInt(start_time.split(":")[0]); // like 14,15,16
-            var start_secondTime = parseInt(start_time.split(":")[1]); // like minutes,20,40,50
-            $min40 = "მინიმუმ შეგიძლიათ შეუკვეთოთ 40 წუთი";
-            $max80 = "მაქსიმუმ შეგიძლიათ შეუკვეთოთ 80 წუთი";
+                    var start_firstTime =   parseInt(start_time.split(":")[0]); // like 14,15,16
+                    var start_secondTime = parseInt(start_time.split(":")[1]); // like minutes,20,40,50
+                    $min40 = "მინიმუმ შეგიძლიათ შეუკვეთოთ 20 წუთი";
+                    $max80 = "მაქსიმუმ შეგიძლიათ შეუკვეთოთ 80 წუთი";
+                    $valid = "მიუთითეთ ვალიდური დროები";
 
-            var end_firstTime = parseInt(end_time.split(":")[0]);
-            var end_secondTime = parseInt(end_time.split(":")[1]);
-            if(start_time.length!=5 || end_time.length!=5) return false;
-            else if(isNaN(start_secondTime) || isNaN(end_secondTime)) return false;
-            
-            if( (start_firstTime>=14 && start_firstTime<=23) || start_firstTime==00 || start_firstTime==01){
-                if( (end_firstTime>=14 && end_firstTime<=23) || end_firstTime==00 || end_firstTime==01 || (end_firstTime==02 && end_secondTime==00)){
-                    if(end_firstTime<start_firstTime && start_firstTime!=23) return false;
-                    if(start_secondTime>=60 || end_secondTime>=60) return false;
-                    var humanReadable = getDifferenceTime(end_time,start_time);
-                    if(start_firstTime==23 && end_firstTime==00){
-                        var difference = start_secondTime-end_secondTime;
-                        difference = (difference>0) ? difference : -difference;
-                        if(difference>20) return $max80;
-                        else return true;
-                    }
-                    if(humanReadable.hours==1 && humanReadable.minutes>20) return $max80;
-                    else if(humanReadable.hours==1 && humanReadable.minutes<=20) return true;
+                    var end_firstTime = parseInt(end_time.split(":")[0]);
+                    var end_secondTime = parseInt(end_time.split(":")[1]);
+                    if(start_time.length!=5 || end_time.length!=5) return false;
+                    else if(isNaN(start_secondTime) || isNaN(end_secondTime)) return false;
 
 
-                    else if(humanReadable.hours==0 && humanReadable.minutes<40) return $min40;
-                    else if(humanReadable.hours==0 && humanReadable.minutes>=40) return true;
+                    
+                    if( (start_firstTime>=14 && start_firstTime<=23) || start_firstTime==00 || start_firstTime==01){
+                        if( (end_firstTime>=14 && end_firstTime<=23) || end_firstTime==00 || end_firstTime==01 || (end_firstTime==02 && end_secondTime==00)){
+                           var humanReadable = getDifferenceTime(end_time,start_time);
+                            if(end_secondTime>=60 || start_secondTime>=60) return false;
+                            if( (humanReadable.hours==0 && humanReadable.minutes==0) || humanReadable.hours<0) return $valid;
+                            if(humanReadable.hours==1 && humanReadable.minutes>20) return $max80;
+                            else if(humanReadable.hours==1 && humanReadable.minutes<=20) return true;
 
-                    else return $max80;
-                } else { return false;}
-            } else{return false;}
+
+                            else if(humanReadable.hours==0 && humanReadable.minutes<20) return $min40;
+                            else if(humanReadable.hours==0 && humanReadable.minutes>=20) return true;
+
+                            else return $max80;
+
+                        } else { return false;}
+                    } else{return false;}
 
                     return true;
-        }
+                }
+
 
 
          function goToOrder(){
@@ -206,6 +217,7 @@
                     var week_id = $('#week_id').val();
                     var phone = $('#phone').val();
                     var name = $('#name').val();
+                    
                     var validateTime = timeValidation(start_time,end_time);
                     var differenceTime = getDifferenceTime(end_time,start_time);
                     

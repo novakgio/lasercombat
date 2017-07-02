@@ -1,9 +1,8 @@
-@extends('layouts.layout')
-
+@extends('admin.layouts.layout')
 
 
 @section('content')
-
+<?php use App\User;?>
 
 <div class="form-group">
                       <label for="usr">სახელი:</label>

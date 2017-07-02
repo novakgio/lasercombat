@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Curl\Curl;
+
 class TbcPay extends Command
 {
     /**
@@ -39,25 +39,47 @@ class TbcPay extends Command
     {
             date_default_timezone_set('Asia/Tbilisi');
 
-            $certpath = getcwd().'/public/certificate/lasercertificate.pem';
+            $certpath = public_path().'/certificate/cert.pem';
             $certpass = 'Gkluyro0756kjyDJGYrj';
 
-            $curl = new Curl();
-            $curl->setOpt(CURLOPT_SSLCERT, $certpath);
-            $curl->setOpt(CURLOPT_SSLKEY, $certpath);
-            $curl->setOpt(CURLOPT_SSLKEYPASSWD, $certpass);
-            $curl->setOpt(CURLOPT_SSL_VERIFYPEER, 0);
-            $curl->setOpt(CURLOPT_SSL_VERIFYHOST, 0);
-            $curl->setOpt(CURLOPT_TIMEOUT, 120);
-            $curl->post('https://securepay.ufc.ge:18443/ecomm2/MerchantHandler', array(
+            $submit_url = "https://securepay.ufc.ge:18443/ecomm2/MerchantHandler";
+
+            $post_fields = array(
               'command' => 'b',
-            ));
+            );
+
+            $query = http_build_query($post_fields);
+           
+
+            $curl = curl_init();
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $query);
+            curl_setopt($curl, CURLOPT_VERBOSE, 1);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 1);
+            curl_setopt($curl, CURLOPT_CAINFO, $certpath); // because of Self-Signed certificate at payment server.
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($curl, CURLOPT_SSLCERT, $certpath);
+            curl_setopt($curl, CURLOPT_SSLKEY, $certpath);
+            curl_setopt($curl, CURLOPT_SSLKEYPASSWD, $certpass);
+            curl_setopt($curl, CURLOPT_URL, $submit_url);
+            $string = curl_exec($curl);
+            
+
+            $array1 = explode(PHP_EOL, trim($string));
+            $result = array();
+            foreach ($array1 as $key => $value) {
+                $array2 = explode(':', $value);
+                $result[ $array2[0] ] = trim($array2[1]);
+            }
+            
 
 
-            if ($curl->error) {
-              \Log::info('Error: ' . $curl->errorCode . ': ' . $curl->errorMessage . "\n";)
-            } else {
-               \Log::info("response:  ".$curl->response);
-            } 
+             $path= storage_path('/logs/tbc.log');
+             $bytes_written = \File::append($path, $result);
+             $bytes_written = \File::append($path, "\n");
+                if ($bytes_written === false){
+                    File::append($path, "Error not written in file");
+                }
+            
     }
 }

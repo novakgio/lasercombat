@@ -73,7 +73,7 @@ class indexController extends Controller
             'orders'=>$orders
 
         ];
-
+        
 
          // $orders = DB::SELECT("SELECT * FROM
          //                    ( SELECT * FROM `orders`  JOIN `order_schedule` ON `orders`.`id` = `order_schedule`.`order_id` WHERE orders.active!=0)AS example

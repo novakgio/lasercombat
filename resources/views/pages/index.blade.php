@@ -398,7 +398,7 @@
                                     </a>
                                 </div>
                                 <div class="row contact-line">
-                                    <a href="https://www.google.ge/">
+                                    <a href="https://www.facebook.com/lasercombatgame">
                                         <div class="icon-big-container address facebook">
                                             <i class="ion-social-facebook icon-big-slim"></i>
                                         </div>
@@ -408,7 +408,7 @@
                                     </a>
                                 </div>
                                 <div class="row contact-line">
-                                    <a href="https://www.google.ge/">
+                                    <a href="mailto:Info@lasercombat.com?Subject=სალამი">
                                         <div class="icon-big-container address googleplus">
                                             <i class="ion-social-googleplus icon-big"></i>
                                         </div>
@@ -637,8 +637,16 @@
 
                 //**************** TIME VALIDATION *****************************************************
                 function getDifferenceTime(start_time,second_time){
-                    var timeStart = new Date("Mon Jan 01 2007 "+start_time+ " GMT+0530").getTime();
-                    var timeEnd = new Date("Mon Jan 01 2007 "+second_time+" GMT+0530").getTime();
+                    var day1="01";
+                    var day2="01";
+                    if(start_time.split(":")[0]=="00" || start_time.split(":")[0]=="01" || start_time.split(":")[0]=="02"){
+                        day1="02";
+                    }
+                    if(second_time.split(":")[0]=="00" || second_time.split(":")[0]=="01" || second_time.split(":")[0]=="02"){
+                        day2="02";
+                    }
+                    var timeStart = new Date("Mon Jan "+day1+" 2007 "+start_time+ " GMT+0530").getTime();
+                    var timeEnd = new Date("Mon Jan "+day2+" 2007 "+second_time+" GMT+0530").getTime();
                     var hourDiff = timeStart - timeEnd; //in ms
                     var secDiff = hourDiff / 1000; //in s
                     var minDiff = hourDiff / 60 / 1000; //in minutes
@@ -646,6 +654,7 @@
                     var humanReadable = {};
                     humanReadable.hours = Math.floor(hDiff);
                     humanReadable.minutes = minDiff - 60 * humanReadable.hours;
+
                     return humanReadable;
                 }
 
@@ -656,23 +665,20 @@
                     var start_secondTime = parseInt(start_time.split(":")[1]); // like minutes,20,40,50
                     $min40 = "მინიმუმ შეგიძლიათ შეუკვეთოთ 20 წუთი";
                     $max80 = "მაქსიმუმ შეგიძლიათ შეუკვეთოთ 80 წუთი";
+                    $valid = "მიუთითეთ ვალიდური დროები";
 
                     var end_firstTime = parseInt(end_time.split(":")[0]);
                     var end_secondTime = parseInt(end_time.split(":")[1]);
                     if(start_time.length!=5 || end_time.length!=5) return false;
                     else if(isNaN(start_secondTime) || isNaN(end_secondTime)) return false;
+
+
                     
                     if( (start_firstTime>=14 && start_firstTime<=23) || start_firstTime==00 || start_firstTime==01){
                         if( (end_firstTime>=14 && end_firstTime<=23) || end_firstTime==00 || end_firstTime==01 || (end_firstTime==02 && end_secondTime==00)){
-                            if(end_firstTime<start_firstTime && start_firstTime!=23) return false;
-                            if(start_secondTime>=60 || end_secondTime>=60) return false;
-                            var humanReadable = getDifferenceTime(end_time,start_time);
-                            if(start_firstTime==23 && end_firstTime==00){
-                                var difference = start_secondTime-end_secondTime;
-                                difference = (difference>0) ? difference : -difference;
-                                if(difference>20) return $max80;
-                                else return true;
-                            }
+                           var humanReadable = getDifferenceTime(end_time,start_time);
+                            if(end_secondTime>=60 || start_secondTime>=60) return false;
+                            if( (humanReadable.hours==0 && humanReadable.minutes==0) || humanReadable.hours<0) return $valid;
                             if(humanReadable.hours==1 && humanReadable.minutes>20) return $max80;
                             else if(humanReadable.hours==1 && humanReadable.minutes<=20) return true;
 
@@ -681,6 +687,7 @@
                             else if(humanReadable.hours==0 && humanReadable.minutes>=20) return true;
 
                             else return $max80;
+
                         } else { return false;}
                     } else{return false;}
 
@@ -720,7 +727,8 @@
                     var start_time = $('#start_time').val(); var end_time = $('#end_time').val();
                     var people_range=$('#people_range').val(); var week_id = $('#reserve').attr('rel');
                     var validateTime = timeValidation(start_time,end_time); var differenceTime = getDifferenceTime(end_time,start_time);
-
+                    console.log(differenceTime);
+                    console.log(validateTime);
                     
                     if(start_time=="" || end_time=="" || people_range==0){
                         sweetAlert("Oops...", "შეავსეთ ყველა ველი,რათა დაჯავშნოთ", "error");

@@ -9,6 +9,7 @@ use DB;
 use App\Order;
 use App\scheduleOrder;
 use Auth;
+use App\Exception;
 use Hash;
 use DateTime;
 use App\Http\Controllers\indexController as index;
@@ -30,14 +31,13 @@ class OrderController extends Controller
 
 	private $errors;
 
-
     private function validateOrder($week_id,$start_time){
         date_default_timezone_set('Asia/Tbilisi');
         $today_day = date('l', strtotime("+0 Days - 2 hours"));
         
         $day = (date('H')=="00" || date('H')=="01") ? 14 :13;
-
-        $order_time = strtotime("2008-12-13 ".$start_time);
+        $start_time_day = (explode(":",$start_time)[0]=="00" || explode(":",$start_time)[0]=="01") ? 14 :13;
+        $order_time = strtotime("2008-12-".$start_time_day." ".$start_time);
         $now_time = strtotime("2008-12-".$day." ".date('H:i'));
 
         if(round($order_time-$now_time)<60 && $this->weekDayArray[$today_day] == $week_id) return false;
@@ -65,17 +65,31 @@ class OrderController extends Controller
                 //all good,starting to make database inserting
                 
                 $firstTime = explode(":",$request->start_time)[0];
+                $secondFirstTime= explode(":",$request->start_time)[1];
                 $secondTime = explode(":",$request->end_time)[0];
                 $secondTimeMinutes = explode(":",$request->end_time)[1];
-                $secondFirstTime= explode(":",$request->start_time)[1];
+                
 
-                $finalMinutes=$secondTimeMinutes;
-                if($secondTimeMinutes=="00") {$finalMinutes = "10";}
-                else if($secondTimeMinutes=="50") {$finalMinutes=="00";}
-                else {$finalMinutes=(int)$finalMinutes+10;}
+                $finalMinutes=(int)$secondTimeMinutes+10;
 
 
+
+
+                if($finalMinutes==60){
+                    if($secondTime=="00") $secondTime="01";
+                    else if($secondTime=="01") $secondTime="02";
+                    else if($secondTime=="23") $secondTime="00";
+                    else $secondTime = (int)$secondTime+1;
+
+
+                    $finalMinutes="00";
+                }
+
+                //23:50 01:00
                 $request->end_time = $secondTime.":".$finalMinutes;
+                $exception = new Exception();
+                $exception->error = $request->end_time;
+                $exception->save();
 
                 $scheduleIDs = $this->getScheduleIDs($firstTime,$secondTime,$request->start_time,$request->end_time,$request->week_id);
 
@@ -156,14 +170,12 @@ class OrderController extends Controller
 
 
     }
-
-
     public function getMinuteDifference($start_time,$end_time){
         $day_number=13;
         if( (int) explode(":",$start_time)[1]>=60 || (int) explode(":",$end_time)[1]>=60) return 0;
 
 
-        if(explode(":",$start_time)[0] == "23" && explode(":",$end_time)[0]=="00"){
+        if(explode(":",$start_time)[0] == "23" && (explode(":",$end_time)[0]=="00" || explode(":",$end_time)[0]=="01" || explode(":",$end_time)[0]=="02")){
             $day_number = 14;
         }
         $to_time = strtotime("2008-12-13 ".$start_time);
@@ -237,10 +249,19 @@ class OrderController extends Controller
     //Queries
 
     private function checkExistence($start_time,$end_time,$day_id){
-        return  DB::SELECT("SELECT * FROM  `schedules` JOIN order_schedule ON order_schedule.schedule_id=schedules.id
+        $query =  DB::SELECT("SELECT * FROM  `schedules` JOIN order_schedule ON order_schedule.schedule_id=schedules.id
                                     JOIN `orders` ON `orders`.`id`=`order_schedule`.`order_id`
                                     WHERE `schedules`.`time`>'$start_time' AND `orders`.`active`!=0 AND `schedules`.`time`<='$end_time' and day_id='$day_id'"
                             );
+        if(explode(":",$start_time)[0]=="23" && (explode(":",$end_time)[0]=="00" || explode(":",$end_time)[0]=="01" || explode(":",$end_time)[0]=="02")){
+            $query = DB::SELECT("SELECT * FROM  `schedules` JOIN order_schedule ON order_schedule.schedule_id=schedules.id
+                                    JOIN `orders` ON `orders`.`id`=`order_schedule`.`order_id`
+                                    WHERE (`schedules`.`time`>'$start_time' AND `schedules`.`time`<'23:50' OR(`schedules`.`time`>'00:00' AND `schedules`.`time`<='$end_time'))   and  `orders`.`active`!=0   and day_id='$day_id'"
+                            );
+        }
+        return $query;
+
+
     }
 
 
@@ -250,9 +271,9 @@ class OrderController extends Controller
                         and day_id='$day_id'";
 
 
-        if($firstTime=="23" && $secondTime=="00"){
+        if($firstTime=="23" && ($secondTime=="00" || $secondTime=="01" || $secondTime=="02")){
                 $query = "SELECT * FROM  `schedules`
-                        WHERE (time>='$firstTime' AND time<='23:50' 
+                        WHERE (time>='$start_time' AND time<='23:50' 
                         OR (time>='00:00' AND time<='$end_time')) AND day_id='$day_id'";
         }
      

@@ -2,6 +2,7 @@
 
 
 @section('content')
+<?php use App\User;?>
 <a href="{{url('useremailexcel')}}">გადმოწერე იმეილების ექსელი</a>
 <table class="table table-bordered">
     <thead>
@@ -53,17 +54,26 @@
             <td><?php echo ($user==null) ?  $order->name : $user->name;?></td>
             <td><?php echo ($user==null) ?  $order->phone : $user->phone;?></td>
             <td>{{$order->userkey}}</td>
-            @if($order->paid!=NULL)
-            <td>{{$order->paid}}</td>
-            <td>{{$order->remaining}}
+            @if($order->price==NULL)
+                <td>{{$order->paid}}</td>
+                <td>{{$order->remaining}}</td>
             @else
-            <td>ჯავშანი</td>
-            <td>{{$order->price}}</td>
+                <td>ჯავშანი</td>
+                <td>{{$order->price}}</td>
 
             @endif
-            <td>{{$order->price}}</td>
+            
             <td><a   href="{{ url('/deleteOrder', [$order->id]) }}" class="btn btn-danger">წაშალე ორდერი</a></td>
+
+
+            @if($order->active!=0)
             <td><a  href="{{ url('/disableOrder', [$order->id]) }}" class="btn btn-danger">გააუქმე ორდერი</a></td>
+            @else
+            <td>გაუქმებულია</td>
+            @endif
+
+
+
             @if($order->success!=1)
             <td><a  href="{{ url('/successpayment', [$order->id]) }}" class="btn btn-danger">დაადასტურე გადახდა</a></td>
             @else

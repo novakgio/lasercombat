@@ -31,7 +31,7 @@ class TbcController extends Controller
 
 	    
 	    $post_fields = array(
-    		'command' => 'c',
+    		  'command' => 'c',
 	      	'trans_id' => $tid,
 	      	'client_ip_addr' => $ip,
    		);
@@ -39,15 +39,16 @@ class TbcController extends Controller
 	    $string = $this->build_query_string($post_fields);
     	$result = $this->curl($string,$certpass,$certpath,$submit_url);
     	$parsed = $this->parse_result($result);
+     
     	if($parsed['RESULT']=="FAILED"){
-    		$error="სამწუხაროდ გადახდა წარუმატებლად დასრულდა";
+    		$error=($parsed['RESULT_CODE']==116) ? "არასაკმარისი თანხა ბარათზე" : "სამწუხაროდ გადახდა წარუმატებლად დასრულდა";
     		return view('pages.fail',compact('error'));
     	}
     	else {
-		    	$userArray = Session::get('userOrder');
-		    	
-		    	$OrderController = new orderControl;
-			    $order = new Order();
+  		    	$userArray = Session::get('userOrder');
+  		    	
+  		    	$OrderController = new orderControl;
+  			    $order = new Order();
 		        $order->user_id = Auth::user()->id;
 		        $key =  substr(crc32(substr(Hash::make(Auth::user()->phone),54,6)),2);
 		        $order->userkey =$key;
@@ -58,24 +59,48 @@ class TbcController extends Controller
 		        $order->trans_id = $tid;
 		        $order->paid = $userArray[0];
 		        $order->remaining = ($userArray[0] == $userArray[1]) ? 0 : $userArray[1];
-
+            
 		        $saveOrder = $order->save();
+            $firstTime = explode(":",$userArray[2])[0];
+            $secondTime = explode(":",$userArray[3])[0];
+            $secondTimeMinutes = explode(":",$userArray[3])[1];
+            $secondFirstTime= explode(":",$userArray[2])[1];
 
 
 
-		        $firstTime = explode(":",$userArray[2])[0];
-	            $secondTime = explode(":",$userArray[3])[0];
-				    $scheduleIDs = $OrderController->getScheduleIDs($firstTime,$secondTime,$userArray[2],$userArray[3],$userArray[4]);
+            $finalMinutes=(int)$secondTimeMinutes+10;
+
+
+
+
+                if($finalMinutes==60){
+                    if($secondTime=="00") $secondTime="01";
+                    else if($secondTime=="01") $secondTime="02";
+                    else if($secondTime=="23") $secondTime="00";
+                    else $secondTime = (int)$secondTime+1;
+
+
+                    $finalMinutes="00";
+                }
+
+
+            $endtime = $secondTime.":".$finalMinutes;
+
+            $scheduleIDs = $OrderController->getScheduleIDs($firstTime,$secondTime,$userArray[2],$endtime,$userArray[4]);
+
+
+
+
 
 
 	            foreach($scheduleIDs as $schedule){
-	    			$schedule_order = new scheduleOrder();
-	    			$schedule_order->order_id = $order->id;
-	    			$schedule_order->schedule_id = $schedule->id;
-	    			$schedule_order->save();
+      	    			$schedule_order = new scheduleOrder();
+      	    			$schedule_order->order_id = $order->id;
+      	    			$schedule_order->schedule_id = $schedule->id;
+      	    			$schedule_order->save();
 	            }
 	            if($saveOrder){
-					$error = "ტრანზაქცია წარმატებით დასრულდა! ";
+					         $error = "ტრანზაქცია წარმატებით დასრულდა! ";
 	            }
 	            else{
 	            	$error = "სამწუხაროდ შეკვეთის დაფიქსირება ვერ მოხერხდა. გთხოვთ მობრძანდეთ თქვენი უნიკალური კოდით";
@@ -105,7 +130,7 @@ class TbcController extends Controller
 
     	$currency = 981;
   		// $price = (int)$price*100;
-      $price=5;
+      $price=100000;
   		$description = "dada";
   		$lang = 'GE';
   		$type = 'SMS';
@@ -134,8 +159,8 @@ class TbcController extends Controller
 
 		
 
-		$trans_id = ($parsed['TRANSACTION_ID']);
-		return view('pages.tbcview',compact('trans_id'));
+  		$trans_id = ($parsed['TRANSACTION_ID']);
+  		return view('pages.tbcview',compact('trans_id'));
 
 	      
 		

@@ -1,10 +1,8 @@
-@extends('layouts.layout')
-
-
+@extends('admin.layouts.layout')
 
 
 @section('content')
-
+<?php use App\User;?>
 
 <a href="{{url('useremailexcel')}}">გადმოწერე იმეილების ექსელი</a>
   <table class="table table-bordered">
